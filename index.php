@@ -22,7 +22,7 @@
                 <label for="">Pseudo ou email</label>
                 <input type="text" name="userName" class="form-control" required />
 
-                <label for="">Mot de passe<a href="forget.php">(J'ai oublié mon mot de passe)</a></label>
+                <label for="">Mot de passe</label>
                 <input type="password" name="userPassword" class="form-control" required/><br>
 
                 <button type="submit" class="btn btn-primary">Se connecter</button><br>
