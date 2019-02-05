@@ -1,7 +1,7 @@
 <?php 
 if(!empty($_POST) && !empty($_POST['userName']) && !empty($_POST['userPassword'])) { // Verifie si c'est remplis pour ne pas aller chercher dans la base de donnée si il n'y a rien
 
-require_once 'inc/db.php';
+require_once '../modele/db.php';
 
 $req = $pdo->prepare('SELECT * FROM membre WHERE (nomMembre = :nomMembre OR emailMembre = nomMembre) AND confirmedDateMembre IS NOT NULL');
 $req->execute(['nomMembre' => $_POST['userName']]);
