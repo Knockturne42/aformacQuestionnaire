@@ -17,6 +17,12 @@ CREATE TABLE Notes (idNote INT(9) AUTO_INCREMENT NOT NULL, PRIMARY KEY (idNote))
 DROP TABLE IF EXISTS Questions ;
 CREATE TABLE Questions (idQuestion INT(9) AUTO_INCREMENT NOT NULL, IntituleQuestion VARCHAR(255), idReponse INT(9), PRIMARY KEY (idQuestion)) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS Questionnaires ;
+CREATE TABLE Questionnaires (idQuestionnaire INT(9) AUTO_INCREMENT NOT NULL, NomQuestionaire VARCHAR(255), PRIMARY KEY (idQuestionnaire)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Appartient ;
+CREATE TABLE Appartient (idQuestionnaire INT(9) AUTO_INCREMENT NOT NULL, idQuestion INT(9) NOT NULL, PRIMARY KEY (idQuestionnaire, idQuestion)) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS Reponds;
 CREATE TABLE Reponds (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, idReponse INT(9) NOT NULL, PRIMARY KEY (idUtilisateur, idReponse)) ENGINE=InnoDB;
 
@@ -29,6 +35,8 @@ CREATE TABLE aPour (idReponse INT AUTO_INCREMENT NOT NULL, idNote INT NOT NULL, 
 ALTER TABLE Utilisateurs ADD CONSTRAINT FK_Utilisateurs_idRole FOREIGN KEY (idRole) REFERENCES Roles (idRole);
 ALTER TABLE Reponses ADD CONSTRAINT FK_Reponses_idQuestion FOREIGN KEY (idQuestion) REFERENCES Questions (idQuestion);
 ALTER TABLE Questions ADD CONSTRAINT FK_Questions_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE Appartient ADD CONSTRAINT FK_Questionnaires_idQuestionnaire FOREIGN KEY (idQuestionnaire) REFERENCES Questionnaires (idQuestionnaire);
+ALTER TABLE Appartient ADD CONSTRAINT FK_Questions_idQuestion FOREIGN KEY (idQuestion) REFERENCES Questions (idQuestion);
 ALTER TABLE Reponds ADD CONSTRAINT FK_Reponds_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES Utilisateurs (idUtilisateur);
 ALTER TABLE Reponds ADD CONSTRAINT FK_Reponds_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
 ALTER TABLE Contient ADD CONSTRAINT FK_Contient_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
