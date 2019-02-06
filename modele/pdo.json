@@ -1,7 +1,7 @@
 
 {
-    "host": "vps498947.ovh.net",
-    "dbName": "wwwaformac",
-    "user": "wwwaformac",
-    "pass": "TPdev_web"
+    "host": "localhost",
+    "dbName": "aformacQuestionnaire",
+    "user": "maxAformacQuestionnaire",
+    "pass": "14759"
 }

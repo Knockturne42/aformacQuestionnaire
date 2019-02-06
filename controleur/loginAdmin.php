@@ -5,22 +5,30 @@ require_once '../modele/pdo.php';
 
 $req = $pdo->prepare('SELECT * FROM Utilisateurs WHERE (NomUtilisateur = :nomMembre)');
 $req->execute(['nomMembre' => $_POST['userName']]);
-$user = $req->fetch(); // Récupère l'utilisateur
+$user = $req->fetch(); 
 session_start();
 
-if(password_verify($_POST['userPassword'], $user->motDePasseMembre)){
+if($_POST['userPassword'] == $user->MotDePasse){
 
 $_SESSION['auth'] = $user;
+
+$statut = $_SESSION['auth']->idRole;
+    
 $_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';
-header('Location: account.php');
+
+if($_SESSION['auth'] && $statut == 1) {
+header('Location: ../vue/superAdmin.php');
+exit();
+
+} else if ($_SESSION['auth'] && $statut == 2) {
+header('Location: ../vue/admin.php');
 exit();
 
 } else {
 
-$_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
-header('Location: login.php');
+header('Location: ../index.php');
 exit();
 
 }
-}
+}}
 ?>
