@@ -1,6 +1,8 @@
-{
+}
+
     "host": "vps498947.ovh.net",
     "dbName": "wwwaformac",
     "user": "wwwaformac",
     "pass": "12345"
+
 }
