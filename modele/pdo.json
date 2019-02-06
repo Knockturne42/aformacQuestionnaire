@@ -1,7 +1,8 @@
+}
 
-{
-    "host": "localhost",
-    "dbName": "aformacQuestionnaire",
-    "user": "maxAformacQuestionnaire",
-    "pass": "14759"
+    "host": "vps498947.ovh.net",
+    "dbName": "wwwaformac",
+    "user": "wwwaformac",
+    "pass": "12345"
+
 }
