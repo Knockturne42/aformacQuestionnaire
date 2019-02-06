@@ -1,9 +1,9 @@
 <?php 
 if(!empty($_POST) && !empty($_POST['userName']) && !empty($_POST['userPassword'])) { // Verifie si c'est remplis pour ne pas aller chercher dans la base de donnée si il n'y a rien
 
-require_once '../modele/db.php';
+require_once '../modele/pdo.php';
 
-$req = $pdo->prepare('SELECT * FROM membre WHERE (nomMembre = :nomMembre OR emailMembre = nomMembre) AND confirmedDateMembre IS NOT NULL');
+$req = $pdo->prepare('SELECT * FROM Utilisateurs WHERE (NomUtilisateur = :nomMembre)');
 $req->execute(['nomMembre' => $_POST['userName']]);
 $user = $req->fetch(); // Récupère l'utilisateur
 session_start();

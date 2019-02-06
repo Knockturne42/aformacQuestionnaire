@@ -19,7 +19,7 @@
 
             <div class="form-group">
 
-                <label for="">Pseudo ou email</label>
+                <label for="">Nom</label>
                 <input type="text" name="userName" class="form-control" required />
 
                 <label for="">Mot de passe</label>
