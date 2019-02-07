@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS Roles ;
 CREATE TABLE Roles (idRole INT(9) AUTO_INCREMENT NOT NULL, NomRole VARCHAR(255), PRIMARY KEY (idRole)) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS Utilisateurs ;
-CREATE TABLE Utilisateurs (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, NomUtilisateur VARCHAR(255), PrenomUtilisateur VARCHAR(255), MotDePasse VARCHAR(60), DateEntreeFormation DATE,
+CREATE TABLE Utilisateurs (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, NomUtilisateur VARCHAR(255), PrenomUtilisateur VARCHAR(255), PseudoUtilisateur VARCHAR(255), MotDePasse VARCHAR(60), DateEntreeFormation DATE,
 idRole INT(9), PRIMARY KEY (idUtilisateur)) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS Reponses ;
