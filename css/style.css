@@ -1,4 +1,35 @@
-.container {
-    margin: auto;
-   
+body
+{
+	background-color: #B1B1B1;
 }
+
+.container
+{
+    margin: auto;
+
+}
+
+/* Header */
+.bordure-top
+{
+	background-color: #2A3495;
+	height: 70px;
+	width: 100%;
+}
+
+/* Footer */
+footer
+{
+	margin-top: 15%;
+}
+
+.bordure-top
+{
+	background-color: #2A3495;
+	height: 50px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	z-index: 100;
+}
+
