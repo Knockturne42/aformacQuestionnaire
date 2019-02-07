@@ -1,0 +1,69 @@
+DROP TABLE IF EXISTS Roles ;
+CREATE TABLE Roles (idRole INT(9) AUTO_INCREMENT NOT NULL, NomRole VARCHAR(255), PRIMARY KEY (idRole)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Utilisateurs ;
+CREATE TABLE Utilisateurs (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, NomUtilisateur VARCHAR(255), PrenomUtilisateur VARCHAR(255), MotDePasse VARCHAR(60), DateEntreeFormation DATE,
+idRole INT(9), PRIMARY KEY (idUtilisateur)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Reponses ;
+CREATE TABLE Reponses (idReponse INT(9) AUTO_INCREMENT NOT NULL, IntituleReponse VARCHAR(255), idQuestion INT(9), PRIMARY KEY (idReponse)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Types ;
+CREATE TABLE Types (idType INT(9) AUTO_INCREMENT NOT NULL, NomType VARCHAR(255), PRIMARY KEY (idType)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Notes ;
+CREATE TABLE Notes (idNote INT(9) AUTO_INCREMENT NOT NULL, PRIMARY KEY (idNote)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Questions ;
+CREATE TABLE Questions (idQuestion INT(9) AUTO_INCREMENT NOT NULL, IntituleQuestion VARCHAR(255), idReponse INT(9), PRIMARY KEY (idQuestion)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Questionnaires ;
+CREATE TABLE Questionnaires (idQuestionnaire INT(9) AUTO_INCREMENT NOT NULL, NomQuestionnaire VARCHAR(255), PRIMARY KEY (idQuestionnaire)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Formations ;
+CREATE TABLE Formations (idFormation INT(9) AUTO_INCREMENT NOT NULL, NomFormation VARCHAR(255), PRIMARY KEY (idFormation)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Lieux ;
+CREATE TABLE Lieux (idLieu INT(9) AUTO_INCREMENT NOT NULL, LieuFormation VARCHAR(255), PRIMARY KEY (idLieu)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Resultat ;
+CREATE TABLE Resultat (idResultat INT(9) AUTO_INCREMENT NOT NULL, PRIMARY KEY (idResultat)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Reponds ;
+CREATE TABLE Reponds (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, idReponse INT(9) NOT NULL, PRIMARY KEY (idUtilisateur,  idReponse)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Selectionne ;
+CREATE TABLE Selectionne (idReponse INT(9) AUTO_INCREMENT NOT NULL, idType INT(9) NOT NULL, PRIMARY KEY (idReponse,  idType)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS aPour ;
+CREATE TABLE aPour (idReponse INT(9) AUTO_INCREMENT NOT NULL, idNote INT(9) NOT NULL, PRIMARY KEY (idReponse,  idNote)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS contient ;
+CREATE TABLE contient (idQuestion INT(9) AUTO_INCREMENT NOT NULL, idQuestionnaire INT(9) NOT NULL, PRIMARY KEY (idQuestion,  idQuestionnaire)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Est ;
+CREATE TABLE Est (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, idLieu INT(9) NOT NULL, PRIMARY KEY (idUtilisateur,  idLieu)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Suit ;
+CREATE TABLE Suit (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, idFormation INT(9) NOT NULL, PRIMARY KEY (idUtilisateur,  idFormation)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS fini ;
+CREATE TABLE fini (idReponse INT(9) AUTO_INCREMENT NOT NULL, idResultat INT(9) NOT NULL, PRIMARY KEY (idReponse,  idResultat)) ENGINE=InnoDB;
+
+ALTER TABLE Utilisateurs ADD CONSTRAINT FK_Utilisateurs_idRole FOREIGN KEY (idRole) REFERENCES Roles (idRole);
+ALTER TABLE Reponses ADD CONSTRAINT FK_Reponses_idQuestion FOREIGN KEY (idQuestion) REFERENCES Questions (idQuestion);
+ALTER TABLE Questions ADD CONSTRAINT FK_Questions_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE Reponds ADD CONSTRAINT FK_Reponds_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES Utilisateurs (idUtilisateur);
+ALTER TABLE Reponds ADD CONSTRAINT FK_Reponds_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE Selectionne ADD CONSTRAINT FK_Selectionne_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE Selectionne ADD CONSTRAINT FK_Selectionne_idType FOREIGN KEY (idType) REFERENCES Types (idType);
+ALTER TABLE aPour ADD CONSTRAINT FK_aPour_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE aPour ADD CONSTRAINT FK_aPour_idNote FOREIGN KEY (idNote) REFERENCES Notes (idNote);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_idQuestion FOREIGN KEY (idQuestion) REFERENCES Questions (idQuestion);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_idQuestionnaire FOREIGN KEY (idQuestionnaire) REFERENCES Questionnaires (idQuestionnaire);
+ALTER TABLE Est ADD CONSTRAINT FK_Est_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES Utilisateurs (idUtilisateur);
+ALTER TABLE Est ADD CONSTRAINT FK_Est_idLieu FOREIGN KEY (idLieu) REFERENCES Lieux (idLieu);
+ALTER TABLE Suit ADD CONSTRAINT FK_Suit_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES Utilisateurs (idUtilisateur);
+ALTER TABLE Suit ADD CONSTRAINT FK_Suit_idFormation FOREIGN KEY (idFormation) REFERENCES Formations (idFormation);
+ALTER TABLE fini ADD CONSTRAINT FK_fini_idReponse FOREIGN KEY (idReponse) REFERENCES Reponses (idReponse);
+ALTER TABLE fini ADD CONSTRAINT FK_fini_idResultat FOREIGN KEY (idResultat) REFERENCES Resultat (idResultat);
