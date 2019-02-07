@@ -2,9 +2,12 @@
 include '../modele/pdo.php';
 include '../include/fonctions.php';
 
+if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+};
+
 loggedOnly();
 
-session_start();
 
 $statut = $_SESSION['auth']->idRole;
 if($_SESSION['auth'] && $statut == 1) {

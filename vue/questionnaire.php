@@ -1,7 +1,19 @@
-<!-- Inclusion de l'en-tête de page -->
-<?php include '../include/header.php' ?>
+<?php if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+}; 
 
+include '../modele/pdo.php';
+
+if($_SESSION['auth']->NomUtilisateur == NULL) {
+    header('Location: ../index.php');
+    exit();
+} else {
+echo $_SESSION['auth']->NomUtilisateur;
+
+}
+?>
 <h2 class="text-center text-uppercase"> Evaluation de fin de formation </h2>
+
 
 
 <div id="questions" class="container"> <!-- Emplacement des questions posée à l'utilisateur -->

@@ -12,13 +12,16 @@ if(!empty($_POST) && !empty($_POST['userName'])) { // Verifie si c'est remplis p
     $req->execute(['nomMembre' => $_POST['userName']]);
     $user = $req->fetch(); // Récupère l'utilisateur
     session_start();
-    
+
     $_SESSION['auth'] = $user;
     $_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';
     header('Location: ../vue/questionnaire.php');
     exit();
     
-    } else {
+    } if($_SESSION['auth']->NomUtilisateur == NULL) {
+        header('Location: ../index.php');
+    }
+     else {
     
     $_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
     header('Location: ../index.php');

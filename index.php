@@ -16,9 +16,6 @@
 
     <h1 class="text-center">Se connecter en tant qu'utilisateur</h1>
 
-<<<<<<< HEAD
-        <form method="POST" action="controleur/login.php">
-=======
         <form method="POST" action="controleur/loginUser.php">
 
             <div class="form-group">
@@ -36,7 +33,6 @@
     <h1 class="text-center">Se connecter en tant qu'Admin </h1>
 
         <form method="POST" action="controleur/loginAdmin.php">
->>>>>>> fcd7af75fb7d5d6208cbe1f938c58a6fa9c66f06
 
             <div class="form-group">
 
