@@ -1,6 +1,12 @@
+<!-- Inclusion de l'en-tête de page -->
 <?php include '../include/header.php' ?>
 
-<h2 class="text-center"> EVALUATION DE FIN DE FORMATION </h2>
+<h2 class="text-center text-uppercase"> Evaluation de fin de formation </h2>
+
+
+<div id="questions" class="container"> <!-- Emplacement des questions posée à l'utilisateur -->
+    
+</div>
 
 <!--- Indication Formation ---->
 <form method="POST" action="">
@@ -30,7 +36,7 @@
 
 <!--- Indication attentes avant la formation ---->
 <div class="container">
-    <h5 for="">Aviez-vous des attentes concernant cette formation ?</h5><br>
+    <h5>Aviez-vous des attentes concernant cette formation ?</h5><br>
 
     <input type="checkbox" name="checkOui">
     <label for="">Oui</label><br>
@@ -56,7 +62,7 @@
 
 <!--- Indication attentes après la formation ---->
 <div class="container">
-    <h5 for="">Si oui, cette formation a-t-elle répondu à vous attentes ?</h5><br>
+    <h5>Si oui, cette formation a-t-elle répondu à vous attentes ?</h5><br>
 
         <input type="checkbox" name="checkOuiAttente">
         <label for="">Oui</label><br>
@@ -91,7 +97,7 @@
 
 <!--- Indication sur les contenus de la formation ---->
 <div class="container">
-    <h5 for="">Les contenus vous ont paru : </h5><br>
+    <h5>Les contenus vous ont paru : </h5><br>
 
         <label>Professionnellement : </label><br>
 
@@ -216,4 +222,5 @@
 
 </form>
 
+<script type="text/javascript" src="../js/ajax.js"></script>
 <?php include '../include/footer.php' ?>
