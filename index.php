@@ -24,7 +24,7 @@
                 <input type="text" name="userName" class="form-control" required />
 
                 <button type="submit" class="btn btn-primary">Se connecter</button><br>
-            
+            </div>
         </form>
         
 
