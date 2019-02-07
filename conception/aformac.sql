@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  jeu. 07 fév. 2019 à 09:36
+-- Généré le :  jeu. 07 fév. 2019 à 13:22
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.11
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `apour`
+-- Structure de la table `apournote`
 --
 
-CREATE TABLE `apour` (
+CREATE TABLE `apournote` (
   `idReponse` int(9) NOT NULL,
   `idNote` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -36,10 +36,21 @@ CREATE TABLE `apour` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `contient`
+-- Structure de la table `appartientquestion`
 --
 
-CREATE TABLE `contient` (
+CREATE TABLE `appartientquestion` (
+  `idReponse` int(9) NOT NULL,
+  `idQuestion` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contenuquestionnaire`
+--
+
+CREATE TABLE `contenuquestionnaire` (
   `idQuestion` int(9) NOT NULL,
   `idQuestionnaire` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -47,23 +58,12 @@ CREATE TABLE `contient` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `est`
+-- Structure de la table `donnereponse`
 --
 
-CREATE TABLE `est` (
+CREATE TABLE `donnereponse` (
   `idUtilisateur` int(9) NOT NULL,
-  `idLieu` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `fini`
---
-
-CREATE TABLE `fini` (
-  `idReponse` int(9) NOT NULL,
-  `idResultat` int(9) NOT NULL
+  `idReponse` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE `fini` (
 
 CREATE TABLE `formations` (
   `idFormation` int(9) NOT NULL,
-  `NomFormation` varchar(255) DEFAULT NULL
+  `nomFormation` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -85,7 +85,7 @@ CREATE TABLE `formations` (
 
 CREATE TABLE `lieux` (
   `idLieu` int(9) NOT NULL,
-  `LieuFormation` varchar(255) DEFAULT NULL
+  `lieuFormation` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -101,12 +101,23 @@ CREATE TABLE `notes` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `obtientresultat`
+--
+
+CREATE TABLE `obtientresultat` (
+  `idReponse` int(9) NOT NULL,
+  `idResultat` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `questionnaires`
 --
 
 CREATE TABLE `questionnaires` (
   `idQuestionnaire` int(9) NOT NULL,
-  `NomQuestionnaire` varchar(255) DEFAULT NULL
+  `nomQuestionnaire` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -117,19 +128,7 @@ CREATE TABLE `questionnaires` (
 
 CREATE TABLE `questions` (
   `idQuestion` int(9) NOT NULL,
-  `IntituleQuestion` varchar(255) DEFAULT NULL,
-  `idReponse` int(9) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `reponds`
---
-
-CREATE TABLE `reponds` (
-  `idUtilisateur` int(9) NOT NULL,
-  `idReponse` int(9) NOT NULL
+  `intituleQuestion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -140,8 +139,8 @@ CREATE TABLE `reponds` (
 
 CREATE TABLE `reponses` (
   `idReponse` int(9) NOT NULL,
-  `IntituleReponse` varchar(255) DEFAULT NULL,
-  `idQuestion` int(9) DEFAULT NULL
+  `intituleReponse` varchar(255) DEFAULT NULL,
+  `idType` int(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -162,36 +161,27 @@ CREATE TABLE `resultat` (
 
 CREATE TABLE `roles` (
   `idRole` int(9) NOT NULL,
-  `NomRole` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `roles`
---
-
-INSERT INTO `roles` (`idRole`, `NomRole`) VALUES
-(1, 'SuperAdmin'),
-(2, 'Admin'),
-(3, 'membre');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `selectionne`
---
-
-CREATE TABLE `selectionne` (
-  `idReponse` int(9) NOT NULL,
-  `idType` int(9) NOT NULL
+  `nomRole` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `suit`
+-- Structure de la table `selocalise`
 --
 
-CREATE TABLE `suit` (
+CREATE TABLE `selocalise` (
+  `idUtilisateur` int(9) NOT NULL,
+  `idLieu` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `suitformation`
+--
+
+CREATE TABLE `suitformation` (
   `idUtilisateur` int(9) NOT NULL,
   `idFormation` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -204,7 +194,7 @@ CREATE TABLE `suit` (
 
 CREATE TABLE `types` (
   `idType` int(9) NOT NULL,
-  `NomType` varchar(255) DEFAULT NULL
+  `nomType` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -215,52 +205,44 @@ CREATE TABLE `types` (
 
 CREATE TABLE `utilisateurs` (
   `idUtilisateur` int(9) NOT NULL,
-  `NomUtilisateur` varchar(255) DEFAULT NULL,
-  `PrenomUtilisateur` varchar(255) DEFAULT NULL,
-  `PseudoUtilisateur` varchar(255) NOT NULL,
-  `MotDePasse` varchar(60) DEFAULT NULL,
-  `DateEntreeFormation` date DEFAULT NULL,
+  `nomUtilisateur` varchar(255) DEFAULT NULL,
+  `prenomUtilisateur` varchar(255) DEFAULT NULL,
+  `motDePasse` varchar(60) DEFAULT NULL,
+  `dateEntreeFormation` date DEFAULT NULL,
   `idRole` int(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`idUtilisateur`, `NomUtilisateur`, `PrenomUtilisateur`, `PseudoUtilisateur`, `MotDePasse`, `DateEntreeFormation`, `idRole`) VALUES
-(1, 'Fabien', '', '', 'coucou', '2019-02-07', 1);
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `apour`
+-- Index pour la table `apournote`
 --
-ALTER TABLE `apour`
+ALTER TABLE `apournote`
   ADD PRIMARY KEY (`idReponse`,`idNote`),
-  ADD KEY `FK_aPour_idNote` (`idNote`);
+  ADD KEY `FK_aPourNote_idNote` (`idNote`);
 
 --
--- Index pour la table `contient`
+-- Index pour la table `appartientquestion`
 --
-ALTER TABLE `contient`
+ALTER TABLE `appartientquestion`
+  ADD PRIMARY KEY (`idReponse`,`idQuestion`),
+  ADD KEY `FK_appartientQuestion_idQuestion` (`idQuestion`);
+
+--
+-- Index pour la table `contenuquestionnaire`
+--
+ALTER TABLE `contenuquestionnaire`
   ADD PRIMARY KEY (`idQuestion`,`idQuestionnaire`),
-  ADD KEY `FK_contient_idQuestionnaire` (`idQuestionnaire`);
+  ADD KEY `FK_contenuQuestionnaire_idQuestionnaire` (`idQuestionnaire`);
 
 --
--- Index pour la table `est`
+-- Index pour la table `donnereponse`
 --
-ALTER TABLE `est`
-  ADD PRIMARY KEY (`idUtilisateur`,`idLieu`),
-  ADD KEY `FK_Est_idLieu` (`idLieu`);
-
---
--- Index pour la table `fini`
---
-ALTER TABLE `fini`
-  ADD PRIMARY KEY (`idReponse`,`idResultat`),
-  ADD KEY `FK_fini_idResultat` (`idResultat`);
+ALTER TABLE `donnereponse`
+  ADD PRIMARY KEY (`idUtilisateur`,`idReponse`),
+  ADD KEY `FK_donneReponse_idReponse` (`idReponse`);
 
 --
 -- Index pour la table `formations`
@@ -281,6 +263,13 @@ ALTER TABLE `notes`
   ADD PRIMARY KEY (`idNote`);
 
 --
+-- Index pour la table `obtientresultat`
+--
+ALTER TABLE `obtientresultat`
+  ADD PRIMARY KEY (`idReponse`,`idResultat`),
+  ADD KEY `FK_obtientResultat_idResultat` (`idResultat`);
+
+--
 -- Index pour la table `questionnaires`
 --
 ALTER TABLE `questionnaires`
@@ -290,22 +279,14 @@ ALTER TABLE `questionnaires`
 -- Index pour la table `questions`
 --
 ALTER TABLE `questions`
-  ADD PRIMARY KEY (`idQuestion`),
-  ADD KEY `FK_Questions_idReponse` (`idReponse`);
-
---
--- Index pour la table `reponds`
---
-ALTER TABLE `reponds`
-  ADD PRIMARY KEY (`idUtilisateur`,`idReponse`),
-  ADD KEY `FK_Reponds_idReponse` (`idReponse`);
+  ADD PRIMARY KEY (`idQuestion`);
 
 --
 -- Index pour la table `reponses`
 --
 ALTER TABLE `reponses`
   ADD PRIMARY KEY (`idReponse`),
-  ADD KEY `FK_Reponses_idQuestion` (`idQuestion`);
+  ADD KEY `FK_reponses_idType` (`idType`);
 
 --
 -- Index pour la table `resultat`
@@ -320,18 +301,18 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`idRole`);
 
 --
--- Index pour la table `selectionne`
+-- Index pour la table `selocalise`
 --
-ALTER TABLE `selectionne`
-  ADD PRIMARY KEY (`idReponse`,`idType`),
-  ADD KEY `FK_Selectionne_idType` (`idType`);
+ALTER TABLE `selocalise`
+  ADD PRIMARY KEY (`idUtilisateur`,`idLieu`),
+  ADD KEY `FK_seLocalise_idLieu` (`idLieu`);
 
 --
--- Index pour la table `suit`
+-- Index pour la table `suitformation`
 --
-ALTER TABLE `suit`
+ALTER TABLE `suitformation`
   ADD PRIMARY KEY (`idUtilisateur`,`idFormation`),
-  ADD KEY `FK_Suit_idFormation` (`idFormation`);
+  ADD KEY `FK_suitFormation_idFormation` (`idFormation`);
 
 --
 -- Index pour la table `types`
@@ -344,35 +325,35 @@ ALTER TABLE `types`
 --
 ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`idUtilisateur`),
-  ADD KEY `FK_Utilisateurs_idRole` (`idRole`);
+  ADD KEY `FK_utilisateurs_idRole` (`idRole`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `apour`
+-- AUTO_INCREMENT pour la table `apournote`
 --
-ALTER TABLE `apour`
+ALTER TABLE `apournote`
   MODIFY `idReponse` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `contient`
+-- AUTO_INCREMENT pour la table `appartientquestion`
 --
-ALTER TABLE `contient`
+ALTER TABLE `appartientquestion`
+  MODIFY `idReponse` int(9) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `contenuquestionnaire`
+--
+ALTER TABLE `contenuquestionnaire`
   MODIFY `idQuestion` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `est`
+-- AUTO_INCREMENT pour la table `donnereponse`
 --
-ALTER TABLE `est`
+ALTER TABLE `donnereponse`
   MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `fini`
---
-ALTER TABLE `fini`
-  MODIFY `idReponse` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `formations`
@@ -393,6 +374,12 @@ ALTER TABLE `notes`
   MODIFY `idNote` int(9) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `obtientresultat`
+--
+ALTER TABLE `obtientresultat`
+  MODIFY `idReponse` int(9) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `questionnaires`
 --
 ALTER TABLE `questionnaires`
@@ -403,12 +390,6 @@ ALTER TABLE `questionnaires`
 --
 ALTER TABLE `questions`
   MODIFY `idQuestion` int(9) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `reponds`
---
-ALTER TABLE `reponds`
-  MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `reponses`
@@ -426,18 +407,18 @@ ALTER TABLE `resultat`
 -- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `idRole` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idRole` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `selectionne`
+-- AUTO_INCREMENT pour la table `selocalise`
 --
-ALTER TABLE `selectionne`
-  MODIFY `idReponse` int(9) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `selocalise`
+  MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `suit`
+-- AUTO_INCREMENT pour la table `suitformation`
 --
-ALTER TABLE `suit`
+ALTER TABLE `suitformation`
   MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT;
 
 --
@@ -450,78 +431,72 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUtilisateur` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `apour`
+-- Contraintes pour la table `apournote`
 --
-ALTER TABLE `apour`
-  ADD CONSTRAINT `FK_aPour_idNote` FOREIGN KEY (`idNote`) REFERENCES `notes` (`idNote`),
-  ADD CONSTRAINT `FK_aPour_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`);
+ALTER TABLE `apournote`
+  ADD CONSTRAINT `FK_aPourNote_idNote` FOREIGN KEY (`idNote`) REFERENCES `notes` (`idNote`),
+  ADD CONSTRAINT `FK_aPourNote_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`);
 
 --
--- Contraintes pour la table `contient`
+-- Contraintes pour la table `appartientquestion`
 --
-ALTER TABLE `contient`
-  ADD CONSTRAINT `FK_contient_idQuestion` FOREIGN KEY (`idQuestion`) REFERENCES `questions` (`idQuestion`),
-  ADD CONSTRAINT `FK_contient_idQuestionnaire` FOREIGN KEY (`idQuestionnaire`) REFERENCES `questionnaires` (`idQuestionnaire`);
+ALTER TABLE `appartientquestion`
+  ADD CONSTRAINT `FK_appartientQuestion_idQuestion` FOREIGN KEY (`idQuestion`) REFERENCES `questions` (`idQuestion`),
+  ADD CONSTRAINT `FK_appartientQuestion_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`);
 
 --
--- Contraintes pour la table `est`
+-- Contraintes pour la table `contenuquestionnaire`
 --
-ALTER TABLE `est`
-  ADD CONSTRAINT `FK_Est_idLieu` FOREIGN KEY (`idLieu`) REFERENCES `lieux` (`idLieu`),
-  ADD CONSTRAINT `FK_Est_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
+ALTER TABLE `contenuquestionnaire`
+  ADD CONSTRAINT `FK_contenuQuestionnaire_idQuestion` FOREIGN KEY (`idQuestion`) REFERENCES `questions` (`idQuestion`),
+  ADD CONSTRAINT `FK_contenuQuestionnaire_idQuestionnaire` FOREIGN KEY (`idQuestionnaire`) REFERENCES `questionnaires` (`idQuestionnaire`);
 
 --
--- Contraintes pour la table `fini`
+-- Contraintes pour la table `donnereponse`
 --
-ALTER TABLE `fini`
-  ADD CONSTRAINT `FK_fini_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`),
-  ADD CONSTRAINT `FK_fini_idResultat` FOREIGN KEY (`idResultat`) REFERENCES `resultat` (`idResultat`);
+ALTER TABLE `donnereponse`
+  ADD CONSTRAINT `FK_donneReponse_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`),
+  ADD CONSTRAINT `FK_donneReponse_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
 
 --
--- Contraintes pour la table `questions`
+-- Contraintes pour la table `obtientresultat`
 --
-ALTER TABLE `questions`
-  ADD CONSTRAINT `FK_Questions_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`);
-
---
--- Contraintes pour la table `reponds`
---
-ALTER TABLE `reponds`
-  ADD CONSTRAINT `FK_Reponds_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`),
-  ADD CONSTRAINT `FK_Reponds_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
+ALTER TABLE `obtientresultat`
+  ADD CONSTRAINT `FK_obtientResultat_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`),
+  ADD CONSTRAINT `FK_obtientResultat_idResultat` FOREIGN KEY (`idResultat`) REFERENCES `resultat` (`idResultat`);
 
 --
 -- Contraintes pour la table `reponses`
 --
 ALTER TABLE `reponses`
-  ADD CONSTRAINT `FK_Reponses_idQuestion` FOREIGN KEY (`idQuestion`) REFERENCES `questions` (`idQuestion`);
+  ADD CONSTRAINT `FK_reponses_idType` FOREIGN KEY (`idType`) REFERENCES `types` (`idType`);
 
 --
--- Contraintes pour la table `selectionne`
+-- Contraintes pour la table `selocalise`
 --
-ALTER TABLE `selectionne`
-  ADD CONSTRAINT `FK_Selectionne_idReponse` FOREIGN KEY (`idReponse`) REFERENCES `reponses` (`idReponse`),
-  ADD CONSTRAINT `FK_Selectionne_idType` FOREIGN KEY (`idType`) REFERENCES `types` (`idType`);
+ALTER TABLE `selocalise`
+  ADD CONSTRAINT `FK_seLocalise_idLieu` FOREIGN KEY (`idLieu`) REFERENCES `lieux` (`idLieu`),
+  ADD CONSTRAINT `FK_seLocalise_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
 
 --
--- Contraintes pour la table `suit`
+-- Contraintes pour la table `suitformation`
 --
-ALTER TABLE `suit`
-  ADD CONSTRAINT `FK_Suit_idFormation` FOREIGN KEY (`idFormation`) REFERENCES `formations` (`idFormation`),
-  ADD CONSTRAINT `FK_Suit_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
+ALTER TABLE `suitformation`
+  ADD CONSTRAINT `FK_suitFormation_idFormation` FOREIGN KEY (`idFormation`) REFERENCES `formations` (`idFormation`),
+  ADD CONSTRAINT `FK_suitFormation_idUtilisateur` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`);
 
 --
 -- Contraintes pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  ADD CONSTRAINT `FK_Utilisateurs_idRole` FOREIGN KEY (`idRole`) REFERENCES `roles` (`idRole`);
+  ADD CONSTRAINT `FK_utilisateurs_idRole` FOREIGN KEY (`idRole`) REFERENCES `roles` (`idRole`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
