@@ -14,12 +14,3 @@
 		<header>
 			<div class="bordure-top"></div>
 		</header>
-
-<!-- 
-		Contenu de la page ...
-
-	</body>
-</html>
-
--->
-	    
