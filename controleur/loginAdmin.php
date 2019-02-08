@@ -4,12 +4,12 @@ if(!empty($_POST) && !empty($_POST['userName']) && !empty($_POST['userPassword']
     
 require_once '../modele/pdo.php';
 
-$req = $pdo->prepare('SELECT * FROM Utilisateurs WHERE NomUtilisateur = :nomMembre');
+$req = $pdo->prepare('SELECT * FROM utilisateurs WHERE nomUtilisateur = :nomMembre');
 $req->execute(['nomMembre' => $_POST['userName']]);
 $user = $req->fetch(); 
 
 
-if($_POST['userPassword'] == $user->MotDePasse){
+if($_POST['userPassword'] == $user->motDePasse){
 
 $_SESSION['auth'] = $user;
 
