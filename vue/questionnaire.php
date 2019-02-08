@@ -3,12 +3,16 @@
 }; 
 
 include '../modele/pdo.php';
+?>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 
-if($_SESSION['auth']->NomUtilisateur == NULL) {
+
+<?php
+if($_SESSION['auth']->nomUtilisateur == NULL) {
     header('Location: ../index.php');
     exit();
 } else {
-echo $_SESSION['auth']->NomUtilisateur;
+echo $_SESSION['auth']->nomUtilisateur;
 
 }
 ?>
@@ -21,7 +25,7 @@ echo $_SESSION['auth']->NomUtilisateur;
 </div>
 
 <!--- Indication Formation ---->
-<form method="POST" action="">
+<form method="POST" action="traitementReponses.php">
     <div class="container">
 
         <label for="">Titre de formation</label>

@@ -19,4 +19,4 @@ header('Location : ../index.php');
 
 ?>
 <a href="../controleur/logout.php">Deconnexion</a>
-<?php echo $_SESSION['auth']->NomUtilisateur; ?>
+<?php echo $_SESSION['auth']->nomUtilisateur; ?>

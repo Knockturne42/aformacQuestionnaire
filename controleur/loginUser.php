@@ -8,7 +8,7 @@ if(!empty($_POST) && !empty($_POST['userName'])) { // Verifie si c'est remplis p
     
     require_once '../modele/pdo.php';
     
-    $req = $pdo->prepare('SELECT * FROM Utilisateurs WHERE NomUtilisateur = :nomMembre ');
+    $req = $pdo->prepare('SELECT * FROM utilisateurs WHERE nomUtilisateur = :nomMembre ');
     $req->execute(['nomMembre' => $_POST['userName']]);
     $user = $req->fetch(); // Récupère l'utilisateur
     session_start();
@@ -18,9 +18,7 @@ if(!empty($_POST) && !empty($_POST['userName'])) { // Verifie si c'est remplis p
     header('Location: ../vue/questionnaire.php');
     exit();
     
-    } if($_SESSION['auth']->NomUtilisateur == NULL) {
-        header('Location: ../index.php');
-    }
+    } 
      else {
     
     $_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
