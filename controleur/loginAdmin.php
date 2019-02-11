@@ -8,7 +8,6 @@ $req = $pdo->prepare('SELECT * FROM utilisateurs WHERE nomUtilisateur = :nomMemb
 $req->execute(['nomMembre' => $_POST['userName']]);
 $user = $req->fetch(); 
 
-
 if($_POST['userPassword'] == $user->motDePasse){
 
 $_SESSION['auth'] = $user;
