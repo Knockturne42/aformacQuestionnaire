@@ -33,3 +33,17 @@ footer
 	z-index: 100;
 }
 
+.text-bold
+{
+	font-weight: bold;
+}
+
+.text-italic
+{
+	font-style: italic;
+}
+
+.puce-none
+{
+	list-style-type: none;
+}
