@@ -34,8 +34,51 @@ footer
 }
 
 #ajout {
-	background-color: red;
+	background-color: rgb(211, 98, 98);
 	border: 1px solid black;
-	height: 350px;
-	width: 350px;
+	height: auto;
+	width: 100%;
+}
+
+.zoneQuestPlus {
+	background-color: pink;
+	border: 1px solid black;
+	color: white;
+	height: 25px;
+	text-align: center;
+	width: 25px;
+}
+
+#zoneQuestRep {
+	border: 1px solid black;
+}
+
+#toto {
+	background-color: yellow;
+	border: 1px solid black;
+	height: auto;
+	margin: 1%;
+}
+
+.question {
+	background-color: green;
+	border: 1px solid black;
+	margin: 1%;
+	padding: 1%;
+}
+
+.reponse {
+	background-color: blue;
+	border: 1px solid black;
+	margin: 1%;
+	padding: 1%;
+}
+
+.repPlus {
+	background-color: chartreuse;
+	border: 1px solid black;
+	color: white;
+	height: 25px;
+	text-align: center;
+	width: 25px;
 }
