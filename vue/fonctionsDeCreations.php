@@ -28,14 +28,15 @@ echo "<label>Note entre 1 et 10</label><br><input type='range' name='reponseRang
 $nombreDeRadio = $_GET['nombreDeRadio'];
 
 $i=1;
+$idBoutonRadio == 1;
 
 while($i <= $nombreDeRadio) {
-
-
-echo "<label>Nom de la réponse</label><input type='text'><input type='radio' name='reponseRadio'>";
+?>
+<label>Nom de la réponse</label><input type='text'><input type='radio' name='reponseRadio<?php echo $idBoutonRadio; ?>'>
+<?php
 $i++;
+$idDeRadio++;
 }
-
 
 } if ($choixType->idType == 4) {
 ?>
@@ -48,13 +49,15 @@ $i++;
 
 } if(isset($_GET['nombreDeCheckbox'])) {
 
-    $nombreDeCheckbox = $_GET['nombreDeCheckbox'];
-    
-    $i=1;
-    
-    while($i <=  $nombreDeCheckbox) {
-    
-    
-    echo "<label>Nom de la réponse</label><input type='text'><input type='checkbox' name='reponseCheckbox'>";
-    $i++;
-    }}
+$nombreDeCheckbox = $_GET['nombreDeCheckbox'];
+
+$i=1;
+
+while($i <= $nombreDeCheckbox) {
+$idCheckBox == 1;
+?>
+<label>Nom de la réponse</label><input type="text"><input type="checkbox" name="reponseCheckbox<?php echo $idCheckBox; ?>">
+<?php
+$i++;
+$idCheckBox++;
+}}
