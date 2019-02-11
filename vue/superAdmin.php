@@ -19,4 +19,6 @@ header('Location : ../index.php');
 
 ?>
 <a href="../controleur/logout.php">Deconnexion</a>
-<?php echo $_SESSION['auth']->NomUtilisateur; ?>
+<?php echo '<br>'.$_SESSION['auth']->nomUtilisateur.'<br>'; ?>
+
+<a href="../vue/insertion.php">Ajouter un questionnaire</a>
