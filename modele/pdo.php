@@ -1,6 +1,7 @@
 <?php
 
 try {
+
 $json =file_get_contents('../modele/pdo.json');
 $decode=json_decode($json, true);
 $pdo = new PDO("mysql:host=".$decode['host'].";dbname=".$decode['dbName'], $decode['user'], $decode['pass']);

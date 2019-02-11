@@ -2,9 +2,11 @@
 include '../modele/pdo.php';
 include '../include/fonctions.php';
 
-loggedOnly();
+if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+};
 
-// session_start();
+loggedOnly();
 
 $statut = $_SESSION['auth']->idRole;
 if($_SESSION['auth'] && $statut == 1) {
@@ -17,4 +19,4 @@ header('Location : ../index.php');
 
 ?>
 <a href="../controleur/logout.php">Deconnexion</a>
-<?php echo $_SESSION['auth']->NomUtilisateur; ?>
+<?php echo $_SESSION['auth']->nomUtilisateur; ?>
