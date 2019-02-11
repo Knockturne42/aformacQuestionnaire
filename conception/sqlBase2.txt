@@ -1,8 +1,10 @@
 DROP TABLE IF EXISTS roles ;
 CREATE TABLE roles (idRole INT(9) AUTO_INCREMENT NOT NULL, nomRole VARCHAR(255), PRIMARY KEY (idRole)) ENGINE=InnoDB;
 
+
 DROP TABLE IF EXISTS utilisateurs ;
 CREATE TABLE utilisateurs (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, nomUtilisateur VARCHAR(255), prenomUtilisateur VARCHAR(255), motDePasse VARCHAR(60), dateEntreeFormation DATE, idRole INT(9), PRIMARY KEY (idUtilisateur)) ENGINE=InnoDB;
+
 
 DROP TABLE IF EXISTS reponses ;
 CREATE TABLE reponses (idReponse INT(9) AUTO_INCREMENT NOT NULL, intituleReponse VARCHAR(255), idType INT(9), PRIMARY KEY (idReponse)) ENGINE=InnoDB;
@@ -48,6 +50,7 @@ CREATE TABLE suitFormation (idUtilisateur INT(9) AUTO_INCREMENT NOT NULL, idForm
 
 DROP TABLE IF EXISTS obtientResultat ;
 CREATE TABLE obtientResultat (idReponse INT(9) AUTO_INCREMENT NOT NULL, idResultat INT(9) NOT NULL, PRIMARY KEY (idReponse,  idResultat)) ENGINE=InnoDB;
+
 
 ALTER TABLE utilisateurs ADD CONSTRAINT FK_utilisateurs_idRole FOREIGN KEY (idRole) REFERENCES roles (idRole);
 ALTER TABLE reponses ADD CONSTRAINT FK_reponses_idType FOREIGN KEY (idType) REFERENCES types (idType);
