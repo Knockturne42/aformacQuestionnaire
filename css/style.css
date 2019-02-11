@@ -39,3 +39,18 @@ footer
 	height: 350px;
 	width: 350px;
 }
+
+.text-bold
+{
+	font-weight: bold;
+}
+
+.text-italic
+{
+	font-style: italic;
+}
+
+.puce-none
+{
+	list-style-type: none;
+}
