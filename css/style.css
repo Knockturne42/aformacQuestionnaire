@@ -33,3 +33,9 @@ footer
 	z-index: 100;
 }
 
+#ajout {
+	background-color: red;
+	border: 1px solid black;
+	height: 350px;
+	width: 350px;
+}
