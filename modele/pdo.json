@@ -1,6 +1,6 @@
 {
     "host": "localhost",
     "dbName": "aformac",
-    "user": "root",
-    "pass": "root"
+    "user": "test",
+    "pass": "test00"
 }
