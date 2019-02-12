@@ -1,6 +1,6 @@
 <?php // Génération des types 
-
-$pdo = new PDO('mysql:dbname=aformacQuestionnaire;host=localhost', 'maxAformacQuestionnaire', '14759');
+ include '../modele/pdo.php';
+$pdo = new PDO("mysql:host=".$decode['host'].";dbname=".$decode['dbName'], $decode['user'], $decode['pass']);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
