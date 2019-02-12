@@ -1,6 +1,6 @@
 {
-    "host": "localhost",
-    "dbName": "aformac",
-    "user": "root",
-    "pass": "root"
+    "host": "vps498947.ovh.net",
+    "dbName": "wwwaformac",
+    "user": "wwwaformac",
+    "pass": "12345"
 }
