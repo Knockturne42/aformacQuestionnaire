@@ -1,14 +1,3 @@
-// const ajouter = document.getElementById('ajout');
-
-// ajouter.addEventListener("click", function () {
-//     var makeInput = document.createElement('div');
-//     makeInput.setAttribute('class', "question");
-//     ajouter.appendChild(makeInput);
-//     makeInput.style.height = "150" + "px";
-//     makeInput.style.width = "150" + "px";
-//     makeInput.style.backgroundColor = "blue";
-// })
-
 const repPlus = document.getElementsByClassName("repPlus");
 var rep = document.getElementsByClassName('reponse');
 var test = document.getElementById("toto");
@@ -33,7 +22,7 @@ zoneQuestPlus[0].addEventListener("click", function () {
     repPlus.setAttribute('class', "repPlus");
     zonePlus.appendChild(repPlus);
     plus(repPlus, zonePlus);
-})
+});
 
 
 
