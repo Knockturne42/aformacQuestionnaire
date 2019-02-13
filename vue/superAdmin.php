@@ -123,32 +123,61 @@ echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesS
 
     <label>Date d'entrée en formation</label>
     <input type="date" name="dateEntreeFormation" />
-
-    <label>Selection du role de l'utilisateur</label>
+  
+    <label for="selectFormation">Selectionnez la formation</label>
+    <select name="selectFormation" id="selForm">
+        <?php
+            $Forms = $pdo->query("SELECT * FROM formations");
+            $selectForms = $Forms->fetchAll();
+            foreach($selectForms as $selectForm) { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+    </select>
+    <label for="selectLieux">Selectionnez le lieu de formation</label>
+    <select name="selectLieux" id="selLieu">
+        <?php
+            $lieux = $pdo->query("SELECT * FROM lieux");
+            $selectLieux = $lieux->fetchAll();
+            foreach($selectLieux as $selectLieu) { ?>
+            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <?php  } ?>
+    </select>
+    <label>Selection du rôle de l'utilisateur</label>
 
         <select class="choixRole" name="choixRole">
             <?php 
                 $roles = $pdo->query("SELECT * FROM roles ");
                 $choixRoles = $roles->fetchall();
-                foreach($choixRoles as $choixRole) {?>
+                foreach($choixRoles as $choixRole) { ?>
                 <option value="<?php echo $choixRole->idRole;?>" name="depSel"><?php echo $choixRole->nomRole;?></option>
-<?php
-} 
 
-?>
+            <?php 
+            } 
+            ?>
         </select>
+    <button type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
 
-<button type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
+    <?php
+    if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
-<?php
-if(isset($_POST['creationUtilisateur'])) {
-
-$creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, motDePasse = :motDePasse, dateEntreeFormation = :dateEntreeFormation, idRole = :idRole');
-$creationUtilisateur->execute(['nomUtilisateur' => $_POST['nomUtilisateur'],
+    $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, motDePasse = :motDePasse, dateEntreeFormation = :dateEntreeFormation, idRole = :idRole');
+    $creationUtilisateur->execute(['nomUtilisateur' => $_POST['nomUtilisateur'],
                             'prenomUtilisateur' => $_POST['prenomUtilisateur'],
                             'motDePasse' => $_POST['motDePasse'], 
                             'dateEntreeFormation' => $_POST['dateEntreeFormation'],
                             'idRole' => $_POST['choixRole']]);
+    $dernierId =  $pdo->lastInsertId();
+    
+    // Insérer l'id formation et l'id utilisateurs dans la table de jonction suitformation
 
-}
-?>
+    $selectFormation = $pdo->prepare("INSERT INTO suitformation SET idUtilisateur = :idUtilisateur, idFormation = :idFormation");
+    $selectFormation->execute(['idUtilisateur' => $dernierId,
+                            'idFormation' => $_POST['selectFormation']]);
+
+    // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction suitformation
+
+    $selectLieuFormation = $pdo->prepare("INSERT INTO selocalise SET idUtilisateur = :idUtilisateur, idLieu = :idLieu");
+    $selectLieuFormation->execute(['idUtilisateur' => $dernierId,
+                            'idLieu' => $_POST['selectLieux']]);
+    }
+    ?>
