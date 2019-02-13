@@ -30,7 +30,7 @@ include '../include/header.php';
 <h5>Suppression d'un utilisateur<h5>
 <form method="POST">
 
-<button type="submit" name="afficherMembre">Afficher les utilisateurs</button>
+<button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
 <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
 <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
 <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
@@ -40,11 +40,10 @@ include '../include/header.php';
 <?php
 // Afficher la liste des membres //
 if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
-$membre = $pdo->query('SELECT nomUtilisateur, prenomUtilisateur,  DATE_FORMAT(dateEntreeFormation, \'%d/%m/%Y \') AS dateEntreeFormationFr , idRole FROM utilisateurs ORDER BY dateEntreeFormation DESC');
+$membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux ORDER BY dateEntreeFormation DESC');
 
 while ($donnees = $membre->fetch()){
-    echo '<p> NOM DE L\'UTILISATEUR <strong>' . htmlspecialchars($donnees->nomUtilisateur) . '</strong> 
-    : Le prenom de l\'utilisateur <strong>'. htmlspecialchars($donnees->prenomUtilisateur) . '</strong> date d\'entrée en formation <strong>'. htmlspecialchars($donnees->dateEntreeFormationFr) . '</strong> . <strong>' .$donnees->idRole . '</strong> </p>';
+    echo '<p> nom : ' . $donnees->nomUtilisateur . ' prenom : ' . $donnees->prenomUtilisateur . ' date d\'entrée en formation : ' . $donnees->dateEntreeFormation . ' formation suivis : ' . $donnees->nomFormation . ' lieux de formation : ' . $donnees->lieuFormation . '</p>';
     
 }
 }
@@ -52,6 +51,79 @@ $membreDelete = $pdo->prepare('DELETE FROM utilisateurs WHERE nomUtilisateur = :
 $membreDelete->execute(['nomUtilisateur' => $_POST['deleteUtilisateur']]);
 
 ?>
+
+<h5>Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5>
+
+<form method="POST">
+
+<label>Afficher tout les utilisateurs trié par date</label>
+<input type="date" name="afficherUtilisateurDate"/>
+<label>Afficher tout les utilisateurs trié par type de formation</label>
+<select class="choixTypeFormation" name="choixTypeFormation">
+            <?php 
+                $types = $pdo->query("SELECT * FROM formations ");
+                $choixTypesFormations = $types->fetchAll();
+                var_dump($choixTypesFormations);?>
+                <option value="">Selection de formation</option>
+                <?php
+                foreach($choixTypesFormations as $choixTypeFormation) {?>
+                <option value="<?php echo $choixTypeFormation->idFormation;?>" name="depSel"><?php echo $choixTypeFormation->nomFormation;?></option>
+                <?php 
+                } 
+                
+                ?>
+            </select>
+<button type="submit">Valider</button>
+</form>
+            <form method="POST">
+            
+            <label>Afficher tout les utilisateurs trié par lieu de formation</label>
+            <select class="choixLieuFormation" name="choixLieuFormation">
+                    <?php 
+                        $lieux = $pdo->query("SELECT * FROM lieux ");
+                        $choixLieuxFormations = $lieux->fetchAll();?>
+                        <option value="">Selection du lieux</option>
+                        <?php
+                        foreach($choixLieuxFormations as $choixLieuFormation) {?>
+                        <option value="<?php echo $choixLieuFormation->idLieu;?>" name="depSel"><?php echo $choixLieuFormation->lieuFormation;?></option>
+                        <?php 
+                        } 
+            
+                        ?>
+                    </select>
+            <button type="submit">Valider</button>
+            </form>
+<?php
+if(isset($_POST['afficherUtilisateurDate'])) {
+
+$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
+$choixTypesFormationsAffichage->execute(['dateEntreeFormation' => $_POST['afficherUtilisateurDate'], 
+'idFormation' => $_POST['choixTypeFormation'], 'idLieu' => $_POST['choixLieuFormation']]);
+
+while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
+
+echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesSelection->prenomUtilisateur . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . ' formation suivis : ' . $donneesSelection->nomFormation . ' lieux de formation ' . $donneesSelection->lieuFormation . '</p>';
+
+}}
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h5>Création d'utilisateur<h5>
 
