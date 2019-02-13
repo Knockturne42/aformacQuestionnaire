@@ -19,8 +19,6 @@ header('Location : ../index.php');
 include '../include/header.php';
 ?>
 
-
-
 <a href="../controleur/logout.php">Deconnexion</a>
 
 <p>Vous etes connectez avec le compte de <?php echo $_SESSION['auth']->nomUtilisateur?>
