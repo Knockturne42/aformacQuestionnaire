@@ -88,7 +88,7 @@ header('Location : ../index.php');
             $selectFormation->bindParam(':idFormation', $_POST['selectFormation']);
             $selectFormation->execute();
     
-            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction suitformation
+            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction selocalise
     
             $selectLieuFormation = $pdo->prepare("INSERT INTO selocalise SET idUtilisateur = :idUtilisateur, idLieu = :idLieu");
             $selectLieuFormation->bindParam(':idUtilisateur', $dernierId);
