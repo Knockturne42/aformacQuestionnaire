@@ -97,3 +97,7 @@ footer
 {
 	list-style-type: none;
 }
+table {
+	border: solid black 2px;
+	margin: 0.5%;
+}

@@ -13,12 +13,10 @@ include '../include/header.php'; ?>
             <?php 
                 $types = $pdo->query("SELECT * FROM types ");
                 $choixTypes = $types->fetchAll();
-                var_dump($choixTypes);
                 foreach($choixTypes as $choixType) {?>
                 <option value="<?php echo $choixType->idType;?>" name="depSel"><?php echo $choixType->nomType;?></option>
                 <?php 
                 } 
-
                 ?>
             </select>
 <input type="submit">Envoyer
