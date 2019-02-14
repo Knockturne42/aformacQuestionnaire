@@ -302,59 +302,65 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 
 ?>
 
-
-<?php
-// Afficher toute la liste des utilisateurs //
-if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
-    $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
-    
-    while ($donnees = $membre->fetch()){
-        ?>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-  <tbody>
-      <tr>
-          <td><?php echo $donnees->nomUtilisateur ?></td>
-          <td><?php echo $donnees->prenomUtilisateur ?></td>
-          <td><?php echo $donnees->pseudoUtilisateur ?></td>
-          <td><?php echo $donnees->dateEntreeFormation ?></td>
-          <td><?php echo $donnees->dateFinFormation?></td>
-          <td><?php echo $donnees->nomFormation ?></td>
-        </tr>
-    </tbody>
-</table>
-<?php
-    }}
-?>
-
-<div class="container">
+<div class="container text-center" style="width : 100%;">
     <div class="row">
-        <div class="card">
-    <h5>Affichage de la totalité des utilisateurs</h5>
+        <div class="card col-5" style="margin : 0.5%;">
+            <div class="card-title">
+                    <h5>Affichage de la totalité des utilisateurs</h5>
+            </div>
     <form method="POST">
-        
-        <button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
-        <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
+            
+            <button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
+            <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
+            
+            </div>
+            
+            <div class="card col-5" style="margin : 0.5%;">
+            <div class="card-title">
+            <h5 class="text-center">Suppression d'un utilisateur<h5>
+                </div>
+                <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
+                <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
+                <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
+            </div>
+        </form>
     </div>
-    <div class="card">
-    <h5 class="text-center">Suppression d'un utilisateur<h5>
-    <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
-    <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
-    <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
-</div>
-</form>
-</div>
-<?php
-$membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
+    
+    
+    
+    <?php
+    $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
     $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
     $membreDelete->execute();
-?>
+
+    // Afficher toute la liste des utilisateurs //
+    if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
+        $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
+        
+        while ($donnees = $membre->fetch()){
+            ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+      <tbody>
+          <tr>
+              <td><?php echo $donnees->nomUtilisateur ?></td>
+              <td><?php echo $donnees->prenomUtilisateur ?></td>
+              <td><?php echo $donnees->pseudoUtilisateur ?></td>
+              <td><?php echo $donnees->dateEntreeFormation ?></td>
+              <td><?php echo $donnees->dateFinFormation?></td>
+              <td><?php echo $donnees->nomFormation ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php
+        }}
+    ?>
