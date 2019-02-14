@@ -20,9 +20,7 @@ include '../include/header.php';
 ?>
 
 <a href="../controleur/logout.php">Deconnexion</a>
-
 <p>Vous etes connectez avec le compte de <?php echo $_SESSION['auth']->nomUtilisateur?>
-
 <a href="../vue/insertion.php">Ajouter un questionnaire</a>
 
 <h5>Création d'utilisateur:<h5>
@@ -166,6 +164,7 @@ include '../include/header.php';
 <br>
 <h5>Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5>
 
+<!-- Pour selectionner la date -->
 <form method="POST">
 
     <label>Afficher tout les utilisateurs trié par date</label>
@@ -185,6 +184,8 @@ include '../include/header.php';
     </select>
     <button type="submit">Valider</button>
 </form>
+
+<!-- Pour la selection des formations par lieu -->
 <form method="POST">
     <label>Afficher tout les utilisateurs trié par lieu de formation</label>
     <select class="choixLieuFormation" name="choixLieuFormation">
@@ -202,6 +203,8 @@ include '../include/header.php';
     <button type="submit">Valider</button>
 </form>
 <?php
+
+// Les fonctions qui affichent les utilisateurs selon la selections //
 if(isset($_POST['afficherUtilisateurDate'])) {
 
 $choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
@@ -212,7 +215,7 @@ $choixTypesFormationsAffichage->execute();
 
 while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 
-echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesSelection->prenomUtilisateur . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . ' formation suivis : ' . $donneesSelection->nomFormation . ' lieux de formation ' . $donneesSelection->lieuFormation . '</p>';
+echo '<table><tr><td> nom : ' . $donneesSelection->nomUtilisateur . '</td>' . '<td>' .' prenom : ' . $donneesSelection->prenomUtilisateur . '</td>' . '<td>' . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . '</td>' . '<td>' . 'formation suivis : ' . $donneesSelection->nomFormation . '</td>' . '<td>' . ' lieux de formation ' . $donneesSelection->lieuFormation . '</td>' . '</tr></table>';
 
 }}
 
@@ -229,9 +232,9 @@ echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesS
 
 </form>
 <?php
-// Afficher la liste des membres //
+// Afficher toute la liste des membres //
 if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
-$membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux ORDER BY dateEntreeFormation DESC');
+$membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
 
 while ($donnees = $membre->fetch()){
     echo '<p> nom : ' . $donnees->nomUtilisateur . ' prenom : ' . $donnees->prenomUtilisateur . ' date d\'entrée en formation : ' . $donnees->dateEntreeFormation . ' formation suivis : ' . $donnees->nomFormation . ' lieux de formation : ' . $donnees->lieuFormation . '</p>';
