@@ -22,7 +22,9 @@ header('Location : ../index.php');
 include '../include/header.php';
 ?>
 
-<a href="../controleur/logout.php">Deconnexion</a>
+<div class="container">
+<a class="form-control text-center col-2" href="../controleur/logout.php">Deconnexion</a>
+</div>
 
 <div class="container">
     <div class="column">
@@ -37,7 +39,7 @@ include '../include/header.php';
 <div class="container">
     <div class="card">
         <div class="card-title">
-            <h4 class="text-center" style="margin-top : 3%;">Création d'utilisateur : <h4>
+            <h4 class="text-center">Création d'utilisateur : <h4>
         </div>
 <div class="card-body">
         <!-- Formulaire de création d'utilisateur -->
@@ -97,11 +99,11 @@ include '../include/header.php';
 
             // Insertion de l'utilisateur dans la BDD
             $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, pseudoUtilisateur= :pseudoUtilisateur, dateEntreeFormation = :dateEntreeFormation, dateFinFormation = :dateFinFormation, idRole = 3');
-            $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
-            $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
-            $creationUtilisateur->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
-            $creationUtilisateur->bindParam(':dateEntreeFormation', $_POST['dateEntreeFormation']);
-            $creationUtilisateur->bindParam(':dateFinFormation', $_POST['dateFinFormation']);
+            $creationUtilisateur->bindParam('nomUtilisateur', $_POST['nomUtilisateur']);
+            $creationUtilisateur->bindParam('prenomUtilisateur', $_POST['prenomUtilisateur']);
+            $creationUtilisateur->bindParam('pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+            $creationUtilisateur->bindParam('dateEntreeFormation', $_POST['dateEntreeFormation']);
+            $creationUtilisateur->bindParam('dateFinFormation', $_POST['dateFinFormation']);
             $creationUtilisateur->execute();
            
             // Récupération du dernier Id inséré
@@ -131,7 +133,7 @@ include '../include/header.php';
 <div class="container">
     <div class="card">
         <div class="card-title">
-            <h4 class="text-center" style="margin-top : 3%;">Création d'un administrateur :</h4>
+            <h4 class="text-center">Création d'un administrateur :</h4>
         </div>
 
 <div class="card-body">
@@ -210,18 +212,27 @@ include '../include/header.php';
 
 
 
-<!----------------------------------------   PARTIE AFFICHAGE DES UTILISATEURS   ------------------------->
-<div class="container">
+<!-----------------------  PARTIE AFFICHAGE DES UTILISATEURS AVEC SELECTION  ------------------------->
+<div class="container" style="margin-bottom : 3%;">
+
     <div class="card">
+
         <div class="card-title">
-            <h5 class="text-center">Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5>
+            <h4 class="text-center">Affichage des utilisateurs</h4>
         </div>
+
 <!-- Pour selectionner la date -->
 <form method="POST">
 
-    <label>Afficher tout les utilisateurs trié par date</label>
+    <div class="row">
+
+        <div class="col">
+    <h5 class="text-center">Afficher par date</h5>
     <input class="form-control" type="date" name="afficherUtilisateurDate"/>
-    <label>Afficher tout les utilisateurs trié par type de formation</label>
+        </div>
+
+<div class="col">
+    <h5 class="text-center">Afficher par type de formation</h5>
     <select  class="form-control" name="choixTypeFormation">
         <?php 
             $types = $pdo->query("SELECT * FROM formations ");
@@ -234,14 +245,11 @@ include '../include/header.php';
             }   
         ?>
     </select>
-    <div class="container">
-        <button class="btn btn-primary col-12"type="submit">Valider</button>
-    </div>
-</form>
+</div>
 
+<div class="col">
 <!-- Pour la selection des formations par lieu -->
-<form method="POST">
-    <label>Afficher tout les utilisateurs trié par lieu de formation</label>
+    <h5 class="text-center">Afficher par lieu de formation</h5>
     <select class="form-control" name="choixLieuFormation">
         <?php 
             $lieux = $pdo->query("SELECT * FROM lieux ");
@@ -254,15 +262,23 @@ include '../include/header.php';
             } 
             ?>
     </select>
-    <div class="container">
-        <button class="btn btn-primary col-12" type="submit">Valider</button>
+</div>
+
     </div>
+
+    <div class="container">
+        <button class="btn btn-primary col-12"  type="submit">Valider</button>
 </form>
+
+    </div>
 </div>
-</div>
+
+
+
+<div class="container" >
 <?php
 
-// Les fonctions qui affichent les utilisateurs selon la selections //
+// Les fonctions qui affichent les utilisateurs selon la selection //
 if(isset($_POST['afficherUtilisateurDate'])) {
 
 $choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
@@ -274,7 +290,7 @@ $choixTypesFormationsAffichage->execute();
 if(!empty($_POST['afficherUtilisateurDate'] || $_POST['choixLieuFormation'] || $_POST['choixTypeFormation'] )) { 
 ?>
 <table class="table">
-<thead>
+<thead class="thead-dark">
     <tr>
         <th scope="col">Nom</th>
         <th scope="col">Prenom</th>
@@ -301,55 +317,61 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 }}}
 
 ?>
+</table>
+</div>
 
-<div class="container text-center" style="width : 100%;">
-    <div class="row">
-        <div class="card col-5" style="margin : 0.5%;">
+
+<!---------------------------------------- PARTIE QUI AFFICHE TOUT LES UTILISATEURS ---------------------->
+<div class="container text-center">
+    <div class="row" style="margin-bottom : 3%;">
+        <div class="card col-6">
+
             <div class="card-title">
-                    <h5>Affichage de la totalité des utilisateurs</h5>
+                <h5 class="text-center">Affichage de la totalité des utilisateurs</h5>
             </div>
+
     <form method="POST">
             
-            <button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
-            <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
+            <button class="btn btn-primary" type="submit" name="afficherMembre"><a href="#afficheUtilisateurs"></a>Afficher tout les utilisateurs</button>
+            <button class="btn btn-primary" type="submit" name="fermerMembre"><a href="#fermerAfficheUtilisateurs"></a>Fermer l'affichage des utilisateurs</button>
             
-            </div>
+        </div>
             
-            <div class="card col-5" style="margin : 0.5%;">
-            <div class="card-title">
-            <h5 class="text-center">Suppression d'un utilisateur<h5>
+            <div class="card col-6">
+                <div class="card-title">
+                    <h5 class="text-center">Rendre annonyme l'utilisateur<h5>
                 </div>
-                <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
-                <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
-                <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
-            </div>
-        </form>
-    </div>
-    
-    
-    
-    <?php
-    $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
-    $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
-    $membreDelete->execute();
 
+                <label for="">Entrer le pseudo de l'utilisateur</label>
+                <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
+
+                <button class="btn btn-primary" type="submit" name="deleteMembreExecute"><a href="#afficheUtilisateurs"></a>Rendre annonyme l'utilisateur</button> 
+    </div>
+    </form>
+            </div>
+</div>
+
+
+    <?php
     // Afficher toute la liste des utilisateurs //
     if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
         $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
-        
+   ?>     
+   <div class="container">
+            <table class="table">
+     <thead class="thead-dark">
+         <tr>
+             <th scope="col">Nom</th>
+             <th scope="col">Prenom</th>
+             <th scope="col">Pseudo</th>
+             <th scope="col">Date d'entree en formation</th>
+             <th scope="col">Date de fin de formation</th>
+             <th scope="col">Nom de la formation</th>
+         </tr>
+     </thead>
+            <?php
         while ($donnees = $membre->fetch()){
             ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
       <tbody>
           <tr>
               <td><?php echo $donnees->nomUtilisateur ?></td>
@@ -360,7 +382,13 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
               <td><?php echo $donnees->nomFormation ?></td>
             </tr>
         </tbody>
-    </table>
     <?php
         }}
-    ?>
+    ?>    
+</table>
+    </div>
+    <?php
+    $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
+    $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
+    $membreDelete->execute();
+?>

@@ -12,5 +12,5 @@
 
 	<body>
 		<header>
-	
+	<!-- <div class="bordure-top"> -->
 		</header>
