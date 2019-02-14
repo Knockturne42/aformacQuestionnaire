@@ -23,8 +23,9 @@ if($_SESSION['auth'] && $statut == 2)
 	<!-- Formulaire de suppression de formation -->
 	<form method="post" action="">
 		<label for="formations">Choisir une formation à supprimer : </label>
-		<select name="formations"><!-- Affiche les formations existantes -->
+		<select name="formationsDel"><!-- Affiche les formations existantes -->
 			<?php
+				// Affiche les formation existantes
 				$Forms = $pdo->query("SELECT * FROM formations");
 	            $selectForms = $Forms->fetchAll();
 	            foreach($selectForms as $selectForm)
@@ -39,15 +40,38 @@ if($_SESSION['auth'] && $statut == 2)
 
 <?php
 	// Ajouter une formation
-	if(isset($_POST['submAddFormation']) && empty($_POST['submAddFormation']))
+	if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
 	{
-		$createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
-		$createFormation->execute(['nomFormation' => $_POST['addFormation']]);
+		$formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+
+		if($formation)
+		{
+			$erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+		}
+		else
+		{
+			$createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+			$createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+			$createFormation->execute();
+
+			$erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+		}
 	}
+	else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+	{
+		$erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+	}
+
 	// Supprimer une formation
-	$deleteFormation = $pdo->prepare("UPDATE formations SET nomFormation = '?' WHERE nomFormation = :nomFormation");
-    $deleteFormation->bindParam(':nomFormation', $_POST['submDelFormation']);
-    $deleteFormation->execute();
+	if (isset($_POST['submDelFormation']))
+	{
+		$deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
+		$deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
+	}
+
 
 }	// SINON SI L'ADMIN N'EST PAS CONNECTE
 else {
@@ -127,7 +151,7 @@ header('Location : ../index.php');
             $selectFormation->bindParam(':idFormation', $_POST['selectFormation']);
             $selectFormation->execute();
     
-            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction selocalise
+            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction suitformation
     
             $selectLieuFormation = $pdo->prepare("INSERT INTO selocalise SET idUtilisateur = :idUtilisateur, idLieu = :idLieu");
             $selectLieuFormation->bindParam(':idUtilisateur', $dernierId);
@@ -137,66 +161,14 @@ header('Location : ../index.php');
 
     }
     ?>
-<br><br>
-<h5>Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5><br>
-
-<form method="POST">
-
-    <label>Afficher tout les utilisateurs trié par date:</label>
-    <input type="date" name="afficherUtilisateurDate"/>
-    <label>Afficher tout les utilisateurs trié par type de formation:</label>
-    <select class="choixTypeFormation" name="choixTypeFormation">
-        <?php 
-            $types = $pdo->query("SELECT * FROM formations ");
-            $choixTypesFormations = $types->fetchAll(); ?>
-            <option value="">Selection de formation</option>
-            <?php
-            foreach($choixTypesFormations as $choixTypeFormation) { ?>
-            <option value="<?php echo $choixTypeFormation->idFormation;?>" name="depSel"><?php echo $choixTypeFormation->nomFormation;?></option>
-            <?php 
-            }   
-        ?>
-    </select>
-    <button type="submit">Valider</button>
-</form>
-<form method="POST">
-    <label>Afficher tout les utilisateurs trié par lieu de formation:</label>
-    <select class="choixLieuFormation" name="choixLieuFormation">
-        <?php 
-            $lieux = $pdo->query("SELECT * FROM lieux ");
-            $choixLieuxFormations = $lieux->fetchAll();?>
-            <option value="">Selection du lieux</option>
-            <?php
-            foreach($choixLieuxFormations as $choixLieuFormation) {?>
-                <option value="<?php echo $choixLieuFormation->idLieu;?>" name="depSel"><?php echo $choixLieuFormation->lieuFormation;?></option>
-            <?php 
-            } 
-            ?>
-    </select>
-    <button type="submit">Valider</button>
-</form>
-<?php
-if(isset($_POST['afficherUtilisateurDate'])) {
-
-$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
-$choixTypesFormationsAffichage->bindParam('dateEntreeFormation', $_POST['afficherUtilisateurDate']);
-$choixTypesFormationsAffichage->bindParam('idFormation', $_POST['choixTypeFormation']);
-$choixTypesFormationsAffichage->bindParam('idLieu', $_POST['choixLieuFormation']);
-$choixTypesFormationsAffichage->execute();
-
-while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
-
-echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesSelection->prenomUtilisateur . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . ' formation suivis : ' . $donneesSelection->nomFormation . ' lieux de formation ' . $donneesSelection->lieuFormation . '</p>';
-
-}}
-?>
+<br>
 <br>
 <h5>Suppression d'un utilisateur:<h5>
     <form method="POST">
 
         <button type="submit" name="afficherMembre">Afficher les utilisateurs</button>
         <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
-        <label for="">Entrer le pseudo de l'utilisateur a supprimer:</label>
+        <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
         <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
         <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
 
@@ -218,3 +190,5 @@ echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesS
     $membreDelete->execute();
 
 ?>
+
+<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur) ?>

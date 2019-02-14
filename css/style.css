@@ -101,3 +101,9 @@ table {
 	border: solid black 2px;
 	margin: 0.5%;
 }
+
+.erreur /* Message d'erreur */
+{
+	color: red;
+	font-weight: bold;
+}
