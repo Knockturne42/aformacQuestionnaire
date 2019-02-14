@@ -204,7 +204,7 @@ include '../include/header.php';
 <?php
 if(isset($_POST['afficherUtilisateurDate'])) {
 
-$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
+$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
 $choixTypesFormationsAffichage->bindParam('dateEntreeFormation', $_POST['afficherUtilisateurDate']);
 $choixTypesFormationsAffichage->bindParam('idFormation', $_POST['choixTypeFormation']);
 $choixTypesFormationsAffichage->bindParam('idLieu', $_POST['choixLieuFormation']);
