@@ -8,10 +8,73 @@ loggedOnly();
 // session_start();
 
 $statut = $_SESSION['auth']->idRole;
-if($_SESSION['auth'] && $statut == 2) {
-echo 'vous êtes sur une page admin';
+if($_SESSION['auth'] && $statut == 2)
+{	// TANT QUE L'ADMIN EST CONNECTE
+?>
 
-} else {
+	<!-- Formulaire d'ajout de formation -->
+	<form method="post" action="">
+		<input type="text" name="addFormation">
+
+		<input type="submit" name="submAddFormation" value="Ajouter la formation">
+	</form>
+
+
+	<!-- Formulaire de suppression de formation -->
+	<form method="post" action="">
+		<label for="formations">Choisir une formation à supprimer : </label>
+		<select name="formationsDel"><!-- Affiche les formations existantes -->
+			<?php
+				// Affiche les formation existantes
+				$Forms = $pdo->query("SELECT * FROM formations");
+	            $selectForms = $Forms->fetchAll();
+	            foreach($selectForms as $selectForm)
+	       	{ ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+		</select>
+
+		<input type="submit" name="submDelFormation" value="Supprimer la formation">
+	</form>
+
+
+<?php
+	// Ajouter une formation
+	if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+	{
+		$formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+
+		if($formation)
+		{
+			$erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+		}
+		else
+		{
+			$createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+			$createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+			$createFormation->execute();
+
+			$erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+		}
+	}
+	else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+	{
+		$erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+	}
+
+	// Supprimer une formation
+	if (isset($_POST['submDelFormation']))
+	{
+		$deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
+		$deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
+	}
+
+
+}	// SINON SI L'ADMIN N'EST PAS CONNECTE
+else {
 
 header('Location : ../index.php');
 }
@@ -88,7 +151,7 @@ header('Location : ../index.php');
             $selectFormation->bindParam(':idFormation', $_POST['selectFormation']);
             $selectFormation->execute();
     
-            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction selocalise
+            // Insérer l'id lieu de formation et l'id utilisateurs dans la table de jonction suitformation
     
             $selectLieuFormation = $pdo->prepare("INSERT INTO selocalise SET idUtilisateur = :idUtilisateur, idLieu = :idLieu");
             $selectLieuFormation->bindParam(':idUtilisateur', $dernierId);
@@ -127,3 +190,5 @@ header('Location : ../index.php');
     $membreDelete->execute();
 
 ?>
+
+<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur) ?>

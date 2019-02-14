@@ -99,9 +99,21 @@ footer
 {
 	list-style-type: none;
 }
+<<<<<<< HEAD
 .card {
 margin: 5%;
 }
 button {
 	margin-top: 3%;
+=======
+table {
+	border: solid black 2px;
+	margin: 0.5%;
+}
+
+.erreur /* Message d'erreur */
+{
+	color: red;
+	font-weight: bold;
+>>>>>>> 36f7220b6f4cd03594aa0e402124792bea4ab842
 }
