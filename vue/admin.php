@@ -98,14 +98,66 @@ header('Location : ../index.php');
 
     }
     ?>
-<br>
+<br><br>
+<h5>Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5><br>
+
+<form method="POST">
+
+    <label>Afficher tout les utilisateurs trié par date:</label>
+    <input type="date" name="afficherUtilisateurDate"/>
+    <label>Afficher tout les utilisateurs trié par type de formation:</label>
+    <select class="choixTypeFormation" name="choixTypeFormation">
+        <?php 
+            $types = $pdo->query("SELECT * FROM formations ");
+            $choixTypesFormations = $types->fetchAll(); ?>
+            <option value="">Selection de formation</option>
+            <?php
+            foreach($choixTypesFormations as $choixTypeFormation) { ?>
+            <option value="<?php echo $choixTypeFormation->idFormation;?>" name="depSel"><?php echo $choixTypeFormation->nomFormation;?></option>
+            <?php 
+            }   
+        ?>
+    </select>
+    <button type="submit">Valider</button>
+</form>
+<form method="POST">
+    <label>Afficher tout les utilisateurs trié par lieu de formation:</label>
+    <select class="choixLieuFormation" name="choixLieuFormation">
+        <?php 
+            $lieux = $pdo->query("SELECT * FROM lieux ");
+            $choixLieuxFormations = $lieux->fetchAll();?>
+            <option value="">Selection du lieux</option>
+            <?php
+            foreach($choixLieuxFormations as $choixLieuFormation) {?>
+                <option value="<?php echo $choixLieuFormation->idLieu;?>" name="depSel"><?php echo $choixLieuFormation->lieuFormation;?></option>
+            <?php 
+            } 
+            ?>
+    </select>
+    <button type="submit">Valider</button>
+</form>
+<?php
+if(isset($_POST['afficherUtilisateurDate'])) {
+
+$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
+$choixTypesFormationsAffichage->bindParam('dateEntreeFormation', $_POST['afficherUtilisateurDate']);
+$choixTypesFormationsAffichage->bindParam('idFormation', $_POST['choixTypeFormation']);
+$choixTypesFormationsAffichage->bindParam('idLieu', $_POST['choixLieuFormation']);
+$choixTypesFormationsAffichage->execute();
+
+while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
+
+echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesSelection->prenomUtilisateur . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . ' formation suivis : ' . $donneesSelection->nomFormation . ' lieux de formation ' . $donneesSelection->lieuFormation . '</p>';
+
+}}
+?>
 <br>
 <h5>Suppression d'un utilisateur:<h5>
     <form method="POST">
 
         <button type="submit" name="afficherMembre">Afficher les utilisateurs</button>
         <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
-        <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
+        <label for="">Entrer le pseudo de l'utilisateur a supprimer:</label>
         <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
         <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
 
