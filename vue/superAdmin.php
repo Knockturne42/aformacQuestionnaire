@@ -8,9 +8,12 @@ if(session_status() == PHP_SESSION_NONE) {
 
 loggedOnly();
 
+?>
+
+<?php
 $statut = $_SESSION['auth']->idRole;
 if($_SESSION['auth'] && $statut == 1) {?>
-<h1>vous etes sur une page superAdmin</h1>
+<h1 class="text-center">Page D'administrateur</h1>
 <?php
 } else {
 
@@ -20,24 +23,44 @@ include '../include/header.php';
 ?>
 
 <a href="../controleur/logout.php">Deconnexion</a>
-<p>Vous etes connectez avec le compte de <?php echo $_SESSION['auth']->nomUtilisateur?>
-<a href="../vue/insertion.php">Ajouter un questionnaire</a>
 
-<h5>Création d'utilisateur:<h5>
-<!-- Formulaire de création d'utilisateur -->
+<div class="container">
+    <div class="column">
+        <p class="text-center">Vous etes connectez avec le compte de <?php echo $_SESSION['auth']->nomUtilisateur?>
+    </div>
+        <div class="column">
+            <p class="text-center"><a href="../vue/insertion.php">Créer un questionnaire</a></p>
+        </div>
+</div>
+
+<!------------------------------------- PARTIE DE CREATION D'UTILISATEUR --------------------->
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <h4 class="text-center" style="margin-top : 3%;">Création d'utilisateur : <h4>
+        </div>
+<div class="card-body">
+        <!-- Formulaire de création d'utilisateur -->
 <form method="POST">
 
-    <input type="text" name="nomUtilisateur" placeholder="Nom de l'utilisateur"/>
-    <input type="text" name="prenomUtilisateur" placeholder="Prenom de l'utilisateur"/>
-    <input type="text" name="pseudoUtilisateur" placeholder="Pseudo de l'utilisateur"/>
-    <label>Date d'entrée en formation:</label>
-    <input type="date" name="dateEntreeFormation" />
+    <label>Nom de l'utilisateur</label>
+    <input class="form-control" type="text" name="nomUtilisateur" placeholder="Nom"/>
+
+    <label>Prenom de l'utilisateur</label>
+    <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prenom"/>
+
+    <label>Pseudo de l'utilisateur</label>
+    <input class="form-control" type="text" name="pseudoUtilisateur" placeholder="Pseudo"/>
+
+    <label>Date d'entrée en formation : </label>
+    <input class="form-control" type="date" name="dateEntreeFormation"/>
+
     <label>Date de fin de formation:</label>
-    <input type="date" name="dateFinFormation" />
+    <input class="form-control" type="date" name="dateFinFormation"/>
 
     <!-- Select du nom de formation -->
     <label for="selectFormation">Selectionnez la formation:</label>
-    <select name="selectFormation" id="selForm">
+    <select class="form-control" name="selectFormation" id="selForm">
         <?php
             $Forms = $pdo->query("SELECT * FROM formations");
             $selectForms = $Forms->fetchAll();
@@ -48,7 +71,7 @@ include '../include/header.php';
 
     <!-- Select des Lieux de formation -->
     <label for="selectLieux">Selectionnez le lieu de formation:</label>
-    <select name="selectLieux" class="selLieu">
+    <select class="form-control text-center" name="selectLieux" class="selLieu">
         <?php
             $lieux = $pdo->query("SELECT * FROM lieux");
             $selectLieux = $lieux->fetchAll();
@@ -56,14 +79,15 @@ include '../include/header.php';
             <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
             <?php  } ?>
     </select>
-    <button type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
-
+    <div class="container">
+    <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
+    </div>           
     <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
         // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
-        $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+        $req->bindParam('pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
         $membre = $req->fetch();
 
@@ -99,21 +123,36 @@ include '../include/header.php';
         }
     }
     ?>
-<br>
-<br>
-<h5>Création d'un administrateur:</h5>
+</div>
+    </div>
+</div>
 
+<!----------------------------------- PARTIE CREATION D'ADMINISTRATEUR --------------------------------->
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <h4 class="text-center" style="margin-top : 3%;">Création d'un administrateur :</h4>
+        </div>
+
+<div class="card-body">
 <!-- Formulaire de création d'un administrateur -->
 <form method="POST">
 
-    <input type="text" name="nomUtilisateur" placeholder="Nom de l'utilisateur"/>
-    <input type="text" name="prenomUtilisateur" placeholder="Prenom de l'utilisateur"/>
-    <input type="password" name="motDePasse" placeholder="Mot de passe"/>
-    <input type="password" name="motDePasseVerif" placeholder="Confirmation"/>
+    <label>Nom de l'administrateur</label>
+    <input class="form-control" type="text" name="nomUtilisateur" placeholder="Nom de l'utilisateur"/>
+
+    <label>Prenom de l'administrateur</label>
+    <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prenom de l'utilisateur"/>
+
+    <label>Mot de passe</label>
+    <input class="form-control" type="password" name="motDePasse" placeholder="Mot de passe"/>
+
+    <label>Confirmer le mot de passe</label>
+    <input class="form-control" type="password" name="motDePasseVerif" placeholder="Confirmation"/>
 
     <!-- Select des Lieux de formation -->
     <label for="selectLieux">Selectionnez le lieu de formation:</label>
-    <select name="selectLieux" class="selLieu">
+    <select class="form-control" name="selectLieux" class="selLieu">
         <?php
             $lieux = $pdo->query("SELECT * FROM lieux");
             $selectLieux = $lieux->fetchAll();
@@ -121,7 +160,11 @@ include '../include/header.php';
             <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
             <?php  } ?>
     </select>
-    <button type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
+
+    <div class="container">
+        <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'administrateur</button>
+    </div>
+
 <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
@@ -160,17 +203,26 @@ include '../include/header.php';
         }
     }
 ?>
-<br>
-<br>
-<h5>Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5>
+</div>
+    </div>
+</div>
 
+
+
+
+<!----------------------------------------   PARTIE AFFICHAGE DES UTILISATEURS   ------------------------->
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <h5 class="text-center">Afficher les utilisateurs par date ou type de formation ou lieu de formation</h5>
+        </div>
 <!-- Pour selectionner la date -->
 <form method="POST">
 
     <label>Afficher tout les utilisateurs trié par date</label>
-    <input type="date" name="afficherUtilisateurDate"/>
+    <input class="form-control" type="date" name="afficherUtilisateurDate"/>
     <label>Afficher tout les utilisateurs trié par type de formation</label>
-    <select class="choixTypeFormation" name="choixTypeFormation">
+    <select  class="form-control" name="choixTypeFormation">
         <?php 
             $types = $pdo->query("SELECT * FROM formations ");
             $choixTypesFormations = $types->fetchAll(); ?>
@@ -182,13 +234,15 @@ include '../include/header.php';
             }   
         ?>
     </select>
-    <button type="submit">Valider</button>
+    <div class="container">
+        <button class="btn btn-primary col-12"type="submit">Valider</button>
+    </div>
 </form>
 
 <!-- Pour la selection des formations par lieu -->
 <form method="POST">
     <label>Afficher tout les utilisateurs trié par lieu de formation</label>
-    <select class="choixLieuFormation" name="choixLieuFormation">
+    <select class="form-control" name="choixLieuFormation">
         <?php 
             $lieux = $pdo->query("SELECT * FROM lieux ");
             $choixLieuxFormations = $lieux->fetchAll();?>
@@ -200,8 +254,12 @@ include '../include/header.php';
             } 
             ?>
     </select>
-    <button type="submit">Valider</button>
+    <div class="container">
+        <button class="btn btn-primary col-12" type="submit">Valider</button>
+    </div>
 </form>
+</div>
+</div>
 <?php
 
 // Les fonctions qui affichent les utilisateurs selon la selections //
@@ -213,35 +271,96 @@ $choixTypesFormationsAffichage->bindParam('idFormation', $_POST['choixTypeFormat
 $choixTypesFormationsAffichage->bindParam('idLieu', $_POST['choixLieuFormation']);
 $choixTypesFormationsAffichage->execute();
 
+if(!empty($_POST['afficherUtilisateurDate'] || $_POST['choixLieuFormation'] || $_POST['choixTypeFormation'] )) { 
+?>
+<table class="table">
+<thead>
+    <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prenom</th>
+        <th scope="col">Pseudo</th>
+        <th scope="col">Date d'entree en formation</th>
+        <th scope="col">Date de fin de formation</th>
+        <th scope="col">Nom de la formation</th>
+    </tr>
+</thead>
+<?php
 while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
-
-echo '<table><tr><td> nom : ' . $donneesSelection->nomUtilisateur . '</td>' . '<td>' .' prenom : ' . $donneesSelection->prenomUtilisateur . '</td>' . '<td>' . ' date d\'entrée en formation : ' . $donneesSelection->dateEntreeFormation . '</td>' . '<td>' . 'formation suivis : ' . $donneesSelection->nomFormation . '</td>' . '<td>' . ' lieux de formation ' . $donneesSelection->lieuFormation . '</td>' . '</tr></table>';
-
-}}
+?>
+  <tbody>
+      <tr>
+          <td><?php echo $donneesSelection->nomUtilisateur ?></td>
+          <td><?php echo $donneesSelection->prenomUtilisateur ?></td>
+          <td><?php echo $donneesSelection->pseudoUtilisateur ?></td>
+          <td><?php echo $donneesSelection->dateEntreeFormation ?></td>
+          <td><?php echo $donneesSelection->dateFinFormation?></td>
+          <td><?php echo $donneesSelection->nomFormation ?></td>
+        </tr>
+    </tbody>
+<?php
+}}}
 
 ?>
 
-<h5>Suppression d'un utilisateur<h5>
-<form method="POST">
-
-    <button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
-    <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
-    <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
-    <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
-    <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
-
-</form>
-<?php
-// Afficher toute la liste des membres //
-if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
-$membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
-
-while ($donnees = $membre->fetch()){
-    echo '<p> nom : ' . $donnees->nomUtilisateur . ' prenom : ' . $donnees->prenomUtilisateur . ' date d\'entrée en formation : ' . $donnees->dateEntreeFormation . ' formation suivis : ' . $donnees->nomFormation . ' lieux de formation : ' . $donnees->lieuFormation . '</p>';
+<div class="container text-center" style="width : 100%;">
+    <div class="row">
+        <div class="card col-5" style="margin : 0.5%;">
+            <div class="card-title">
+                    <h5>Affichage de la totalité des utilisateurs</h5>
+            </div>
+    <form method="POST">
+            
+            <button type="submit" name="afficherMembre">Afficher tout les utilisateurs</button>
+            <button type="submit" name="fermerMembre">Fermer l'affichage des utilisateurs</button>
+            
+            </div>
+            
+            <div class="card col-5" style="margin : 0.5%;">
+            <div class="card-title">
+            <h5 class="text-center">Suppression d'un utilisateur<h5>
+                </div>
+                <label for="">Entrer le pseudo de l'utilisateur a supprimer</label>
+                <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
+                <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
+            </div>
+        </form>
+    </div>
     
-}
-}
-$membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
+    
+    
+    <?php
+    $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
     $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
     $membreDelete->execute();
-?>
+
+    // Afficher toute la liste des utilisateurs //
+    if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
+        $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
+        
+        while ($donnees = $membre->fetch()){
+            ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+      <tbody>
+          <tr>
+              <td><?php echo $donnees->nomUtilisateur ?></td>
+              <td><?php echo $donnees->prenomUtilisateur ?></td>
+              <td><?php echo $donnees->pseudoUtilisateur ?></td>
+              <td><?php echo $donnees->dateEntreeFormation ?></td>
+              <td><?php echo $donnees->dateFinFormation?></td>
+              <td><?php echo $donnees->nomFormation ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php
+        }}
+    ?>
