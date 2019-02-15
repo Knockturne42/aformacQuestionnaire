@@ -292,12 +292,13 @@ if(!empty($_POST['afficherUtilisateurDate'] || $_POST['choixLieuFormation'] || $
 <div class="container">
     <div class="row">
     
-        <div class="col-2 titreTableau">Nom</div>
-        <div class="col-2 titreTableau">Prenom</div>
-        <div class="col-2 titreTableau">Pseudo</div>
-        <div class="col-2 titreTableau">Date d'entree en formation</div>
-        <div class="col-2 titreTableau">Date de fin de formation</div>
-        <div class="col-2 titreTableau">Nom de la formation</div>
+        <div class="col-2 titreTableau">NOM</div>
+        <div class="col-2 titreTableau">PRENOM</div>
+        <div class="col-2 titreTableau">PSEUDO</div>
+        <div class="col-2 titreTableau">DATE D'ENTREE EN FORMATION</div>
+        <div class="col-2 titreTableau">DATE DE FIN DE FORMATION</div>
+        <div class="col-2 titreTableau">NOM DE LA FORMATION</div>
+
     </div>
 
 <?php
@@ -359,12 +360,12 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
    <div class="container">
             <div class="row">
 
-             <div class="col-2 titreTableau">Nom</div>
-             <div class="col-2 titreTableau">Prenom</div>
-             <div class="col-2 titreTableau">Pseudo</div>
-             <div class="col-2 titreTableau">Date d'entree en formation</div>
-             <div class="col-2 titreTableau">Date de fin de formation</div>
-             <div class="col-2 titreTableau">Nom de la formation</div>
+             <div class="col-2 titreTableau">NOM</div>
+             <div class="col-2 titreTableau">PRENOM</div>
+             <div class="col-2 titreTableau">PSEUDO</div>
+             <div class="col-2 titreTableau">DATE D'ENTREE EN FORMATION</div>
+             <div class="col-2 titreTableau">DATE DE FIN DE FORMATION</div>
+             <div class="col-2 titreTableau">NOM DE LA FORMATION</div>
          
             </div>
             <?php
