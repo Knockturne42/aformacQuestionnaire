@@ -12,50 +12,6 @@ if($_SESSION['auth'] && $statut == 2)
 {	// TANT QUE L'ADMIN EST CONNECTE
 ?>
 
-	<!-- Formulaire d'ajout de formation -->
-	<form method="post" action="">
-		<input type="text" name="addFormation">
-
-		<input type="submit" name="submAddFormation" value="Ajouter la formation">
-	</form>
-
-
-	<!-- Formulaire de suppression de formation -->
-	<form method="post" action="">
-		<label for="formations">Choisir une formation à supprimer : </label>
-		<select name="formations"><!-- Affiche les formations existantes -->
-			<?php
-				$Forms = $pdo->query("SELECT * FROM formations");
-	            $selectForms = $Forms->fetchAll();
-	            foreach($selectForms as $selectForm)
-	       	{ ?>
-            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
-            <?php  } ?>
-		</select>
-
-		<input type="submit" name="submDelFormation" value="Supprimer la formation">
-	</form>
-
-
-<?php
-	// Ajouter une formation
-	if(isset($_POST['submAddFormation']) && empty($_POST['submAddFormation']))
-	{
-		$createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
-		$createFormation->execute(['nomFormation' => $_POST['addFormation']]);
-	}
-	// Supprimer une formation
-	$deleteFormation = $pdo->prepare("UPDATE formations SET nomFormation = '?' WHERE nomFormation = :nomFormation");
-    $deleteFormation->bindParam(':nomFormation', $_POST['submDelFormation']);
-    $deleteFormation->execute();
-
-}	// SINON SI L'ADMIN N'EST PAS CONNECTE
-else {
-
-header('Location : ../index.php');
-}
-
-?>
 <a href="../controleur/logout.php">Deconnexion</a>
 
 <p>Vous etes connectez avec le compte de <?php echo $_SESSION['auth']->nomUtilisateur?>
@@ -100,6 +56,7 @@ header('Location : ../index.php');
     <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
+        // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
         $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
@@ -109,6 +66,7 @@ header('Location : ../index.php');
             echo 'Ce pseudo est déjà pris';
         } else {
 
+            // Insertion de l'utilisateur dans la BDD
             $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, pseudoUtilisateur= :pseudoUtilisateur, dateEntreeFormation = :dateEntreeFormation, dateFinFormation = :dateFinFormation, idRole = 3');
             $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
             $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
@@ -216,5 +174,51 @@ echo '<p> nom : ' . $donneesSelection->nomUtilisateur . ' prenom : ' . $donneesS
     $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
     $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
     $membreDelete->execute();
+
+?>
+<br><br>
+
+<!-- Formulaire d'ajout de formation -->
+<form method="post" action="">
+	<input type="text" name="addFormation">
+
+	<input type="submit" name="submAddFormation" value="Ajouter la formation">
+</form>
+
+
+<!-- Formulaire de suppression de formation -->
+<form method="post" action="">
+	<label for="formations">Choisir une formation à supprimer : </label>
+	<select name="formations"><!-- Affiche les formations existantes -->
+		<?php
+			$Forms = $pdo->query("SELECT * FROM formations");
+	        $selectForms = $Forms->fetchAll();
+	        foreach($selectForms as $selectForm)
+	    { ?>
+        <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+        <?php  } ?>
+	</select>
+
+	<input type="submit" name="submDelFormation" value="Supprimer la formation">
+</form>
+
+
+<?php
+	// Ajouter une formation
+	if(isset($_POST['submAddFormation']) && !empty($_POST['submAddFormation']))
+	{
+		$createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+		$createFormation->execute(['nomFormation' => $_POST['addFormation']]);
+	}
+	// Supprimer une formation
+	$deleteFormation = $pdo->prepare("UPDATE formations SET nomFormation = '?' WHERE nomFormation = :nomFormation");
+    $deleteFormation->bindParam(':nomFormation', $_POST['submDelFormation']);
+    $deleteFormation->execute();
+
+}	// SINON SI L'ADMIN N'EST PAS CONNECTE
+else {
+
+header('Location : ../index.php');
+}
 
 ?>
