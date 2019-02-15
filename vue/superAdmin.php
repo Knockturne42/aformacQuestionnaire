@@ -13,7 +13,7 @@ loggedOnly();
 <?php
 $statut = $_SESSION['auth']->idRole;
 if($_SESSION['auth'] && $statut == 1) {?>
-<h1 class="text-center">Page D'administrateur</h1>
+<h1 class="text-center">Page super administrateur</h1>
 <?php
 } else {
 
@@ -89,7 +89,7 @@ include '../include/header.php';
 
         // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
-        $req->bindParam('pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+        $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
         $membre = $req->fetch();
 
@@ -390,3 +390,79 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
     $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
     $membreDelete->execute();
 ?>
+<div class="container">
+    <div class="row">
+        <div class="card col-6">
+            <div class="card-title">
+                <h4 class="text-center">Ajouter une formation</h4>
+            </div>
+    <!-- Formulaire d'ajout de formation -->
+    <form method="post" action="">
+    <label>Ajouter une formation</label>
+    <input class="form-control" type="text" name="addFormation">
+    
+        <input class="btn btn-primary col-12"  type="submit" name="submAddFormation" value="Ajouter la formation">
+    </form>
+        </div>
+<div class="card col-6">
+    <!-- Formulaire de suppression de formation -->
+    <form method="post" action="">
+        <div class="card-title">
+            <h4 class="text-center">Supprimer une formation</h4>
+        </div>
+
+        <label for="formations">Choisir une formation à supprimer : </label>
+
+        <select class="form-control" name="formationsDel"><!-- Affiche les formations existantes -->
+        <?php
+                // Affiche les formation existantes
+                $Forms = $pdo->query("SELECT * FROM formations");
+                $selectForms = $Forms->fetchAll();
+                foreach($selectForms as $selectForm)
+               { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+        </select>
+        
+        <input class="btn btn-primary col-12" type="submit" name="submDelFormation" value="Supprimer la formation">
+    
+    </form>
+</div>
+    </div>
+</div>
+
+<?php
+    // Ajouter une formation
+    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+    {
+        $formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+        
+        if($formation)
+        {
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+        }
+        else
+        {
+            $createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+            $createFormation->execute();
+            
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+        }
+    }
+    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+    {
+        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+    }
+    
+    // Supprimer une formation
+    if (isset($_POST['submDelFormation']))
+    {
+        $deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
+        $deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
+    }?>
+
+<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur)
