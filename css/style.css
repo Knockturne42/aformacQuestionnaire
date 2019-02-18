@@ -111,3 +111,14 @@ h4 {
 h5 {
 	margin-top: 3%;
 }
+
+.titreTable {
+	background-color: #303030fb;
+	color: white;
+	text-align: center;
+}
+
+.col-sm-2 {
+	border: 1px solid black;
+	text-align: center;
+}

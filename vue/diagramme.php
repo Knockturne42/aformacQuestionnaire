@@ -33,29 +33,33 @@ include ('../include/header.php');
 </form>
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-2 titreTable">Nom de la formation</div>
+        <div class="col-sm-2 titreTable">Montant de qualité</div>
+    </div>
     <?php
-        $nombreCol = 6;
-        $nombreRow = 4;
+        
+        if (isset($_POST['choixTypeFormation'])) {
 
-        for ($i = 1; $i <= $nombreRow; $i++) {
-            echo '<div class="row">';
-            for ($j = 1; $j<= $nombreCol; $j++) {
-                 echo '<div class="col-sm-2">coucou</div>';
+            $moyenne = $pdo->prepare("SELECT *, ROUND(AVG(montantNote), 2) as moyenne FROM notes NATURAL JOIN apournote NATURAL JOIN reponses NATURAL JOIN donnereponse NATURAL JOIN  utilisateurs NATURAL JOIN formations NATURAL JOIN suitformation WHERE idFormation = :idFormation GROUP BY nomFormation");
+            $moyenne->bindParam(':idFormation', $_POST['choixTypeFormation']);
+            $moyenne->execute();
+            var_dump($_POST['choixTypeFormation']);
+
+            while ($moyenneQual = $moyenne->fetch()) {
+                // var_dump($moyenneQual);
+                $nombreCol = 1;
+                $nombreRow = 1;
+                    
+                for ($i = 1; $i <= $nombreRow; $i++) {
+                    echo '<div class="row">';
+                        for ($j = 1; $j<= $nombreCol; $j++) { ?>
+                            <div class="col-sm-2"><?php echo $moyenneQual->nomFormation ?></div>
+                            <div class="col-sm-2"><?php echo $moyenneQual->moyenne ?></div>
+                        <?php    }
+                    echo '</div>';
                 }
-            echo '</div>';
+            }
         }
     ?>
 </div>
-
-<?php
-if (isset($_POST['choixTypeFormation'])) {
-
-    $note = $pdo->prepare("SELECT * FROM notes NATURAL JOIN apournote NATURAL JOIN reponses NATURAL JOIN formations NATURAL JOIN suitformation NATURAL JOIN  utilisateurs NATURAL JOIN donnereponse WHERE idFormation = :idFormation");
-    $note->bindParam(':idFormation', $_POST['choixTypeFormation']);
-    $note->execute();
-    
-    while ($donneeNote = $note->fetch()) {
-        echo '<p> Nom Utilisateur :'.' '.$donneeNote->nomUtilisateur.'<br> Nom de la formation :'.' '.$donneeNote->nomFormation.'<br> Note de la formation :'.' '.$donneeNote->montantNote.'</p>';
-    }
-}
-?>
