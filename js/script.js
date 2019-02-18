@@ -32,6 +32,7 @@ zoneQuestPlus[0].addEventListener("click", function () {
     var repPlus = document.createElement('div');
     repPlus.setAttribute('class', "repPlus");
     zonePlus.appendChild(repPlus);
+    repPlus.innerHTML = '+';
     plus(repPlus, zonePlus);
 })
 
@@ -44,3 +45,23 @@ function plus (target, parents) {
         parents.insertBefore(reponse, target);
     });
 };
+
+question.addEventListener('click', function(e){
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function (argument) {
+        if (httpRequest.readyState === 4)
+            document.getElementById('objetContent').innerHTML = httpRequest.responseText;
+    }
+    httpRequest.open('GET', './vue/question.php?askDiv=question', true);
+    httpRequest.send();
+});
+
+zonePlus.addEventListener('click', function(e){
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function (argument) {
+        if (httpRequest.readyState === 4)
+            document.getElementById('objetContent').innerHTML = httpRequest.responseText;
+    }
+    httpRequest.open('GET', './vue/question.php?askDiv=reponses&typeInp=', true);
+    httpRequest.send();
+});
