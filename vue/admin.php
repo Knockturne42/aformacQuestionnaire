@@ -21,18 +21,13 @@ if($_SESSION['auth'] && $statut == 2)
 <p><a class="form-control text-center col-2" href="../controleur/logout.php">Deconnexion</a></p>
 </div>
 
+<!------------------------ FORMULAIRE D'AJOUT DE FORMATION ----------------------------------------------->
 <div class="container">
     <div class="row">
         <div class="card col-6">
             <div class="card-title">
                 <h4 class="text-center">Ajouter une formation</h4>
             </div>
-
-
-
-
-
-<!------------------------ FORMULAIRE D'AJOUT DE FORMATION ----------------------------------------------->
     <form method="post" action="">
     <label>Ajouter une formation</label>
     <input class="form-control" type="text" name="addFormation">
