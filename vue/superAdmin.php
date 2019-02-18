@@ -81,9 +81,11 @@ include '../include/header.php';
             <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
             <?php  } ?>
     </select>
+
     <div class="container">
     <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
     </div>           
+    
     <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 

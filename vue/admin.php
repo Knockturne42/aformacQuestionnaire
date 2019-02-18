@@ -21,15 +21,181 @@ if($_SESSION['auth'] && $statut == 2)
 <p><a class="form-control text-center col-2" href="../controleur/logout.php">Deconnexion</a></p>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="card col-6">
+            <div class="card-title">
+                <h4 class="text-center">Ajouter une formation</h4>
+            </div>
+
+
+
+
+
+<!------------------------ FORMULAIRE D'AJOUT DE FORMATION ----------------------------------------------->
+    <form method="post" action="">
+    <label>Ajouter une formation</label>
+    <input class="form-control" type="text" name="addFormation">
+    
+        <input class="btn btn-primary col-12"  type="submit" name="submAddFormation" value="Ajouter la formation">
+    </form>
+        </div>
+
+
+
+
+
+<!----------------------- FORMULAIRE DE SUPRESSION DE FORMATION ------------------------------------------>
+<div class="card col-6">
+    <form method="post" action="">
+        <div class="card-title">
+            <h4 class="text-center">Supprimer une formation</h4>
+        </div>
+
+        <label for="formations">Choisir une formation à supprimer : </label>
+
+        <select class="form-control" name="formationsDel"><!-- Affiche les formations existantes -->
+        <?php
+                // Affiche les formation existantes
+                $Forms = $pdo->query("SELECT * FROM formations");
+                $selectForms = $Forms->fetchAll();
+                foreach($selectForms as $selectForm)
+               { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+        </select>
+        
+        <input class="btn btn-primary col-12" type="submit" name="submDelFormation" value="Supprimer la formation">
+    
+    </form>
+</div>
+    </div>
+</div>
+
+<?php
+    // Ajouter une formation
+    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+    {
+        $formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+        
+        if($formation)
+        {
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+        }
+        else
+        {
+            $createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+            $createFormation->execute();
+            
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+        }
+    }
+    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+    {
+        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+    }
+    
+    // Supprimer une formation
+    if (isset($_POST['submDelFormation']))
+    {
+        $deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
+        $deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
+    }?>
+
+<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur)
+?>
 <p class="text-center"><a href="../vue/insertion.php">Ajouter un questionnaire</a></p>
 
+
+
+
+
+<!------------------------ FORMULAIRE D'AJOUT DE SESSION ------------------------------------------------->
+<div class="container">
+
+    <div class="card">
+
+        <form method="post" action="">
+
+            <div class="card-title">
+                <h4 class="text-center">Ajouter une session</h4>
+            </div>
+
+                <div class=card-body>
+        <label for="formations">Choisir une formation : </label>
+
+        <select class="form-control" name="formationsSelection"><!-- Affiche les formations existantes -->
+        <?php
+                // Affiche les formation existantes
+                $Forms = $pdo->query("SELECT * FROM formations");
+                $selectForms = $Forms->fetchAll();
+                foreach($selectForms as $selectForm)
+               { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+        </select>
+        
+    <label>Identifiant de la session</label>
+    <input class="form-control" name="codeSessions">
+
+    <label>Date de début de formation</label>
+    <input type="date" class="form-control" name="dateDebutSession">
+
+    <label>Date de fin de formation</label>
+    <input type="date" class="form-control" name="dateFinSession">
+
+    <div class="container">
+    <button class="btn btn-primary col-12" type="submit" name="creationSession">Creer la session</button>
+    
+        </form>
+                </div>
+    </div>
+
+</div>
+
+<?php
+    // Ajouter une formation
+    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+    {
+        $formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+        
+        if($formation)
+        {
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+        }
+        else
+        {
+            $createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+            $createFormation->execute();
+            
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+        }
+    }
+    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+    {
+        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+    }
+?>
+
+
+
+
+
+<!----------------------- FORMULAIRE DE CREATION D'UTILISATEUR -------------------------------------------->
 <div class="container">
     <div class="card">
         <div class="card-title">
             <h4 class="text-center">Création d'utilisateur : <h4>
         </div>
 <div class="card-body">
-        <!-- Formulaire de création d'utilisateur -->
 <form method="POST">
 
     <label>Nom de l'utilisateur</label>
@@ -46,6 +212,18 @@ if($_SESSION['auth'] && $statut == 2)
 
     <label>Date de fin de formation:</label>
     <input class="form-control" type="date" name="dateFinFormation"/>
+
+    <!-- Select du nom de formation -->
+   <label for="selectFormation">Selectionnez la session</label>
+    <select class="form-control" name="selectSession" id="selForm">
+        <?php
+            $Forms = $pdo->query("SELECT * FROM formations");
+            $selectForms = $Forms->fetchAll();
+            foreach($selectForms as $selectForm) { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+    </select>
+    
 
    <!-- Select du nom de formation -->
    <label for="selectFormation">Selectionnez la formation:</label>
@@ -115,6 +293,10 @@ if($_SESSION['auth'] && $statut == 2)
 </div>
     </div>
 </div>
+
+
+
+
 
 <!-----------------------  PARTIE AFFICHAGE DES UTILISATEURS AVEC SELECTION  ------------------------->
 <div class="container" style="margin-bottom : 3%;">
@@ -224,7 +406,11 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 ?>
 </div>
 
-<!---------------------------------------- PARTIE QUI AFFICHE TOUT LES UTILISATEURS ---------------------->
+
+
+
+
+<!---------------------------- PARTIE QUI AFFICHE TOUT LES UTILISATEURS ---------------------------------->
 <div class="container text-center">
     <div class="row">
         <div class="card col-6">
@@ -288,82 +474,7 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
     ?>    
     </div>
 
-<div class="container">
-    <div class="row">
-        <div class="card col-6">
-            <div class="card-title">
-                <h4 class="text-center">Ajouter une formation</h4>
-            </div>
-    <!-- Formulaire d'ajout de formation -->
-    <form method="post" action="">
-    <label>Ajouter une formation</label>
-    <input class="form-control" type="text" name="addFormation">
-    
-        <input class="btn btn-primary col-12"  type="submit" name="submAddFormation" value="Ajouter la formation">
-    </form>
-        </div>
-<div class="card col-6">
-    <!-- Formulaire de suppression de formation -->
-    <form method="post" action="">
-        <div class="card-title">
-            <h4 class="text-center">Supprimer une formation</h4>
-        </div>
-
-        <label for="formations">Choisir une formation à supprimer : </label>
-
-        <select class="form-control" name="formationsDel"><!-- Affiche les formations existantes -->
-        <?php
-                // Affiche les formation existantes
-                $Forms = $pdo->query("SELECT * FROM formations");
-                $selectForms = $Forms->fetchAll();
-                foreach($selectForms as $selectForm)
-               { ?>
-            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
-            <?php  } ?>
-        </select>
-        
-        <input class="btn btn-primary col-12" type="submit" name="submDelFormation" value="Supprimer la formation">
-    
-    </form>
-</div>
-    </div>
-</div>
-
 <?php
-    // Ajouter une formation
-    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
-    {
-        $formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
-        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
-        $formationExist->execute();
-        $formation = $formationExist->fetch();
-        
-        if($formation)
-        {
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
-        }
-        else
-        {
-            $createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
-            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
-            $createFormation->execute();
-            
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
-        }
-    }
-    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
-    {
-        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
-    }
-    
-    // Supprimer une formation
-    if (isset($_POST['submDelFormation']))
-    {
-        $deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
-        $deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
-    }?>
-
-<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur)
 
 }	// SINON SI L'ADMIN N'EST PAS CONNECTE
 else {
