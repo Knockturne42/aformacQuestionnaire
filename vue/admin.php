@@ -252,7 +252,8 @@ if($_SESSION['auth'] && $statut == 2)
 
     <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
-        
+
+        // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
         $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
@@ -261,7 +262,8 @@ if($_SESSION['auth'] && $statut == 2)
         if($membre) {
             echo 'Ce pseudo est déjà pris';
         } else {
-            
+
+            // Insertion de l'utilisateur dans la BDD
             $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, pseudoUtilisateur= :pseudoUtilisateur, dateEntreeFormation = :dateEntreeFormation, dateFinFormation = :dateFinFormation, idRole = 3');
             $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
             $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);

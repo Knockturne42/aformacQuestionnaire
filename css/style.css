@@ -113,6 +113,17 @@ h4 {
 h5 {
 	margin-top: 3%;
 }
+
+.titreTable {
+	background-color: #303030fb;
+	color: white;
+	text-align: center;
+}
+
+.col-sm-2 {
+	border: 1px solid black;
+}
+
 .titreTableau {
 	border: solid 2px black;
 	text-align: center;
@@ -120,6 +131,7 @@ h5 {
 	background-color: rgb(6, 75, 16);
 	margin-top: 5%;
 }
+
 .donneesTableau {
 	border: solid 1px black;
 	text-align: center;
