@@ -13,7 +13,7 @@ loggedOnly();
 <?php
 $statut = $_SESSION['auth']->idRole;
 if($_SESSION['auth'] && $statut == 1) {?>
-<h1 class="text-center">Page D'administrateur</h1>
+<h1 class="text-center">Page super administrateur</h1>
 <?php
 } else {
 
@@ -81,15 +81,17 @@ include '../include/header.php';
             <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
             <?php  } ?>
     </select>
+
     <div class="container">
     <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
     </div>           
+    
     <?php
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
         // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
-        $req->bindParam('pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+        $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
         $membre = $req->fetch();
 
@@ -268,11 +270,10 @@ include '../include/header.php';
 
     <div class="container">
         <button class="btn btn-primary col-12"  type="submit">Valider</button>
+    </div>
 </form>
 
-    </div>
 </div>
-
 
 
 <div class="container" >
@@ -289,41 +290,42 @@ $choixTypesFormationsAffichage->execute();
 
 if(!empty($_POST['afficherUtilisateurDate'] || $_POST['choixLieuFormation'] || $_POST['choixTypeFormation'] )) { 
 ?>
-<table class="table">
-<thead class="thead-dark">
-    <tr>
-        <th scope="col">Nom</th>
-        <th scope="col">Prenom</th>
-        <th scope="col">Pseudo</th>
-        <th scope="col">Date d'entree en formation</th>
-        <th scope="col">Date de fin de formation</th>
-        <th scope="col">Nom de la formation</th>
-    </tr>
-</thead>
+
+<div class="container">
+    <div class="row">
+    
+        <div class="col-2 titreTableau">NOM</div>
+        <div class="col-2 titreTableau">PRENOM</div>
+        <div class="col-2 titreTableau">PSEUDO</div>
+        <div class="col-2 titreTableau">DATE D'ENTREE EN FORMATION</div>
+        <div class="col-2 titreTableau">DATE DE FIN DE FORMATION</div>
+        <div class="col-2 titreTableau">NOM DE LA FORMATION</div>
+
+    </div>
+
 <?php
 while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 ?>
-  <tbody>
-      <tr>
-          <td><?php echo $donneesSelection->nomUtilisateur ?></td>
-          <td><?php echo $donneesSelection->prenomUtilisateur ?></td>
-          <td><?php echo $donneesSelection->pseudoUtilisateur ?></td>
-          <td><?php echo $donneesSelection->dateEntreeFormation ?></td>
-          <td><?php echo $donneesSelection->dateFinFormation?></td>
-          <td><?php echo $donneesSelection->nomFormation ?></td>
-        </tr>
-    </tbody>
+    <div class="row">
+     
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->nomUtilisateur ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->prenomUtilisateur ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->pseudoUtilisateur ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateEntreeFormation ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateFinFormation?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->nomFormation ?></div>
+       
+    </div>
 <?php
 }}}
 
 ?>
-</table>
 </div>
 
 
 <!---------------------------------------- PARTIE QUI AFFICHE TOUT LES UTILISATEURS ---------------------->
 <div class="container text-center">
-    <div class="row" style="margin-bottom : 3%;">
+    <div class="row">
         <div class="card col-6">
 
             <div class="card-title">
@@ -358,37 +360,111 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
         $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
    ?>     
    <div class="container">
-            <table class="table">
-     <thead class="thead-dark">
-         <tr>
-             <th scope="col">Nom</th>
-             <th scope="col">Prenom</th>
-             <th scope="col">Pseudo</th>
-             <th scope="col">Date d'entree en formation</th>
-             <th scope="col">Date de fin de formation</th>
-             <th scope="col">Nom de la formation</th>
-         </tr>
-     </thead>
+            <div class="row">
+
+             <div class="col-2 titreTableau">NOM</div>
+             <div class="col-2 titreTableau">PRENOM</div>
+             <div class="col-2 titreTableau">PSEUDO</div>
+             <div class="col-2 titreTableau">DATE D'ENTREE EN FORMATION</div>
+             <div class="col-2 titreTableau">DATE DE FIN DE FORMATION</div>
+             <div class="col-2 titreTableau">NOM DE LA FORMATION</div>
+         
+            </div>
             <?php
         while ($donnees = $membre->fetch()){
             ?>
-      <tbody>
-          <tr>
-              <td><?php echo $donnees->nomUtilisateur ?></td>
-              <td><?php echo $donnees->prenomUtilisateur ?></td>
-              <td><?php echo $donnees->pseudoUtilisateur ?></td>
-              <td><?php echo $donnees->dateEntreeFormation ?></td>
-              <td><?php echo $donnees->dateFinFormation?></td>
-              <td><?php echo $donnees->nomFormation ?></td>
-            </tr>
-        </tbody>
+    <div class="row">
+          
+              <div class="col-2 donneesTableau"><?php echo $donnees->nomUtilisateur ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->prenomUtilisateur ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->pseudoUtilisateur ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->dateEntreeFormation ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->dateFinFormation?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->nomFormation ?></div>
+           
+    </div>
     <?php
         }}
     ?>    
-</table>
     </div>
     <?php
     $membreDelete = $pdo->prepare("UPDATE utilisateurs SET nomUtilisateur = 'Anonyme', prenomUtilisateur = 'Anonyme', pseudoUtilisateur = 'Anonyme' WHERE nomUtilisateur = :nomUtilisateur");
     $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
     $membreDelete->execute();
 ?>
+<div class="container">
+    <div class="row">
+        <div class="card col-6">
+            <div class="card-title">
+                <h4 class="text-center">Ajouter une formation</h4>
+            </div>
+    <!-- Formulaire d'ajout de formation -->
+    <form method="post" action="">
+    <label>Ajouter une formation</label>
+    <input class="form-control" type="text" name="addFormation">
+    
+        <input class="btn btn-primary col-12"  type="submit" name="submAddFormation" value="Ajouter la formation">
+    </form>
+        </div>
+<div class="card col-6">
+    <!-- Formulaire de suppression de formation -->
+    <form method="post" action="">
+        <div class="card-title">
+            <h4 class="text-center">Supprimer une formation</h4>
+        </div>
+
+        <label for="formations">Choisir une formation à supprimer : </label>
+
+        <select class="form-control" name="formationsDel"><!-- Affiche les formations existantes -->
+        <?php
+                // Affiche les formation existantes
+                $Forms = $pdo->query("SELECT * FROM formations");
+                $selectForms = $Forms->fetchAll();
+                foreach($selectForms as $selectForm)
+               { ?>
+            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <?php  } ?>
+        </select>
+        
+        <input class="btn btn-primary col-12" type="submit" name="submDelFormation" value="Supprimer la formation">
+    
+    </form>
+</div>
+    </div>
+</div>
+
+<?php
+    // Ajouter une formation
+    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+    {
+        $formationExist = $pdo->prepare("SELECT * FROM formations WHERE nomFormation = :formationExist");
+        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist->execute();
+        $formation = $formationExist->fetch();
+        
+        if($formation)
+        {
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+        }
+        else
+        {
+            $createFormation = $pdo->prepare('INSERT INTO formations SET nomFormation = :nomFormation');
+            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
+            $createFormation->execute();
+            
+            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+        }
+    }
+    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+    {
+        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+    }
+    
+    // Supprimer une formation
+    if (isset($_POST['submDelFormation']))
+    {
+        $deleteFormation = $pdo->prepare('DELETE FROM formations WHERE idFormation = :deleteFormation');
+        $deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
+    }?>
+
+<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur)

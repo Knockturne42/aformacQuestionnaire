@@ -102,8 +102,10 @@ footer
 .card {
 margin-top: 5%;
 }
-button {
-	margin-top: 3%;
+.btn {
+	margin-top: 5%;
+	margin-bottom: 3%;
+
 }
 h4 {
 	margin-top: 3%;
@@ -120,5 +122,17 @@ h5 {
 
 .col-sm-2 {
 	border: 1px solid black;
+}
+
+.titreTableau {
+	border: solid 2px black;
+	text-align: center;
+	color: white;
+	background-color: rgb(6, 75, 16);
+	margin-top: 5%;
+}
+
+.donneesTableau {
+	border: solid 1px black;
 	text-align: center;
 }
