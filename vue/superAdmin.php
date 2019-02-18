@@ -152,7 +152,7 @@ include '../include/header.php';
                 $creationUtilisateur->execute();
             
                 // Récupération du dernier Id inséré
-                $dernierId =  $pdo->lastInsertId();
+                // $dernierId =  $pdo->lastInsertId();
 
             }
         }
