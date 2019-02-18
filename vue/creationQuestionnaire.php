@@ -1,5 +1,6 @@
-<?php require_once '../modele/pdo.php';
-include '../include/header.php'?>
+<?php 
+include '../modele/pdo.php';
+include '../include/header.php'; ?>
 
 <h2>Creation de questionnaire</h2>
 
@@ -10,16 +11,12 @@ include '../include/header.php'?>
 
 <select class="choixType" name="choixType">
             <?php 
-                $pdo = new PDO('mysql:dbname=aformacQuestionnaire;host=localhost', 'maxAformacQuestionnaire', '14759');
-       
-                $types = $pdo->prepare("SELECT * FROM types ");
-                $types->execute(array());
+                $types = $pdo->query("SELECT * FROM types ");
                 $choixTypes = $types->fetchAll();
                 foreach($choixTypes as $choixType) {?>
-                <option value="<?php echo $choixType['idType'];?>" name="depSel"><?php echo $choixType['nomType'];?></option>
+                <option value="<?php echo $choixType->idType;?>" name="depSel"><?php echo $choixType->nomType;?></option>
                 <?php 
                 } 
-
                 ?>
             </select>
 <input type="submit">Envoyer
