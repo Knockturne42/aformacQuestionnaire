@@ -469,6 +469,61 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
     ?>    
     </div>
 
+
+
+
+
+<!--------------------------- FORMULAIRE AFFICHAGE RESULTAT ----------------------------------------------->
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <h4 class="text-center">Affichage des résultats</h4>
+        </div>
+
+<div class="card-body">
+<!-- Formulaire de création d'un administrateur -->
+<form method="POST">
+
+    <!-- Select des Lieux de formation -->
+    <label for="selectLieuxFormation">Affichage par Lieu de formation</label>
+    <select class="form-control" name="afficheResultatLieux" class="selLieu">
+        <?php
+            $lieux = $pdo->query("SELECT * FROM lieux");
+            $selectLieux = $lieux->fetchAll();
+            foreach($selectLieux as $selectLieu) { ?>
+            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <?php  } ?>
+    </select>
+
+    <label class="text-center">Afficher par date</label>
+    <input class="form-control" type="date" name="afficherResultatDate"/>
+        
+    <label for="selectFormation">Affichage par formtaion</label>
+    <select class="form-control" name="afficheResultatLieux" class="selLieu">
+        <?php
+            $lieux = $pdo->query("SELECT * FROM lieux");
+            $selectLieux = $lieux->fetchAll();
+            foreach($selectLieux as $selectLieu) { ?>
+            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <?php  } ?>
+    </select>
+
+    <label for="selectSession">Affichage par session de formation</label>
+    <select class="form-control" name="afficheResultatSession" class="selLieu">
+        <?php
+            $lieux = $pdo->query("SELECT * FROM lieux");
+            $selectLieux = $lieux->fetchAll();
+            foreach($selectLieux as $selectLieu) { ?>
+            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <?php  } ?>
+    </select>
+
+    <div class="container">
+        <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'administrateur</button>
+    </div>
+    </div>
+</div>
+
 <?php
 
 }	// SINON SI L'ADMIN N'EST PAS CONNECTE
