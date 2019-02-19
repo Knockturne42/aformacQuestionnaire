@@ -12,9 +12,9 @@
 <form method="POST" action="traitementReponses.php" class="was-validated">
     <div class="container">
 
-        <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
+        <input type="text" name="userLastNameConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
 
-        <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
+        <input type="text" name="userFirstNameConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
          <input type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
 
         <label for="">Titre de formation</label>
@@ -107,7 +107,7 @@
         <label>- Personnellement : </label>
 
         <label for="">Pas interessants</label>
-        <input type="range" name="rangeProfess" min="0" max="9" required>
+        <input type="range" name="rangePerso" min="0" max="9" required>
         <label for="">Tres interessants</label>
 
 </div>
