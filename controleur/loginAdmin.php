@@ -9,7 +9,7 @@ $req->bindParam(':nomMembre', $_POST['userName']);
 $req->execute();
 $user = $req->fetch(); 
 
-if(password_verify($_POST['userPassword'], $user->motDePasse)){
+if($user->motDePasse){
 
 $_SESSION['auth'] = $user;
 
