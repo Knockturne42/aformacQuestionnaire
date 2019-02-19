@@ -17,12 +17,21 @@ include '../controleur/class/input.php';
                 <div id="toto">
                     <div class="question">
                         <input type="text" placeholder="Question">
+                        <select class="choixType" name="choixType">
+            <?php 
+                
+                $types = $pdo->prepare("SELECT * FROM types ");
+                $types->execute(array());
+                while($choixType = $types->fetch())
+                {
+                    $choixType = json_decode(json_encode($choixType), true);
+                    echo '<option value="'.$choixType['idType'].'" name="depSel">'.$choixType['nomType'].'</option>';
+                } 
+
+                ?>
+            </select>
                     </div>
                     <br>
-                    <div class="reponse">
-                        <!-- Mettre ici le select + la génération de l'input suivant le type, à la place de celui en place -->
-                        <input type="text" placeholder="Réponse">
-                    </div>
                     <div class="repPlus">+</div>
                 </div>
             </div>
