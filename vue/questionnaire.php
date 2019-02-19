@@ -1,61 +1,91 @@
 
 
 <link rel="stylesheet" href="../css/bootstrap.min.css">
-
-
+<link rel="stylesheet" href="../css/style.css">
 
 <h2 class="text-center text-uppercase"> Evaluation de fin de formation (longue)</h2>
 <h2 class="text-center text-uppercase">D / 4.20 / 04</h2>
 <h3 class="text-center text-uppercase">Indice D</h3>
 
-
+<div class="container">
 <form method="POST" action="traitementReponses.php" class="was-validated">
     <div class="container">
+       <div class="card">
+           <div class="card-body">
+                        
+        <label class="form-control text-center" for=""><strong>Titre de formation :</strong></label>
+        <input class="form-control" type="text" name="formationNom" class="form-control col-lg-2" placeholder="Titre de la formation" required/>
+               
+        <label class="form-control text-center" for=""><strong>Nom de l'apprenant :</strong></label>
+        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
+        
+        <label class="form-control text-center" for=""><strong>Prenom de l'apprenant :</strong></label>
+        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
 
-        <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
-
-        <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
-         <input type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
-
-        <label for="">Titre de formation</label>
-        <input type="text" name="formationNom" class="form-control col-lg-2" required/>
-
-        <label for="">Dates d'entree en formation :</label>
-        <input type="date" name="formationDate" class="form-control col-lg-2" required/>
-        <label for="">Dates de sortie de formation :</label>
-        <input type="date" name="formationDate2" class="form-control col-lg-2" required/>
-
+        <label class="form-control text-center" for=""><strong>Lieu de formation :</strong></label>
+        <input class="form-control" type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
+        
+        <label class="form-control text-center" for=""><strong>Dates d'entrée en formation :</strong></label>
+        <input class="form-control" type="date" name="formationDate" class="form-control col-lg-2" required/>
+        
+        <label class="form-control text-center" for=""><strong>Dates de sortie de formation :</strong></label>
+        <input class="form-control" type="date" name="formationDate2" class="form-control col-lg-2" required/>
+        
+        </div>
+            </div>
     </div>
 
 <!--- Indication attentes avant la formation ---->
 <div class="container">
-    <h5>Aviez-vous des attentes concernant cette formation ?</h5>
-<div class="">
+
+    <div class="card">
+   
+    <h5 class="card-title text-center"><strong>Aviez-vous des attentes concernant cette formation ?</strong></h5>
+
+    <div class="card-body text-center">
+
     <input type="radio" name="radio-stacked" value="oui" class="" required>
     <label class="" for="radio-stacked">Oui</label>
- </div>
- <div class="">
+ 
     <input type="radio" class="" name="radio-stacked" value="non" required>
     <label class="" for="radio-stacked">Non</label>
-</div>
-    <p>Si oui lesquelles:</p>
+
+<!-------------------          --------------------------------------------------------------------------->
+    <p class="card-title text-center"><strong>Si oui lesquelles :</strong></p>
+    
+
     <div class="">
-    <input type="checkbox" class="" name="checkConnaissance">
-    <label for="checkConnaissance" class="">Elargir vos connaissances</label>
+
+    <input   id="checkConnaissance"  type="checkbox" class="" name="checkConnaissance">
+    <label  for="checkConnaissance" class="">Elargir vos connaissances</label>
+
     </div>
+
     <div class="">
-    <input class="" type="checkbox" name="checkNouvelleTechnique">
-    <label for="checkNouvelleTechnique" class="">Acquérir de nouvelles techniques</label>
+
+    <input  id="checkNouvelleTechnique" class="" type="checkbox" name="checkNouvelleTechnique">
+    <label  for="checkNouvelleTechnique" class="">Acquérir de nouvelles techniques</label>
+
     </div>
+
     <div class="">
-    <input class="" type="checkbox" name="checkPratique">
-    <label for="checkPratique" class="">Améliorer vos pratiques</label>
+
+    <input  id="checkPratique" class="" type="checkbox" name="checkPratique">
+    <label  for="checkPratique" class="">Améliorer vos pratiques</label>
+
     </div>
+
     <div class="">
-    <input class="" type="checkbox" name="checkAutre">
-    <label for="checkAutre" class="">Autre</label>
+        
+    <input   id="checkAutre" class="" type="checkbox" name="checkAutre">
+    <label  for="checkAutre" class="">Autre</label>
     </div>
-    <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="autreAttentesDebut" placeholder="Si autre, precisez..."></textarea>
+
+    <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="autreAttentesDebut" placeholder="Si autre, precisez..."></textarea>
+
+    </div>
+
+</div>  
 
 </div>
 
@@ -187,6 +217,7 @@
 <button type="submit" class="btn btn-primary">Valider</button>
 
 </form>
+</div>
 
 <script type="text/javascript" src="../js/ajax.js"></script>
 <?php include '../include/footer.php' ?>
