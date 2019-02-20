@@ -9,7 +9,7 @@ $req->bindParam(':nomMembre', $_POST['userName']);
 $req->execute();
 $user = $req->fetch(); 
 
-if($user->motDePasse){
+if(password_verify($_POST['userPassword'], $user->motDePasse)){
 
 $_SESSION['auth'] = $user;
 
@@ -18,7 +18,7 @@ $statut = $_SESSION['auth']->idRole;
 $_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';
 
 if($_SESSION['auth'] && $statut == 1) {
-header('Location: ../vue/superAdmin.php');
+header('Location: ../vue/admin.php');
 exit();
 
 } else if ($_SESSION['auth'] && $statut == 2) {

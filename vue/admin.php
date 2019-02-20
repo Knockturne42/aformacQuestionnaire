@@ -9,12 +9,13 @@ if(session_status() == PHP_SESSION_NONE) {
 loggedOnly();
 
 $statut = $_SESSION['auth']->idRole;
-if($_SESSION['auth'] && $statut == 2)
+if($_SESSION['auth'] && $statut == 2 || $statut == 1)
 {	// TANT QUE L'ADMIN EST CONNECTE
     include '../include/header.php';
+    var_dump($_SESSION['auth']);
     ?>
 
-<h1 class="text-center">Page administrateur</h2>
+<h1 class="text-center">Page administrateur</h1>
 <p class="text-center">Vous êtes connecté avec le compte <?php echo $_SESSION['auth']->nomAdmin?></p>
 
 <div class="container">
@@ -236,71 +237,73 @@ if($_SESSION['auth'] && $statut == 2)
 ?>
 
 
-
-
-
 <!----------------------- FORMULAIRE DE CREATION D'UTILISATEUR ------------------------------------------->
 <div class="container">
     <div class="card">
         <div class="card-title">
             <h4 class="text-center">Création d'utilisateur  <h4>
         </div>
-<div class="card-body">
-<form method="POST">
+        <div class="card-body">
+            <form method="POST">
 
-    <label>Nom de l'utilisateur :</label>
-    <input class="form-control" type="text" name="nomUtilisateur" placeholder="Nom"/>
+                <label>Nom de l'utilisateur :</label>
+                <input class="form-control" type="text" name="nomUtilisateur" placeholder="Nom"/>
 
-    <label>Prénom de l'utilisateur :</label>
-    <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prénom"/>
+                <label>Prénom de l'utilisateur :</label>
+                <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prénom"/>
 
-    <label>Pseudo de l'utilisateur :</label>
-    <input class="form-control" type="text" name="pseudoUtilisateur" placeholder="Pseudo"/>
+                <label>Pseudo de l'utilisateur :</label>
+                <input class="form-control" type="text" name="pseudoUtilisateur" placeholder="Pseudo"/>
 
-    <!-- Select de la session-->
-   <label for="selectFormation">Sélectionnez la session :</label>
-    <select class="form-control" name="selectSession" id="selForm">
-        <?php
-            $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
-            $selectForms = $Forms->fetchAll();
-            foreach($selectForms as $selectForm) { ?>
-            <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '. $selectForm->nomFormation; ?></option>
-            <?php  } ?>
-    </select>
+                <!-- Select de la session-->
+                <label for="selectFormation">Sélectionnez la session :</label>
+                <select class="form-control" name="selectSession" id="selForm">
+                    <?php
+                        $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
+                        $selectForms = $Forms->fetchAll();
+                        foreach($selectForms as $selectForm) { ?>
+                        <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '. $selectForm->nomFormation; ?></option>
+                        <?php  } ?>
+                </select>
 
-    <div class="container">
-    <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
-    </div> 
-
-    <?php
-    if(isset($_POST['creationUtilisateur']) && isset($_POST['selectSession'])) {
-        
-        $req = $pdo->prepare("SELECT * FROM apprenant WHERE pseudo = :pseudoUtilisateur");
-        $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
-        $req->execute();
-        $membre = $req->fetch();
-        
-        if($membre) {
-            echo 'Ce pseudo est déjà pris';
-        } else {
-            
-            $creationUtilisateur = $pdo->prepare('INSERT INTO apprenant SET nomApprenant = :nomUtilisateur, prenomApprenant = :prenomUtilisateur, pseudo = :pseudoUtilisateur, idSession = :choixSession');
-            $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
-            $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
-            $creationUtilisateur->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
-            $creationUtilisateur->bindParam(':choixSession', $_POST['selectSession']);
-            $creationUtilisateur->execute();
-            
-        }
-        
-    }
-    ?>
-</div>
+                <div class="container">
+                    <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'utilisateur</button>
+                </div> 
+            </form>
+            <?php
+                if(isset($_POST['creationUtilisateur']) && isset($_POST['selectSession'])) {
+                    
+                    $req = $pdo->prepare("SELECT * FROM apprenant WHERE pseudo = :pseudoUtilisateur");
+                    $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+                    $req->execute();
+                    $membre = $req->fetch();
+                    
+                    if($membre) {
+                        echo 'Ce pseudo est déjà pris';
+                    } else {
+                        
+                        $creationUtilisateur = $pdo->prepare('INSERT INTO apprenant SET nomApprenant = :nomUtilisateur, prenomApprenant = :prenomUtilisateur, pseudo = :pseudoUtilisateur, idSession = :choixSession');
+                        $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
+                        $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
+                        $creationUtilisateur->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
+                        $creationUtilisateur->bindParam(':choixSession', $_POST['selectSession']);
+                        $creationUtilisateur->execute();
+                        
+                    }
+                    
+                }
+            ?>
+        </div>
     </div>
 </div>
-
-
-
+<!-- TO FIX admin creation-->
+<!---------------------------------------- Formulaire création Admin ------------------------------------------->
+<?php
+$statut = $_SESSION['auth']->idRole;
+if($_SESSION['auth'] && $statut == 1) { 
+    require 'superAdmin.php';
+}
+?>
 
 
 <!-----------------------  PARTIE AFFICHAGE DES UTILISATEURS AVEC SELECTION  ------------------------->
@@ -441,7 +444,7 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
                 <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
 
                 <button class="btn btn-primary" type="submit" name="deleteMembreExecute"><a href="#afficheUtilisateurs"></a>Rendre anonyme l'utilisateur</button> 
-    </div>
+            </div>
     </form>
             </div>
 </div>
