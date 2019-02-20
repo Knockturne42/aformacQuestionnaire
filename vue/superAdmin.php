@@ -53,7 +53,7 @@
                             $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
                             $creationUtilisateur->bindParam(':motDePasse', $password);
                             $creationUtilisateur->execute();
-                        
+                            var_dump($creationUtilisateur);
                             // Récupération du dernier Id inséré
                             // $dernierId =  $pdo->lastInsertId();
 
