@@ -4,52 +4,56 @@
 
 
 
-<h2 class="text-center text-uppercase"> Evaluation de fin de formation </h2>
+<h2 class="text-center text-uppercase"> Evaluation de fin de formation (longue)</h2>
+<h2 class="text-center text-uppercase">D / 4.20 / 04</h2>
+<h3 class="text-center text-uppercase">Indice D</h3>
 
 
 <form method="POST" action="traitementReponses.php" class="was-validated">
     <div class="container">
 
-    <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
+        <input type="text" name="userLastNameConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
 
-    <input type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
-     <input type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
+        <input type="text" name="userFirstNameConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
+         <input type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
 
-    <label for="">Titre de formation</label>
-    <input type="text" name="formationNom" class="form-control col-lg-2" required/>
+        <label for="">Titre de formation</label>
+        <input type="text" name="formationNom" class="form-control col-lg-2" required/>
 
-    <label for="">Dates d'entree en formation :</label>
-    <input type="date" name="formationDate" class="form-control col-lg-2" required/>
+        <label for="">Dates d'entree en formation :</label>
+        <input type="date" name="formationDate" class="form-control col-lg-2" required/>
+        <label for="">Dates de sortie de formation :</label>
+        <input type="date" name="formationDate2" class="form-control col-lg-2" required/>
 
-</div>
+    </div>
 
 <!--- Indication attentes avant la formation ---->
 <div class="container">
     <h5>Aviez-vous des attentes concernant cette formation ?</h5>
-<div class="custom-control custom-radio">
-    <input type="radio" name="radio-stacked" value="oui" class="custom-control-input" required>
-    <label class="custom-control-label" for="radio-stacked">Oui</label>
+<div class="">
+    <input type="radio" name="radio-stacked" value="oui" class="" required>
+    <label class="" for="radio-stacked">Oui</label>
  </div>
- <div class="custom-control custom-radio">
-    <input type="radio" class="custom-control-input" name="radio-stacked" value="non" required>
-    <label class="custom-control-label" for="radio-stacked">Non</label>
+ <div class="">
+    <input type="radio" class="" name="radio-stacked" value="non" required>
+    <label class="" for="radio-stacked">Non</label>
 </div>
     <p>Si oui lesquelles:</p>
-    <div class="form-check custom-control custom-checkbox mb-3">
-    <input type="checkbox" class="form-check-input" name="checkConnaissance">
-    <label for="checkConnaissance" class="form-check-label">Elargir vos connaissances</label>
+    <div class="">
+    <input type="checkbox" class="" name="checkConnaissance">
+    <label for="checkConnaissance" class="">Elargir vos connaissances</label>
     </div>
-    <div class="form-check custom-control custom-checkbox mb-3">
-    <input class="form-check-input" type="checkbox" name="checkNouvelleTechnique">
-    <label for="checkNouvelleTechnique" class="form-check-label">Acquérir de nouvelles techniques</label>
+    <div class="">
+    <input class="" type="checkbox" name="checkNouvelleTechnique">
+    <label for="checkNouvelleTechnique" class="">Acquérir de nouvelles techniques</label>
     </div>
-    <div class="form-check custom-control custom-checkbox mb-3">
-    <input class="form-check-input" type="checkbox" name="checkPratique">
-    <label for="checkPratique" class="form-check-label">Améliorer vos pratiques</label>
+    <div class="">
+    <input class="" type="checkbox" name="checkPratique">
+    <label for="checkPratique" class="">Améliorer vos pratiques</label>
     </div>
-    <div class="form-check custom-control custom-checkbox mb-3">
-    <input class="form-check-input" type="checkbox" name="checkAutre">
-    <label for="checkAutre" class="form-check-label">Autre</label>
+    <div class="">
+    <input class="" type="checkbox" name="checkAutre">
+    <label for="checkAutre" class="">Autre</label>
     </div>
     <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="autreAttentesDebut" placeholder="Si autre, precisez..."></textarea>
 
@@ -103,7 +107,7 @@
         <label>- Personnellement : </label>
 
         <label for="">Pas interessants</label>
-        <input type="range" name="rangeProfess" min="0" max="9" required>
+        <input type="range" name="rangePerso" min="0" max="9" required>
         <label for="">Tres interessants</label>
 
 </div>
@@ -139,23 +143,25 @@
 <!--- Indication sur l'utilité des choses apprises en formation ---->
 <div class="container">
     <h5>Vous pensez pouvoir réutiliser : </h5>
-
+<div class="">
         <input class="" type="radio" name="checkReutiliser" value="3" required>
-        <label for="">Tout ce que vous avez appris durant la formation</label>
-
-
+        <label class="" for="">Tout ce que vous avez appris durant la formation</label>
+</div>
+<div class="">
         <input class="" type="radio" name="checkReutiliser" value="2" required>
-        <label for="">Une bonne partie de ce que vous avez appris</label>
-        <textarea class="md-textarea form-control col-lg-2" rows="3" type="text" name="reutilisation2" placeholder="precisez laquelle :"></textarea>
-
+        <label class="" for="">Une bonne partie de ce que vous avez appris</label>
+        <textarea class="" rows="3" type="text" name="reutilisation2" placeholder="precisez laquelle :"></textarea>
+</div>
+<div class="">
         <input class="" type="radio" name="checkReutiliser" value="1" required>
-        <label for="">Une faible partie de ce que vous avez appris</label>
-        <textarea class="md-textarea form-control col-lg-2" rows="3" type="text" name="reutilisation1" placeholder="precisez laquelle :"></textarea>
-
+        <label class="" for="">Une faible partie de ce que vous avez appris</label>
+        <textarea class="" rows="3" type="text" name="reutilisation1" placeholder="precisez laquelle :"></textarea>
+</div>
+<div class="">
         <input class="" type="radio" name="checkReutiliser" value="0" required>
-        <label for="">Rien de ce que vous avez appris</label>
-        <textarea class="md-textarea form-control col-lg-2" rows="3" type="text" name="reutilisation0" placeholder="precisez pourquoi :"></textarea>
-
+        <label class="" for="">Rien de ce que vous avez appris</label>
+        <textarea class="" rows="3" type="text" name="reutilisation0" placeholder="precisez pourquoi :"></textarea>
+</div>
 </div>
 
 <!--- Indication sur la satisfaction de la formation ---->
