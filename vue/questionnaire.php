@@ -9,7 +9,7 @@
 <h3 class="text-center text-uppercase">Indice D</h3>
 
 
-<form method="POST" action="traitementReponses.php" class="was-validated">
+<form method="POST" action="../controleur/insertForm.php" class="was-validated">
     <div class="container">
 
         <input type="text" name="userLastNameConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
@@ -132,9 +132,6 @@
         <input type="range" name="interventionQualite" min="0" max="9" required>
         <label for="">Tres bonne</label>
 </div>
-
-<!--- Indication sur les remarques ---->
-<div class="container">
     <h5>A-t-on pris en compte vos remarques à mi-parcours : </h5>
         <textarea class="md-textarea form-control col-lg-2" rows="3" type="text" name="remarque" placeholder="Remplire ici" required></textarea>
 
@@ -184,7 +181,7 @@
 
 </div>
 
-<button type="submit" class="btn btn-primary">Valider</button>
+<button type="submit" class="btn btn-primary" name="submit">Valider</button>
 
 </form>
 
