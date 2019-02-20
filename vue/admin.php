@@ -15,7 +15,7 @@ if($_SESSION['auth'] && $statut == 2)
     ?>
 
 <h1 class="text-center">Page administrateur</h2>
-<p class="text-center">Vous etes connectez avec le compte <?php echo $_SESSION['auth']->nomAdmin?></p>
+<p class="text-center">Vous êtes connecté avec le compte <?php echo $_SESSION['auth']->nomAdmin?></p>
 
 <div class="container">
 <p><a class="form-control text-center col-2" href="../controleur/logout.php">Deconnexion</a></p>
@@ -78,7 +78,7 @@ if($_SESSION['auth'] && $statut == 2)
         
         if($formation)
         {
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+            echo "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
         }
         else
         {
@@ -86,12 +86,12 @@ if($_SESSION['auth'] && $statut == 2)
             $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
             $createFormation->execute();
             
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+            echo "<p class=\"text-success\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
         }
     }
     else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
     {
-        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+        echo "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
     }
     
     // Supprimer une formation
@@ -101,13 +101,52 @@ if($_SESSION['auth'] && $statut == 2)
         $deleteFormation->execute(['deleteFormation' => $_POST['formationsDel']]);
     }?>
 
-<?php echo '<br /><br/><br/>' . $erreur; // Message retourné lorsque l'on tente d'ajouté une formation (n'est pas forcément une erreur)
-?>
 <p class="text-center"><a href="../vue/insertion.php">Ajouter un questionnaire</a></p>
 
+<!--------- FORMULAIRE D'AJOUT DE VILLE --------->
+<div class="container">
 
+    <div class="card">
 
+        <form action="" method="POST">
 
+            <div class="card-title">
+                <h4 class="text-center">Ajouter une ville</h4>
+            </div>
+
+            <div class="card-body">
+                <label for="addVille">Ajouter une ville :</label>
+                <input type="text" name="addVille" class="form-control">
+            </div>
+            <div class="container">
+                <button class="btn btn-primary col-12" type="submit" name="creationVille">Créer la ville</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php 
+    // Ajouter la ville
+    if (isset($_POST['creationVille']) && !empty($_POST['addVille'])) {
+
+        $villeExist = $pdo->prepare("SELECT * FROM ville WHERE nomVille = :nomVille");
+        $villeExist->bindParam(':nomVille', $_POST['addVille']);
+        $villeExist->execute();
+        $ville = $villeExist->fetch();
+
+        if ($ville) {
+            echo "<p class=\"text-danger\">La ville <span class=\"erreur\">" . $_POST['addVille'] . "</span> existe déjà !</p> <br />";
+        } else {
+            $createVille = $pdo->prepare("INSERT INTO ville SET nomVille = :nomVille");
+            $createVille->bindParam(':nomVille', $_POST['addVille']);
+            $createVille->execute();
+
+            echo "<p class=\"text-success\">La formation <span class=\"erreur\">" . $_POST['addVille'] . "</span> a bien été ajoutée</p> <br />";
+        }
+    } elseif (isset($_POST['creationVille']) && empty($_POST['addVille'])) {
+        echo "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+    }
+?>
 
 <!------------------------ FORMULAIRE D'AJOUT DE SESSION ------------------------------------------------->
 <div class="container">
@@ -120,83 +159,78 @@ if($_SESSION['auth'] && $statut == 2)
                 <h4 class="text-center">Ajouter une session</h4>
             </div>
 
-                <div class=card-body>
-        <label for="formations">Choisir une formation : </label>
+            <div class=card-body>
+                <label for="formations">Choisir une formation : </label>
 
-        <select class="form-control" name="formationsSelection"><!-- Affiche les formations existantes -->
-        <?php
-                // Affiche les formation existantes
-                $Forms = $pdo->query("SELECT * FROM formation");
-                $selectForms = $Forms->fetchAll();
-                foreach($selectForms as $selectForm)
-               { ?>
-            <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
-            <?php  } ?>
-        </select>
+                <select class="form-control" name="formationsSelection"><!-- Affiche les formations existantes -->
+                <?php
+                        // Affiche les formation existantes
+                        $Forms = $pdo->query("SELECT * FROM formation");
+                        $selectForms = $Forms->fetchAll();
+                        foreach($selectForms as $selectForm)
+                    { ?>
+                    <option value="<?php echo $selectForm->idFormation; ?>"><?php echo $selectForm->nomFormation; ?></option>
+                    <?php  } ?>
+                </select>
 
-    <label>Identifiant de la session</label>
-    <input class="form-control" name="codeSessions">
+                <label>Identifiant de la session :</label>
+                <input class="form-control" name="codeSessions">
 
-    <label>Date de début de formation</label>
-    <input type="date" class="form-control" name="dateDebutSession">
+                <label>Date de début de formation :</label>
+                <input type="date" class="form-control" name="dateDebutSession">
 
-    <label>Date de fin de formation</label>
-    <input type="date" class="form-control" name="dateFinSession">
+                <label>Date de fin de formation :</label>
+                <input type="date" class="form-control" name="dateFinSession">
 
-    <!-- Select des Lieux de formation -->
-    <label for="selectLieux">Selectionnez le lieu de formation:</label>
-        <select class="form-control text-center" name="selectLieux" class="selLieu">
-            <?php
-                $lieux = $pdo->query("SELECT * FROM ville");
-                $selectLieux = $lieux->fetchAll();
-                foreach($selectLieux as $selectLieu) { ?>
-                <option value="<?php echo $selectLieu->idVille; ?>"><?php echo $selectLieu->nomVille; ?></option>
-                <?php  } ?>
-        </select>
+                <!-- Select des Lieux de formation -->
+                <label for="selectLieux">Selectionnez le lieu de formation :</label>
+                <select class="form-control text-center" name="selectLieux" class="selLieu">
+                    <?php
+                        $lieux = $pdo->query("SELECT * FROM ville");
+                        $selectLieux = $lieux->fetchAll();
+                        foreach($selectLieux as $selectLieu) { ?>
+                        <option value="<?php echo $selectLieu->idVille; ?>"><?php echo $selectLieu->nomVille; ?></option>
+                        <?php  } ?>
+                </select>
 
-    <div class="container">
-    <button class="btn btn-primary col-12" type="submit" name="creationSession">Creer la session</button>
-    
-        </form>
+                <div class="container">
+                <button class="btn btn-primary col-12" type="submit" name="creationSession">Créer la session</button>
                 </div>
+            </div>
+        </form>
     </div>
-
 </div>
 
 
 <?php
-$ajoutSession = $pdo->prepare("INSERT INTO session SET idFormation = :idFormation, SessionRef = :sessionRef, dateDebutSession = :dateDebutSession, dateFinSession = :dateFinSession, idVille = :idVille");
-$ajoutSession->bindParam(':idFormation', $_POST['formationsSelection']);
-$ajoutSession->bindParam(':sessionRef', $_POST['codeSessions']);
-$ajoutSession->bindParam(':dateDebutSession', $_POST['dateDebutSession']);
-$ajoutSession->bindParam(':dateFinSession', $_POST['dateFinSession']);
-$ajoutSession->bindParam(':idVille', $_POST['selectLieux']);
-$ajoutSession->execute();
-
-    // Ajouter une formation
-    if(isset($_POST['submAddFormation']) && !empty($_POST['addFormation']))
+    // Ajouter une session
+    if(isset($_POST['creationSession']) && !empty($_POST['codeSessions']))
     {
-        $formationExist = $pdo->prepare("SELECT * FROM formation WHERE nomFormation = :formationExist");
-        $formationExist->bindParam(':formationExist', $_POST['addFormation']);
+        $formationExist = $pdo->prepare("SELECT * FROM session WHERE SessionRef = :sessionExist");
+        $formationExist->bindParam(':sessionExist', $_POST['codeSessions']);
         $formationExist->execute();
         $formation = $formationExist->fetch();
         
         if($formation)
         {
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> existe déjà !</p> <br />";
+            echo "<p class=\"text-danger\">La session <span class=\"erreur\">" . $_POST['codeSessions'] . "</span> existe déjà !</p> <br />";
         }
         else
         {
-            $createFormation = $pdo->prepare('INSERT INTO formation SET nomFormation = :nomFormation');
-            $createFormation->bindParam(':nomFormation', $_POST['addFormation']);
-            $createFormation->execute();
+            $ajoutSession = $pdo->prepare("INSERT INTO session SET idFormation = :idFormation, SessionRef = :sessionRef, dateDebutSession = :dateDebutSession, dateFinSession = :dateFinSession, idVille = :idVille");
+            $ajoutSession->bindParam(':idFormation', $_POST['formationsSelection']);
+            $ajoutSession->bindParam(':sessionRef', $_POST['codeSessions']);
+            $ajoutSession->bindParam(':dateDebutSession', $_POST['dateDebutSession']);
+            $ajoutSession->bindParam(':dateFinSession', $_POST['dateFinSession']);
+            $ajoutSession->bindParam(':idVille', $_POST['selectLieux']);
+            $ajoutSession->execute();
             
-            $erreur = "<p class=\"text-danger\">La formation <span class=\"erreur\">" . $_POST['addFormation'] . "</span> a bien été ajoutée</p> <br />";
+            echo "<p class=\"text-danger\">La session <span class=\"erreur\">" . $_POST['codeSessions'] . "</span> a bien été ajoutée</p> <br />";
         }
     }
-    else if(isset($_POST['submAddFormation']) && empty($_POST['addFormation']))
+    else if(isset($_POST['creationSession']) && empty($_POST['codeSessions']))
     {
-        $erreur = "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
+        echo "<p class=\"text-danger\">Veuillez saisir un nom s'il vous plaît !</p>";
     }
 
 ?>
@@ -209,28 +243,28 @@ $ajoutSession->execute();
 <div class="container">
     <div class="card">
         <div class="card-title">
-            <h4 class="text-center">Création d'utilisateur : <h4>
+            <h4 class="text-center">Création d'utilisateur  <h4>
         </div>
 <div class="card-body">
 <form method="POST">
 
-    <label>Nom de l'utilisateur</label>
+    <label>Nom de l'utilisateur :</label>
     <input class="form-control" type="text" name="nomUtilisateur" placeholder="Nom"/>
 
-    <label>Prenom de l'utilisateur</label>
-    <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prenom"/>
+    <label>Prénom de l'utilisateur :</label>
+    <input class="form-control" type="text" name="prenomUtilisateur" placeholder="Prénom"/>
 
-    <label>Pseudo de l'utilisateur</label>
+    <label>Pseudo de l'utilisateur :</label>
     <input class="form-control" type="text" name="pseudoUtilisateur" placeholder="Pseudo"/>
 
     <!-- Select de la session-->
-   <label for="selectFormation">Selectionnez la session</label>
+   <label for="selectFormation">Sélectionnez la session :</label>
     <select class="form-control" name="selectSession" id="selForm">
         <?php
             $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
             $selectForms = $Forms->fetchAll();
             foreach($selectForms as $selectForm) { ?>
-            <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->nomFormation; ?></option>
+            <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '. $selectForm->nomFormation; ?></option>
             <?php  } ?>
     </select>
 
@@ -239,16 +273,9 @@ $ajoutSession->execute();
     </div> 
 
     <?php
-<<<<<<< HEAD
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectSession'])) {
         
         $req = $pdo->prepare("SELECT * FROM apprenant WHERE pseudo = :pseudoUtilisateur");
-=======
-    if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
-
-        // Vérifie si l'utilisateur n'est pas déjà enregistré
-        $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
->>>>>>> 852d4df4f39d789cb3d56ab7b978c2e1097edcad
         $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
         $membre = $req->fetch();
@@ -256,14 +283,8 @@ $ajoutSession->execute();
         if($membre) {
             echo 'Ce pseudo est déjà pris';
         } else {
-<<<<<<< HEAD
             
             $creationUtilisateur = $pdo->prepare('INSERT INTO apprenant SET nomApprenant = :nomUtilisateur, prenomApprenant = :prenomUtilisateur, pseudo = :pseudoUtilisateur, idSession = :choixSession');
-=======
-
-            // Insertion de l'utilisateur dans la BDD
-            $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, pseudoUtilisateur= :pseudoUtilisateur, dateEntreeFormation = :dateEntreeFormation, dateFinFormation = :dateFinFormation, idRole = 3');
->>>>>>> 852d4df4f39d789cb3d56ab7b978c2e1097edcad
             $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
             $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
             $creationUtilisateur->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
@@ -350,11 +371,11 @@ $ajoutSession->execute();
 // Les fonctions qui affichent les utilisateurs selon la selection //
 if(isset($_POST['afficherUtilisateurDate'])) {
 
-$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM apprenant NATURAL JOIN session NATURAL JOIN formation NATURAL JOIN ville WHERE dateEntreeFormation = :dateEntreeFormation OR idFormation = :idFormation OR idLieu = :idLieu');
+$choixTypesFormationsAffichage = $pdo->prepare('SELECT * FROM apprenant NATURAL JOIN session NATURAL JOIN formation NATURAL JOIN ville WHERE dateDebutSession = :dateDebutSession OR idFormation = :idFormation OR idVille = :idLieu');
 
-$choixTypesFormationsAffichage->bindParam('dateEntreeFormation', $_POST['afficherUtilisateurDate']);
-$choixTypesFormationsAffichage->bindParam('idFormation', $_POST['choixTypeFormation']);
-$choixTypesFormationsAffichage->bindParam('idLieu', $_POST['choixLieuFormation']);
+$choixTypesFormationsAffichage->bindParam(':dateDebutSession', $_POST['afficherUtilisateurDate']);
+$choixTypesFormationsAffichage->bindParam(':idFormation', $_POST['choixTypeFormation']);
+$choixTypesFormationsAffichage->bindParam(':idLieu', $_POST['choixLieuFormation']);
 $choixTypesFormationsAffichage->execute();
 
 if(!empty($_POST['afficherUtilisateurDate'] || $_POST['choixLieuFormation'] || $_POST['choixTypeFormation'] )) { 
@@ -377,11 +398,11 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
 ?>
     <div class="row">
      
-          <div class="col-2 donneesTableau"><?php echo $donneesSelection->nomUtilisateur ?></div>
-          <div class="col-2 donneesTableau"><?php echo $donneesSelection->prenomUtilisateur ?></div>
-          <div class="col-2 donneesTableau"><?php echo $donneesSelection->pseudoUtilisateur ?></div>
-          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateEntreeFormation ?></div>
-          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateFinFormation?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->nomApprenant ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->prenomApprenant ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->pseudo ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateDebutSession ?></div>
+          <div class="col-2 donneesTableau"><?php echo $donneesSelection->dateFinSession ?></div>
           <div class="col-2 donneesTableau"><?php echo $donneesSelection->nomFormation ?></div>
        
     </div>
@@ -413,13 +434,13 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
             
             <div class="card col-6">
                 <div class="card-title">
-                    <h5 class="text-center">Rendre annonyme l'utilisateur<h5>
+                    <h5 class="text-center">Rendre anonyme l'utilisateur<h5>
                 </div>
 
-                <label for="">Entrer le pseudo de l'utilisateur</label>
+                <label for="">Entrer le pseudo de l'utilisateur :</label>
                 <input type="text" name="deleteUtilisateur" class="form-control-lg-2" />
 
-                <button class="btn btn-primary" type="submit" name="deleteMembreExecute"><a href="#afficheUtilisateurs"></a>Rendre annonyme l'utilisateur</button> 
+                <button class="btn btn-primary" type="submit" name="deleteMembreExecute"><a href="#afficheUtilisateurs"></a>Rendre anonyme l'utilisateur</button> 
     </div>
     </form>
             </div>
@@ -428,7 +449,7 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
     <?php
     // Afficher toute la liste des utilisateurs //
     if(isset($_POST['afficherMembre']) && ([$_POST['fermerMembre']])) {
-        $membre = $pdo->query('SELECT * FROM utilisateurs NATURAL JOIN suitformation NATURAL JOIN formations NATURAL JOIN lieux NATURAL JOIN selocalise ORDER BY dateEntreeFormation DESC');
+        $membre = $pdo->query('SELECT * FROM apprenant NATURAL JOIN session NATURAL JOIN formation NATURAL JOIN ville ORDER BY dateDebutSession DESC');
    ?>     
    <div class="container">
             <div class="row">
@@ -446,11 +467,11 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
             ?>
     <div class="row">
           
-              <div class="col-2 donneesTableau"><?php echo $donnees->nomUtilisateur ?></div>
-              <div class="col-2 donneesTableau"><?php echo $donnees->prenomUtilisateur ?></div>
-              <div class="col-2 donneesTableau"><?php echo $donnees->pseudoUtilisateur ?></div>
-              <div class="col-2 donneesTableau"><?php echo $donnees->dateEntreeFormation ?></div>
-              <div class="col-2 donneesTableau"><?php echo $donnees->dateFinFormation?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->nomApprenant ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->prenomApprenant ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->pseudo ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->dateDebutSession ?></div>
+              <div class="col-2 donneesTableau"><?php echo $donnees->dateFinSession ?></div>
               <div class="col-2 donneesTableau"><?php echo $donnees->nomFormation ?></div>
            
     </div>
@@ -458,8 +479,11 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
         }}
     ?>    
     </div>
-
-
+    <?php
+    $membreDelete = $pdo->prepare("UPDATE apprenant SET nomApprenant = 'Anonyme', prenomApprenant = 'Anonyme', pseudo = 'Anonyme' WHERE nomApprenant = :nomUtilisateur");
+    $membreDelete->bindParam(':nomUtilisateur', $_POST['deleteUtilisateur']);
+    $membreDelete->execute();
+?>
 
 
 
@@ -471,45 +495,45 @@ while($donneesSelection = $choixTypesFormationsAffichage->fetch()) {
         </div>
 
 <div class="card-body">
-<!-- Formulaire de création d'un administrateur -->
+<!-- Formulaire d'affichage -->
 <form method="POST">
 
     <!-- Select des Lieux de formation -->
-    <label for="selectLieuxFormation">Affichage par Lieu de formation</label>
+    <label for="selectLieuxFormation">Affichage par Lieu de formation :</label>
     <select class="form-control" name="afficheResultatLieux" class="selLieu">
         <?php
-            $lieux = $pdo->query("SELECT * FROM lieux");
+            $lieux = $pdo->query("SELECT * FROM ville");
             $selectLieux = $lieux->fetchAll();
             foreach($selectLieux as $selectLieu) { ?>
-            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <option value="<?php echo $selectLieu->idVille; ?>"><?php echo $selectLieu->nomVille; ?></option>
             <?php  } ?>
     </select>
 
-    <label class="text-center">Afficher par date</label>
+    <label class="text-center">Afficher par date :</label>
     <input class="form-control" type="date" name="afficherResultatDate"/>
         
-    <label for="selectFormation">Affichage par formtaion</label>
+    <label for="selectFormation">Affichage par formation :</label>
     <select class="form-control" name="afficheResultatLieux" class="selLieu">
         <?php
-            $lieux = $pdo->query("SELECT * FROM lieux");
+            $lieux = $pdo->query("SELECT * FROM formation");
             $selectLieux = $lieux->fetchAll();
             foreach($selectLieux as $selectLieu) { ?>
-            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <option value="<?php echo $selectLieu->idFormation; ?>"><?php echo $selectLieu->nomFormation; ?></option>
             <?php  } ?>
     </select>
 
-    <label for="selectSession">Affichage par session de formation</label>
+    <label for="selectSession">Affichage par session de formation :</label>
     <select class="form-control" name="afficheResultatSession" class="selLieu">
         <?php
-            $lieux = $pdo->query("SELECT * FROM lieux");
+            $lieux = $pdo->query("SELECT * FROM session");
             $selectLieux = $lieux->fetchAll();
             foreach($selectLieux as $selectLieu) { ?>
-            <option value="<?php echo $selectLieu->idLieu; ?>"><?php echo $selectLieu->lieuFormation; ?></option>
+            <option value="<?php echo $selectLieu->idSession; ?>"><?php echo $selectLieu->SessionRef; ?></option>
             <?php  } ?>
     </select>
 
     <div class="container">
-        <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Créer l'administrateur</button>
+        <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Afficher les résultats</button>
     </div>
     </div>
 </div>
