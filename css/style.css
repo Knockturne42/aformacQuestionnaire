@@ -1,7 +1,8 @@
 body
 { 
 	background: url("../img/image2.jpg") fixed;
-	background-size: 100%;
+	background-size: cover;
+	background-repeat: no-repeat; 
 	width:100%;
 	height:100%;
 
