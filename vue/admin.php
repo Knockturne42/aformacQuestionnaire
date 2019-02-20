@@ -239,16 +239,10 @@ $ajoutSession->execute();
     </div> 
 
     <?php
-<<<<<<< HEAD
-    if(isset($_POST['creationUtilisateur']) && isset($_POST['selectSession'])) {
-        
-        $req = $pdo->prepare("SELECT * FROM apprenant WHERE pseudo = :pseudoUtilisateur");
-=======
     if(isset($_POST['creationUtilisateur']) && isset($_POST['selectFormation'])) {
 
         // Vérifie si l'utilisateur n'est pas déjà enregistré
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur");
->>>>>>> 852d4df4f39d789cb3d56ab7b978c2e1097edcad
         $req->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);
         $req->execute();
         $membre = $req->fetch();
@@ -256,14 +250,9 @@ $ajoutSession->execute();
         if($membre) {
             echo 'Ce pseudo est déjà pris';
         } else {
-<<<<<<< HEAD
-            
-            $creationUtilisateur = $pdo->prepare('INSERT INTO apprenant SET nomApprenant = :nomUtilisateur, prenomApprenant = :prenomUtilisateur, pseudo = :pseudoUtilisateur, idSession = :choixSession');
-=======
 
             // Insertion de l'utilisateur dans la BDD
             $creationUtilisateur = $pdo->prepare('INSERT INTO utilisateurs SET nomUtilisateur = :nomUtilisateur, prenomUtilisateur = :prenomUtilisateur, pseudoUtilisateur= :pseudoUtilisateur, dateEntreeFormation = :dateEntreeFormation, dateFinFormation = :dateFinFormation, idRole = 3');
->>>>>>> 852d4df4f39d789cb3d56ab7b978c2e1097edcad
             $creationUtilisateur->bindParam(':nomUtilisateur', $_POST['nomUtilisateur']);
             $creationUtilisateur->bindParam(':prenomUtilisateur', $_POST['prenomUtilisateur']);
             $creationUtilisateur->bindParam(':pseudoUtilisateur', $_POST['pseudoUtilisateur']);

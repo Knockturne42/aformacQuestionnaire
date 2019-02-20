@@ -1,11 +1,29 @@
-
+<?php include '../include/header.php'; ?>
 
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/style.css">
 
-<h2 class="text-center text-uppercase"> Evaluation de fin de formation (longue)</h2>
-<h2 class="text-center text-uppercase">D / 4.20 / 04</h2>
-<h3 class="text-center text-uppercase">Indice D</h3>
+
+<div class="container">
+
+<div class="card">
+
+<div class="row">
+
+    <img src="../img/logoAformac.jpg" class="img-responsive col-3" alt="Responsive image">
+    <img src="../img/datadock.jpg" class="img-responsive col-3" alt="Responsive image">
+    <img src="../img/logo_opqf.jpg" class="img-responsive col-3" alt="Responsive image">
+
+</div>
+
+    <h2 class="text-center text-uppercase titreVert"><strong>Evaluation de fin de formation (longue)</strong></h2>
+    <h2 class="text-center text-uppercase titreOrange"><strong>D / 4.20 / 04</strong></h2>
+    <h3 class="text-center text-uppercase titreBleu"><strong>Indice D</strong></h3>
+
+</div>
+
+</div>
+
 
 <div class="container">
 <form method="POST" action="traitementReponses.php" class="was-validated">
@@ -13,22 +31,22 @@
        <div class="card">
            <div class="card-body">
                         
-        <label class="form-control text-center" for=""><strong>Titre de formation :</strong></label>
+        <label class="form-control text-center titreVert" for=""><strong>Titre de formation :</strong></label>
         <input class="form-control" type="text" name="formationNom" class="form-control col-lg-2" placeholder="Titre de la formation" required/>
                
-        <label class="form-control text-center" for=""><strong>Nom de l'apprenant :</strong></label>
+        <label class="form-control text-center titreVert" for=""><strong>Nom de l'apprenant :</strong></label>
         <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
         
-        <label class="form-control text-center" for=""><strong>Prenom de l'apprenant :</strong></label>
+        <label class="form-control text-center titreOrange" for=""><strong>Prenom de l'apprenant :</strong></label>
         <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
 
-        <label class="form-control text-center" for=""><strong>Lieu de formation :</strong></label>
+        <label class="form-control text-center titreOrange" for=""><strong>Lieu de formation :</strong></label>
         <input class="form-control" type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
         
-        <label class="form-control text-center" for=""><strong>Dates d'entrée en formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Dates d'entrée en formation :</strong></label>
         <input class="form-control" type="date" name="formationDate" class="form-control col-lg-2" required/>
         
-        <label class="form-control text-center" for=""><strong>Dates de sortie de formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Dates de sortie de formation :</strong></label>
         <input class="form-control" type="date" name="formationDate2" class="form-control col-lg-2" required/>
         
         </div>
@@ -40,19 +58,21 @@
 
     <div class="card">
    
-    <h5 class="card-title text-center"><strong>Aviez-vous des attentes concernant cette formation ?</strong></h5>
+    <h5 class="card-title text-center titreVert"><strong><span class="titreVert">Aviez-vous des </span><span class="titreOrange">attentes concernant</span><span class="titreBleu"> cette formation ?</span></strong></h5>
 
     <div class="card-body text-center">
-
-    <input type="radio" name="radio-stacked" value="oui" class="" required>
-    <label class="" for="radio-stacked">Oui</label>
- 
-    <input type="radio" class="" name="radio-stacked" value="non" required>
-    <label class="" for="radio-stacked">Non</label>
-
+    
+    <div class="custom-control custom-radio">
+    <input id="test" type="radio" name="radio-stacked" value="oui" class="custom-control-input" required>
+    <label for="test" class="custom-control-label" for="radio-stacked">Oui</label>
+    </div>
+    
+    <div class="custom-control custom-radio">
+    <input id="test2" type="radio" class="custom-control-input" name="radio-stacked" value="non" required>
+    <label for="test2" class="custom-control-label" for="radio-stacked">Non</label>
+    </div>
 <!-------------------          --------------------------------------------------------------------------->
     <p class="card-title text-center"><strong>Si oui lesquelles :</strong></p>
-    
 
     <div class="">
 
@@ -79,9 +99,14 @@
         
     <input   id="checkAutre" class="" type="checkbox" name="checkAutre">
     <label  for="checkAutre" class="">Autre</label>
+
     </div>
 
+    <div class='container'>
+
     <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="autreAttentesDebut" placeholder="Si autre, precisez..."></textarea>
+
+    </div>
 
     </div>
 
@@ -89,22 +114,41 @@
 
 </div>
 
+
+
+
+
+
 <!--- Indication attentes après la formation ---->
 <div class="container">
-    <h5>Si oui, cette formation a-t-elle répondu à vous attentes ?</h5>
+
+    <div class="card">
+
+        <h5 class="card-title text-center"><span class="titreVert">Si oui, cette formation</span><span class="titreOrange"> a-t-elle répondu à</span> <span class="titreBleu">vous attentes ?</span></h5>
+
+            <div class="card-body text-center">
 
         <input type="radio" name="checkAttente" value="oui">
         <label for="checkAttente">Oui</label>
-
+          
         <input class="" type="radio" name="checkAttente" value="non">
         <label for="checkAttente">Non</label>
 
         <input class="" type="radio" name="checkAttente" value="ep">
         <label for="checkAttente">En partie</label>
 
-        <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="autreAttentesFin" placeholder="Pourquoi ?"></textarea>
+        <div class='container'>
 
+        <textarea class="lg-textarea form-control col-lg-12 text-center" rows="3" type="text" name="autreAttentesFin" placeholder="Pourquoi ?"></textarea>
+           
+        </div>
+
+        </div>
+
+    </div>
+    
 </div>
+
 
 <!--- Indication durée de la formation --
 
@@ -118,103 +162,289 @@
 
 -->
 <div class="container">
-    <h5 for="">La durée de la formation vous a paru : </h5>
-        <label for="">Trop courte</label>
-        <input class="" type="range" name="rangeDuree" min="0" max="9" required>
-        <label for="">Trop longue</label>
+
+    <div class='card'>
+
+    <h5 class="card-title text-center" for=""><strong><span class="titreVert">La durée</span><span class="titreOrange"> de la formation </span><span class="titreBleu">vous a paru : </span></strong></h5>
+
+    <div class='card-body'>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-10">
+
+                <label for="">Trop courte</label>
+            </div>
+
+        <div class="col-2">
+
+            <label for="">Trop longue</label>
+
+        </div>
+
+        </div>
+
+    </div>
+
+        <input class="form-control" type="range" name="rangeDuree" min="0" max="9" required>
+
+    </div>
+
+    </div>
+
 </div>
+
+
+
+
 
 <!--- Indication sur les contenus de la formation ---->
 <div class="container">
-    <h5>Les contenus vous ont paru : </h5><br>
 
-        <label>- Professionnellement : </label>
-        <label for="">Pas utile</label>
-        <input type="range" name="rangeProfess" min="0" max="9" required>
-        <label for="">Tres utile</label>
-        
+    <div class="card">
 
-        <label>- Personnellement : </label>
+        <h5 class="card-title text-center"><strong><span class="titreVert">Les contenus</span><span class="titreOrange"> vous ont</span><span class="titreBleu"> paru : </span></strong></h5><br>
 
-        <label for="">Pas interessants</label>
-        <input type="range" name="rangeProfess" min="0" max="9" required>
-        <label for="">Tres interessants</label>
+        <div class="card-body">
+
+            
+            <label><strong>- Professionnellement : </strong></label>
+
+            <div class="row">
+
+            <label class="col-10" for="">Pas utile</label>
+            <label class="col-2" for="">Tres utile</label>
+            <input class="form-control" type="range" name="rangeProfess" min="0" max="9" required>
+            
+            </div>
+            
+            <label><strong>- Personnellement : </strong></label>    
+
+            <div class="row">
+
+            <label class="col-10" for="">Pas interessants</label>
+            <label class="col-2" for="">Tres interessants</label>
+            <input class="form-control" type="range" name="rangePerso" min="0" max="9" required>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
+
+
+
 
 <!--- Indication sur les thèmes shouaité ---->
 <div class="container">
-    <h5>Quels thèmes auriez-vous shouaité : </h5>
-        <label>- Aborder le plus longtemps ? : </label>
-            <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="themeAborderPlusLongtemps" placeholder="Remplire ici" required></textarea>
 
-            <label>- Ecourter ? : </label>
-            <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="themeEcourter" placeholder="Remplire ici" required></textarea>
+    <div class="card">
 
-            <label>- Supprimer ? : </label>
-            <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="themeSupprimer" placeholder="Remplire ici" required></textarea>
+    <h5 class="card-title text-center"><strong><span class="titreVert">Quels thèmes</span><span class="titreOrange"> auriez-vous </span><span class="titreBleu">shouaité : </span></strong></h5>
+    
+    <div class="card-body">
+        
+        <div class="container">
+
+            <label class="text-center">- Aborder le plus longtemps ? : </label>
+            <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="themeAborderPlusLongtemps" placeholder="Remplire ici" required></textarea>
+        </div>
+        
+        <div class="container">
+
+            <label class="text-center">- Ecourter ? : </label>
+            <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="themeEcourter" placeholder="Remplire ici" required></textarea>
+        </div>
+        
+        <div class="container">
+
+            <label class="text-center">- Supprimer ? : </label>
+            <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="themeSupprimer" placeholder="Remplire ici" required></textarea>
+        
+        </div>
+    
+    </div>
+
+    </div>
+
 </div>
+
+
+
+
+
 
 <!--- Indication sur l'intervention des animateurs ---->
 <div class="container">
-    <h5>Selon vous, l'intervention des animateurs était : </h5>
-        <label for="">mediocre</label>
-        <input type="range" name="interventionQualite" min="0" max="9" required>
-        <label for="">Tres bonne</label>
+
+    <div class="card">
+
+    <h5 class="card-title text-center"><strong><span class="titreVert">Selon vous, </span><span class="titreOrange">l'intervention des </span><span class="titreBleu">animateurs était : </span></strong></h5>
+
+    <div class="card-body">
+
+        <div class="row">
+
+        <label class="col-10" for="">mediocre</label>
+        <label class="col-2" for="">Tres bonne</label>
+        <input class="form-control" type="range" name="interventionQualite" min="0" max="9" required>
+
+        </div>
+
+        <div class='container'>
+
+        <textarea class="lg-textarea form-control col-lg-12 text-center" rows="3" type="text" name="pourquoiInterv" placeholder="Pourquoi ?"></textarea>
+   
+        </div>
+
+    </div>
+
+    </div>
+
 </div>
+
+
+
+
 
 <!--- Indication sur les remarques ---->
 <div class="container">
-    <h5>A-t-on pris en compte vos remarques à mi-parcours : </h5>
-        <textarea class="md-textarea form-control col-lg-2" rows="3" type="text" name="remarque" placeholder="Remplire ici" required></textarea>
+
+    <div class='card'>
+
+    <h5 class="card-title text-center"><strong><span class="titreVert">A-t-on pris en compte</span><span class="titreOrange"> vos remarques à </span><span class="titreBleu">mi-parcours : </span></strong></h5>
+
+    <div class='card-body'>
+</strong>
+        <div class="container">
+
+        <textarea class="md-textarea form-control col-lg-12" rows="3" type="text" name="remarque" placeholder="Remplire ici" required></textarea>
+    
+        </div>
+    
+    </div>
+
+    </div>
 
 </div>
+
+
+
+
 
 <!--- Indication sur l'utilité des choses apprises en formation ---->
 <div class="container">
-    <h5>Vous pensez pouvoir réutiliser : </h5>
-<div class="">
+
+    <div class="card">
+
+    <h5 class="card-title text-center"><strong><span class="titreVert">Vous pensez</span><span class="titreOrange"> pouvoir </span><span class="titreBleu">réutiliser : </span></strong></h5>
+
+    <div class='card-body text-center'>
+
+    <div class="container">
         <input class="" type="radio" name="checkReutiliser" value="3" required>
         <label class="" for="">Tout ce que vous avez appris durant la formation</label>
-</div>
-<div class="">
+    </div>
+
         <input class="" type="radio" name="checkReutiliser" value="2" required>
         <label class="" for="">Une bonne partie de ce que vous avez appris</label>
-        <textarea class="" rows="3" type="text" name="reutilisation2" placeholder="precisez laquelle :"></textarea>
-</div>
-<div class="">
+
+        <div class="container">
+
+        <textarea class="md-textarea form-control col-lg-12" rows="3" type="text" name="reutilisation2" placeholder="precisez laquelle :"></textarea>
+        
+        </div>
+
         <input class="" type="radio" name="checkReutiliser" value="1" required>
         <label class="" for="">Une faible partie de ce que vous avez appris</label>
-        <textarea class="" rows="3" type="text" name="reutilisation1" placeholder="precisez laquelle :"></textarea>
-</div>
-<div class="">
+
+        <div class='container'>
+
+        <textarea class="md-textarea form-control col-lg-12" rows="3" type="text" name="reutilisation1" placeholder="precisez laquelle :"></textarea>
+        
+        </div>  
+
         <input class="" type="radio" name="checkReutiliser" value="0" required>
         <label class="" for="">Rien de ce que vous avez appris</label>
-        <textarea class="" rows="3" type="text" name="reutilisation0" placeholder="precisez pourquoi :"></textarea>
+
+        <div class="container">
+
+        <textarea class="md-textarea form-control col-lg-12" rows="3" type="text" name="reutilisation0" placeholder="precisez pourquoi :"></textarea>
+
+        </div>
+
+    </div>
+
+    </div>
+
 </div>
-</div>
+
+
+
+
 
 <!--- Indication sur la satisfaction de la formation ---->
 <div class="container">
-    <h5>Globalement par rapport à cette formation, vous diriez que vous êtes : </h5>
 
-        <label for="">Pas satisfait</label>
-        <input type="range" name="rangeSatisfaction" min="0" max="9" required>
-        <label for="">Tres satisfait</label>
+    <div class="card">
 
-        <label>Pourquoi ?</label>
-        <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="pourquoiGlobale" placeholder="Remplire ici" required></textarea>
+    <h5 class="card-title text-center"><strong><span class="titreVert">Globalement par rapport à </span><span class="titreOrange">cette formation, vous diriez</span><span class="titreBleu"> que vous êtes : </span></strong></h5>
+
+    <div class="card-body">
+
+        <div class="row">
+
+        <label class="col-10"for="">Pas satisfait</label>
+        <label class="col-2"for="">Tres satisfait</label>
+        
+        </div>  
+
+        <input class="form-control" type="range" name="rangeSatisfaction" min="0" max="9" required>
+
+        <label >Pourquoi ?</label>
+        <textarea class="lg-textarea form-control col-lg-12 text-center" rows="3" type="text" name="pourquoiGlobale" placeholder="Remplire ici" required></textarea>
+
+    </div>
+
+    </div>
 
 </div>
+
+
+
+
 
 <!--- Indication sur les observations ---->
 <div class="container">
-    <h5>Observation, réflexions et commentaires personnels :</h5>
-        <textarea class="lg-textarea form-control col-lg-2" rows="3" type="text" name="observationPersonnel" placeholder="Remplire ici" required></textarea>
+
+    <div class="card">
+
+        <h5 class="card-title text-center"><strong><span class="titreVert">Observation, réflexions</span><span class="titreOrange"> et commentaires </span><span class="titreBleu">personnels :</span></strong></h5>
+
+    <div class="card-body">
+
+    <div class="container">
+
+        <textarea class="lg-textarea form-control col-lg-12" rows="3" type="text" name="observationPersonnel" placeholder="Remplire ici" required></textarea>
+   
+    </div>
+
+    </div>
+
+    </div>
 
 </div>
 
-<button type="submit" class="btn btn-primary">Valider</button>
+<div class="container">
+
+<button type="submit" class="btn btn-primary col-12">Valider</button>
+
+</div>
 
 </form>
 </div>
