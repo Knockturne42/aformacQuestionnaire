@@ -26,7 +26,7 @@
 
 
 <div class="container">
-<form method="POST" action="traitementReponses.php" class="was-validated">
+<form method="POST" action="../controleur/insertForm.php" class="was-validated">
     <div class="container">
        <div class="card">
            <div class="card-body">
@@ -35,10 +35,10 @@
         <input class="form-control" type="text" name="formationNom" class="form-control col-lg-2" placeholder="Titre de la formation" required/>
                
         <label class="form-control text-center titreVert" for=""><strong>Nom de l'apprenant :</strong></label>
-        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
+        <input class="form-control" type="text" name="userLastNameConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
         
         <label class="form-control text-center titreOrange" for=""><strong>Prenom de l'apprenant :</strong></label>
-        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
+        <input class="form-control" type="text" name="userFirstNameConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
 
         <label class="form-control text-center titreOrange" for=""><strong>Lieu de formation :</strong></label>
         <input class="form-control" type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
@@ -448,7 +448,7 @@
 
 <div class="container">
 
-<button type="submit" class="btn btn-primary col-12">Valider</button>
+<input type="submit" class="btn btn-primary col-12" name="submit" value="Valider">
 
 </div>
 
