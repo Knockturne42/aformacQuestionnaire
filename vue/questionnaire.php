@@ -27,7 +27,7 @@
 
 
 <div class="container">
-<form method="POST" action="traitementReponses.php" class="was-validated">
+<form method="POST" action="../controleur/insertForm.php" class="was-validated">
     <div class="container">
        <div class="card">
            <div class="card-body">
@@ -36,18 +36,18 @@
         <input class="form-control" type="text" name="formationNom" class="form-control col-lg-2" placeholder="Titre de la formation" required/>
                
         <label class="form-control text-center titreVert" for=""><strong>Nom de l'apprenant :</strong></label>
-        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
+        <input class="form-control" type="text" name="userLastNameConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
         
-        <label class="form-control text-center titreOrange" for=""><strong>Prénom de l'apprenant :</strong></label>
-        <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
+        <label class="form-control text-center titreOrange" for=""><strong>Prenom de l'apprenant :</strong></label>
+        <input class="form-control" type="text" name="userFirstNameConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
 
         <label class="form-control text-center titreOrange" for=""><strong>Lieu de formation :</strong></label>
         <input class="form-control" type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Date d'entrée en formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Dates d'entrée en formation :</strong></label>
         <input class="form-control" type="date" name="formationDate" class="form-control col-lg-2" required/>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Date de sortie de formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Dates de sortie de formation :</strong></label>
         <input class="form-control" type="date" name="formationDate2" class="form-control col-lg-2" required/>
         
         </div>
@@ -247,12 +247,12 @@
 
 
 
-<!--- Indication sur les thèmes shouaité ---->
+<!--- Indication sur les thèmes souhaité ---->
 <div class="container">
 
     <div class="card">
 
-    <h5 class="card-title text-center"><strong><span class="titreVert">Quels thèmes</span><span class="titreOrange"> auriez-vous </span><span class="titreBleu">shouaité : </span></strong></h5>
+    <h5 class="card-title text-center"><strong><span class="titreVert">Quels thèmes</span><span class="titreOrange"> auriez-vous </span><span class="titreBleu">souhaité : </span></strong></h5>
     
     <div class="card-body">
         
@@ -449,7 +449,7 @@
 
 <div class="container">
 
-<button type="submit" class="btn btn-primary col-12">Valider</button>
+<input type="submit" class="btn btn-primary col-12" name="submit" value="Valider">
 
 </div>
 

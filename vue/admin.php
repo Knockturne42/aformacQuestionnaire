@@ -16,7 +16,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
     ?>
 
 <h1 class="text-center">Page administrateur</h1>
-<p class="text-center">Vous êtes connectez avec le compte <?php echo $_SESSION['auth']->nomAdmin?></p>
+<p class="text-center">Vous êtes connecté avec le compte <?php echo $_SESSION['auth']->nomAdmin?></p>
 
 <div class="container">
     <p><a class="form-control text-center col-2" href="../controleur/logout.php">Deconnexion</a></p>
@@ -544,7 +544,7 @@ if($_SESSION['auth'] && $statut == 1) {
 <!----------- PARTIE IMPRESSION DES QUESTIONNAIRES ------------------------------------------------------->
 <div class="container">
     <div class="card">
-<h5>Afficher les questionnaires </h5>
+<h5>Afficher les questionnaire remplis</h5>
 
 <label for="selectLieuxFormation">Affichage par Lieu de formation :</label>
                 <select id="selectVille" class="form-control" name="afficheResultatLieux" class="selLieu">
