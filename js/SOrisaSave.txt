@@ -1,0 +1,74 @@
+<h1 style="text-align: center;"><span style="color: #070100;"><span style="font-size: medium;"><span style="font-family: helvetica;">Liste des items lycan 2:</span></span></span></h1>
+<p><span style="font-family: helvetica;"><br /></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;">-Crocs du Mal: <span style="color: #000000;">&eacute;p&eacute;e 2main, pr&eacute;requis: </span><span style="color: #000000;">148force 106dext, 106const, bonus: +60force, malus: -500def (autant de dmg que supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;">-Crocs Agiles: <span style="color: #000000;">&eacute;p&eacute;e 2main, pr&eacute;requis: 148force 106dext, 106const, bonus: +50dext, malus: -250def (-344dmg de moins que supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;">-Griffes D&eacute;moniaques: <span style="color: #000000;">&eacute;p&eacute;e 1main, pr&eacute;requis: 103force 106dext, 106const, bonus: +231dmg, malus: -100def</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;">-Griffes Saintes: <span style="color: #000000;">&eacute;p&eacute;e 1main, pr&eacute;requis: 103force 106dext, 106const, bonus: +25dext, malus: -186def (autant de dmg que supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="font-family: helvetica;"><span style="color: #c52406;">-Bouclier des Lycans: <span style="color: #000000;">bouclier , pr&eacute;requis:&nbsp;</span></span>106dext 106const, bonus: +20dext +80dmg, malus: (-516def&nbsp;par rapport &agrave; supernova)</span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;">-Pavois des Lycans:&nbsp;<span style="color: #000000;">bouclier, pr&eacute;requis: 106dext 106const, bonus: +10dext +10const, malus: -100dmg (-380def par rapport &agrave; supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;">-Crini&egrave;re Sombre: <span style="color: #000000;">casque, pr&eacute;requis: 106dext 106const, bonus: +25dext, malus: (-338par rapport &agrave; supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;">-Crini&egrave;re Nacr&eacute;e:&nbsp;<span style="color: #000000;"><span style="text-align: center;">casque, pr&eacute;requis:&nbsp;</span>106dext 106const, bonus: +50dext, malus: -94dmg (-670def par rapport &agrave; supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;">-Pelage Noir:<span style="color: #000000;"> <span style="text-align: center;">armure, pr&eacute;requis:&nbsp;</span></span><span style="color: #000000;">106dext 106const, bonus: +50dext, malus: (-610def par rapport &agrave; supernova)</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;">-Pelage Blanc:&nbsp;<span style="text-align: center;"><span style="color: #000000;">armure, pr&eacute;requis:&nbsp;</span></span><span style="color: #000000;"><span style="color: #000000;">1</span>06dext 106const, bonus: +15const, malus: (-250def par rapport &agrave; supernova)</span></span></span></p>
+<p><span style="font-family: helvetica;"><br /></span></p>
+<h1 style="text-align: center;"><span style="color: #070100;"><span style="font-size: medium;"><span style="font-family: helvetica;">Choix pour les r&eacute;compenses:</span></span></span></h1>
+<p><span style="color: #800000;"><span style="font-family: helvetica;"><br /></span></span></p>
+<h2 style="text-align: center;"><span style="color: #c52406;"><span style="font-size: small;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>Rentrer dans le chateau sans suivres Mystrea et Nirmax:</span></span></span></h2>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Crocs du Mal/Griffe D&eacute;moniaque+Bouclier des Lycans: <span style="color: #000000;">&ecirc;tre m&eacute;chant avec Mystrea et Nirmax</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Crini&egrave;re Sombre:<span style="color: #000000;"> &ecirc;tre gentil avec Mystrea et m&eacute;chant avec Nirmax</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Pelage Noir: <span style="color: #000000;">&ecirc;tre gentil avec Mystrea et Nirmax</span></span></span></p>
+<p style="text-align: center;"><span style="color: #c52406;"><span style="font-family: helvetica;"><br /></span></span></p>
+<h2 style="text-align: center;"><span style="color: #4fb09e;"><span style="font-size: small;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>Rentre dans le chateau en suivant Mystrea et Nirmax:</span></span></span></h2>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Crocs Agiles/Griffe Saintes+Pavois des Lycans: <span style="color: #000000;">&ecirc;tre m&eacute;chant avec Mystrea et Nirmax</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Crini&egrave;re Nacr&eacute;e: <span style="color: #000000;">&ecirc;tre gentil avec Mystrea et m&eacute;chant avec Nirmax</span></span></span></p>
+<p style="text-align: center;"><span style="color: #4fb09e;"><span style="font-family: helvetica;"><span style="white-space: pre;"> </span>-Pelage Blanc: <span style="color: #000000;">&ecirc;tre gentil avec Mystrea et Nirmax</span></span></span></p>
+<p><span style="font-family: helvetica;"><br /></span></p>
+<p><span style="font-family: helvetica;"><br /></span></p>
+<p>&nbsp;</p>
+<p><a style="margin-left:40%" href="https://discord.gg/8gtQUus" target="_blank"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/22/29/39/22293900-98a0-8c81-a63f-9b9bd843dce0/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/246x0w.jpg" alt="" /></a></p>
+
+
+
+Liste des items lycan 2:
+
+
+-Crocs du Mal: épée 2main, prérequis: 148force 106dext, 106const, bonus: +60force, malus: -500def (autant de dmg que supernova)
+
+-Crocs Agiles: épée 2main, prérequis: 148force 106dext, 106const, bonus: +50dext, malus: -250def (-344dmg de moins que supernova)
+
+-Griffes Démoniaques: épée 1main, prérequis: 103force 106dext, 106const, bonus: +231dmg, malus: -100def
+
+-Griffes Saintes: épée 1main, prérequis: 103force 106dext, 106const, bonus: +25dext, malus: -186def (autant de dmg que supernova)
+
+-Bouclier des Lycans: bouclier , prérequis: 106dext 106const, bonus: +20dext +80dmg, malus: (-516def par rapport à supernova)
+
+-Pavois des Lycans: bouclier, prérequis: 106dext 106const, bonus: +10dext +10const, malus: -100dmg (-380def par rapport à supernova)
+
+-Crinière Sombre: casque, prérequis: 106dext 106const, bonus: +25dext, malus: (-338par rapport à supernova)
+
+-Crinière Nacrée: casque, prérequis: 106dext 106const, bonus: +50dext, malus: -94dmg (-670def par rapport à supernova)
+
+-Pelage Noir: armure, prérequis: 106dext 106const, bonus: +50dext, malus: (-610def par rapport à supernova)
+
+-Pelage Blanc: armure, prérequis: 106dext 106const, bonus: +15const, malus: (-250def par rapport à supernova)
+
+
+
+Choix pour les récompenses:
+
+
+ Rentrer dans le chateau sans suivres Mystrea et Nirmax:
+ -Crocs du Mal/Griffe Démoniaque+Bouclier des Lycans: être méchant avec Mystrea et Nirmax
+
+ -Crinière Sombre: être gentil avec Mystrea et méchant avec Nirmax
+
+ -Pelage Noir: être gentil avec Mystrea et Nirmax
+
+
+
+ Rentre dans le chateau en suivant Mystrea et Nirmax:
+ -Crocs Agiles/Griffe Saintes+Pavois des Lycans: être méchant avec Mystrea et Nirmax
+
+ -Crinière Nacrée: être gentil avec Mystrea et méchant avec Nirmax
+
+ -Pelage Blanc: être gentil avec Mystrea et Nirmax

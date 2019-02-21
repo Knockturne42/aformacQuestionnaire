@@ -1,19 +1,11 @@
-var questionPosee = document.getElementById("questions");
-var xhr = new XMLHttpRequest();
+var	checkbox = document.getElementById('checkFormation');
 
-xhr.onreadystatechange = function()
-{
-	if(this.readyState === 4 && this.status === 200)
-	{
-		questionPosee.innerHTML = this.responseText;
+checkbox.addEventListener('click', function(e){
+	let httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function(argument) {
+		if (httpRequest.readyState === 4)
+			document.getElementById('formation').innerHTML = httpRequest.responseText;
 	}
-	else if(this.readyState === 4 && this.status === 404)
-	{
-		alert("Erreur 404");
-	}
-};
-
-xhr.open("GET", "../vue/questions.txt", true);
-// xhr.responseType = "text";
-xhr.send();
-
+	httpRequest.open('GET', '../controleur/test.php?formation='++'', true);
+	httpRequest.send();
+});
