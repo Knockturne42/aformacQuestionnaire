@@ -259,7 +259,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
                         $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
                         $selectForms = $Forms->fetchAll();
                         foreach($selectForms as $selectForm) { ?>
-                        <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '. $selectForm->nomFormation; ?></option>
+                        <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '.'-'.' '. $selectForm->nomFormation; ?></option>
                         <?php  } ?>
                 </select>
 
@@ -530,6 +530,7 @@ if($_SESSION['auth'] && $statut == 1) {
 
                 <div class="container">
                     <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Afficher les résultats</button>
+                    <a href="affichageResultats.php">Voir les résultats</a>
                 </div>
             </form>
         </div>
@@ -573,39 +574,6 @@ if($_SESSION['auth'] && $statut == 1) {
 </div>
 
 <script src="../js/ajax.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php
