@@ -128,14 +128,20 @@
 
             <div class="card-body text-center">
 
-        <input type="radio" name="checkAttente" value="oui">
-        <label for="checkAttente">Oui</label>
-          
-        <input class="" type="radio" name="checkAttente" value="non">
-        <label for="checkAttente">Non</label>
+        <div class="custom-control custom-radio">
+        <input id="input3" class="custom-control-input" type="radio" name="checkAttente" value="oui" required>
+        <label  for="input3" class="custom-control-label" for="checkAttente">Oui</label>
+        </div>
 
-        <input class="" type="radio" name="checkAttente" value="ep">
-        <label for="checkAttente">En partie</label>
+        <div class="custom-control custom-radio">
+        <input id="input4" class="custom-control-input" type="radio" name="checkAttente" value="non" required>
+        <label  for="input4" class="custom-control-label" for="checkAttente">Non</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+        <input id="input5" class="custom-control-input" type="radio" name="checkAttente" value="ep" required>
+        <label  for="input5" class="custom-control-label" for="checkAttente">En partie</label>
+        </div>
 
         <div class='container'>
 
@@ -188,7 +194,7 @@
 
     </div>
 
-        <input class="form-control" type="range" name="rangeDuree" min="0" max="9" required>
+        <input class="form-control rangeStyle" type="range" name="rangeDuree" min="0" max="9" required>
 
     </div>
 
@@ -216,7 +222,7 @@
 
             <label class="col-10" for="">Pas utile</label>
             <label class="col-2" for="">Tres utile</label>
-            <input class="form-control" type="range" name="rangeProfess" min="0" max="9" required>
+            <input class="form-control rangeStyle" type="range" name="rangeProfess" min="0" max="9" required>
             
             </div>
             
@@ -226,7 +232,7 @@
 
             <label class="col-10" for="">Pas interessants</label>
             <label class="col-2" for="">Tres interessants</label>
-            <input class="form-control" type="range" name="rangePerso" min="0" max="9" required>
+            <input class="form-control rangeStyle" type="range" name="rangePerso" min="0" max="9" required>
 
             </div>
 
@@ -404,7 +410,7 @@
         
         </div>  
 
-        <input class="form-control" type="range" name="rangeSatisfaction" min="0" max="9" required>
+        <input class="form-control rangeStyle" type="range" name="rangeSatisfaction" min="0" max="9" required>
 
         <label >Pourquoi ?</label>
         <textarea class="lg-textarea form-control col-lg-12 text-center" rows="3" type="text" name="pourquoiGlobale" placeholder="Remplire ici" required></textarea>
