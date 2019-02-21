@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
 		if (!isset($_POST['interventionQualite']))
 			return 0;
 		echo "coucou 18 <br />";
-		if (!isset($_POST['remarque']))
+		if (!isset($_POST['pourquoiInterv']))
 			return 0;
 		echo "coucou 19 <br />";
 		if (!isset($_POST['checkReutiliser']))
@@ -81,11 +81,15 @@ if (isset($_POST['submit'])) {
 		echo "coucou 22 <br />";
 		if (!isset($_POST['observationPersonnel']))
 			return 0;
+		if (!isset($_POST['rangeDuree']))
+			return 0;
 		return 1;
 	}
 
 	if (verifSubmit()) 
 	{
+		// ################################### Indication attentes avant la formation ######################################
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 			"reponse" =>$_POST['radio-stacked'],
@@ -93,8 +97,9 @@ if (isset($_POST['submit'])) {
 			"idProposition" => 1
 		));
 
-		if (isset($_POST['checkNouvelleTechnique']))
-		{
+
+		if (isset($_POST['checkNouvelleTechnique'])) // Acquérir de nouvelles techniques
+		{	
 			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 			$query->execute(array(
 				"reponse" => $_POST['checkNouvelleTechnique'],
@@ -103,8 +108,9 @@ if (isset($_POST['submit'])) {
 			));
 		}
 		
-		if (isset($_POST['checkPratique']))
-		{
+
+		if (isset($_POST['checkPratique'])) // Améliorer vos pratiques
+		{	
 			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 			$query->execute(array(
 				"reponse" => $_POST['checkPratique'],
@@ -113,8 +119,9 @@ if (isset($_POST['submit'])) {
 			));
 		}
 		
-		if (isset($_POST['checkAutre']))
-		{
+
+		if (isset($_POST['checkAutre'])) // Autre
+		{ 
 			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 			$query->execute(array(
 				"reponse" => $_POST['checkPratique'],
@@ -122,15 +129,17 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 2
 			));
 
+			// Autre attente début (si "autre" a été coché)
 			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 			$query->execute(array(
-				"reponse" => $_POST['autreAttentesFin'],
+				"reponse" => $_POST['autreAttentesDebut'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 3
 			));
 		}
-		
-		if (isset($_POST['checkConnaissance']))
+	
+
+		if (isset($_POST['checkConnaissance'])) // Elargir vos connaissances
 		{
 			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 			$query->execute(array(
@@ -140,6 +149,8 @@ if (isset($_POST['submit'])) {
 			));
 		}
 
+		// ################################### Indication attentes après la formation ######################################
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['checkAttente'],
@@ -147,12 +158,15 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 4
 			));
 
+		// Autre attente fin (Pourquoi ?)
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['autreAttentesFin'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 5
 			));
+
+		// ################################### La durée de formation vous a parrue ######################################
 
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
@@ -161,6 +175,9 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 6
 			));
 
+		// ################################### Les contenus vous on parrus ######################################
+
+		// Professionnellement
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['rangeProfess'],
@@ -168,6 +185,7 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 8
 			));
 
+		// Personnellement
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['rangePerso'],
@@ -175,6 +193,9 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 9
 			));
 
+		// ################################### Quel thèmes auriez-vous .. ######################################
+
+		// Aborder plus longuement
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['themeAborderPlusLongtemps'],
@@ -182,6 +203,7 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 11
 			));
 
+		// Ecourter
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['themeEcourter'],
@@ -189,6 +211,7 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 12
 			));
 
+		// Supprimer
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['themeSupprimer'],
@@ -196,6 +219,9 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 13
 			));
 
+		// ################################### Selon vous l'intervension des animateurs étaient ######################################
+
+		// Range intervension quélité
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['interventionQualite'],
@@ -203,12 +229,15 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 14
 			));
 
+		// Pourquoi ?
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
-				"reponse" => $_POST['remarque'],
+				"reponse" => $_POST['pourquoiInterv'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 16
 			));
+
+		// ################################### Selon vous l'intervension des animateurs étaient ######################################
 
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
@@ -217,12 +246,14 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 17
 			));
 
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['reutilisation2'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 18
 			));
+
 
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
@@ -231,12 +262,14 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 19
 			));
 
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['reutilisation'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 20
 			));
+
 
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
@@ -245,6 +278,7 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 21
 			));
 
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['pourquoiGlobale'],
@@ -252,23 +286,13 @@ if (isset($_POST['submit'])) {
 				"idProposition" => 22
 			));
 
+
 		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
 		$query->execute(array(
 				"reponse" => $_POST['observationPersonnel'],
 				"idApprenant" => $_SESSION['idApprenant'],
 				"idProposition" => 23
 			));
-		
-		// $query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) SET ("'.$_POST['pourquoiInterv'].'", "'.$_SESSION['idApprenant'].'", "15")');
 	}
 }
-?>
-
-<!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. -->
-
-<?php
-
-	echo "yo";
-
 ?>
