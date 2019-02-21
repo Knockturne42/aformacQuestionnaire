@@ -10,9 +10,10 @@
 
 <div class="row">
 
-    <img src="../img/logoAformac.jpg" class="img-responsive col-3" alt="Responsive image">
-    <img src="../img/datadock.jpg" class="img-responsive col-3" alt="Responsive image">
-    <img src="../img/logo_opqf.jpg" class="img-responsive col-3" alt="Responsive image">
+    <img src="../img/logoAformac.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/datadock.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/logo_opqf.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/FFP.png" class="img-responsive col-2" alt="Responsive image">
 
 </div>
 
@@ -37,16 +38,16 @@
         <label class="form-control text-center titreVert" for=""><strong>Nom de l'apprenant :</strong></label>
         <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Nom" required/>
         
-        <label class="form-control text-center titreOrange" for=""><strong>Prenom de l'apprenant :</strong></label>
+        <label class="form-control text-center titreOrange" for=""><strong>Prénom de l'apprenant :</strong></label>
         <input class="form-control" type="text" name="userPasswordConfirm" class="form-control col-lg-2" placeholder="Prénom" required/>
 
         <label class="form-control text-center titreOrange" for=""><strong>Lieu de formation :</strong></label>
         <input class="form-control" type="text" name="formationLieu" class="form-control col-lg-2" placeholder="Lieu" required/>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Dates d'entrée en formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Date d'entrée en formation :</strong></label>
         <input class="form-control" type="date" name="formationDate" class="form-control col-lg-2" required/>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Dates de sortie de formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Date de sortie de formation :</strong></label>
         <input class="form-control" type="date" name="formationDate2" class="form-control col-lg-2" required/>
         
         </div>
