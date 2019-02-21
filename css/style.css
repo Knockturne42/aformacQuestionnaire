@@ -169,6 +169,15 @@ img {
 	font-size: 150%;
 }
 
+.affichage {
+	display: flex;
+	flex-direction: row;
+}
+
+.col-sm-4 {
+	display: flex;
+	flex-direction: row;
+}
 
 
 

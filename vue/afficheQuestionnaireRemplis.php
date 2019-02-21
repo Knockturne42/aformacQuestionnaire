@@ -46,16 +46,16 @@ foreach($donnees as $donnee) {
         <label class="form-control text-center titreVert" for=""><strong>Nom de l'apprenant :</strong></label>
         <div class="container text-center"><?php echo $donnee->nomApprenant ?></div>
         
-        <label class="form-control text-center titreOrange" for=""><strong>Prenom de l'apprenant :</strong></label>
+        <label class="form-control text-center titreOrange" for=""><strong>Prénom de l'apprenant :</strong></label>
         <div class="container text-center"><?php echo $donnee->prenomApprenant ?></div>
 
         <label class="form-control text-center titreOrange" for=""><strong>Lieu de formation :</strong></label>
         <div class="container text-center"><?php echo $donnee->nomVille ?></div>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Dates d'entrée en formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Date d'entrée en formation :</strong></label>
         <div class="container text-center"><?php echo $donnee->dateDebutSession ?></div>
         
-        <label class="form-control text-center titreBleu" for=""><strong>Dates de sortie de formation :</strong></label>
+        <label class="form-control text-center titreBleu" for=""><strong>Date de sortie de formation :</strong></label>
         <div class="container text-center"><?php echo $donnee->dateFinSession ?></div>
         
         </div>
