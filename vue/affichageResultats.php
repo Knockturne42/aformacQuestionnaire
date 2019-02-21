@@ -20,6 +20,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
 <div class="container affichage">
     <div class="col-sm-4">
         <select class="form-control" name="formationsSelection" id="formationsSelection"><!-- Affiche les formations existantes -->
+            <option>Formations</option>
             <?php
                 // Affiche les formation existantes
                 $Forms = $pdo->query("SELECT * FROM formation");
@@ -33,6 +34,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
     </div>
     <div class="col-sm-4">
         <select class="form-control text-center" name="selectLieux" class="selLieu">
+            <option>Ville</option>
             <?php
                 $lieux = $pdo->query("SELECT * FROM ville");
                 $selectLieux = $lieux->fetchAll();
@@ -44,6 +46,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
     </div>
     <div class="col-sm-4">
         <select class="form-control" name="selectSession" id="selForm">
+            <option>Session</option>
             <?php
                 $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
                 $selectForms = $Forms->fetchAll();
@@ -55,7 +58,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
     </div>
 </div>
 <div class="container-fluid affichageResult" id="affichageResult">
-
+   
 </div>
 
 <?php
