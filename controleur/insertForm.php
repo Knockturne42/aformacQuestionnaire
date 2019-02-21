@@ -5,6 +5,8 @@ session_start();
 
 $_SESSION['idApprenant'] = 20;
 
+		
+
 if (isset($_POST['submit'])) {
 	// var_dump($_POST);
 	function verifSubmit()
@@ -84,155 +86,178 @@ if (isset($_POST['submit'])) {
 
 	if (verifSubmit()) 
 	{
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['radio-stacked']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 1);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+			"reponse" =>$_POST['radio-stacked'],
+			"idApprenant" => $_SESSION['idApprenant'],
+			"idProposition" => 1
+		));
 
 		if (isset($_POST['checkNouvelleTechnique']))
 		{
-			$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-			$query->bindParam(":reponse", $_POST['checkNouvelleTechnique']); 
-			$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-			$query->bindParam(":idProposition", 2);
-			$query->execute();
+			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+			$query->execute(array(
+				"reponse" => $_POST['checkNouvelleTechnique'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 2
+			));
 		}
 		
 		if (isset($_POST['checkPratique']))
 		{
-			$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-			$query->bindParam(":reponse", $_POST['checkPratique']);
-			$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-			$query->bindParam(":idProposition", 2);
-			$query->execute();
+			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+			$query->execute(array(
+				"reponse" => $_POST['checkPratique'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 2
+			));
 		}
 		
 		if (isset($_POST['checkAutre']))
 		{
-			$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-			$query->bindParam(":reponse", $_POST['checkPratique']);
-			$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-			$query->bindParam(":idProposition", 2);
-			$query->execute();
+			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+			$query->execute(array(
+				"reponse" => $_POST['checkPratique'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 2
+			));
 
-			$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-			$query->bindParam(":reponse", $_POST['autreAttentesFin']);
-			$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-			$query->bindParam(":idProposition", 3);
-			$query->execute();
+			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+			$query->execute(array(
+				"reponse" => $_POST['autreAttentesFin'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 3
+			));
 		}
 		
 		if (isset($_POST['checkConnaissance']))
 		{
-			$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-			$query->bindParam(":reponse", $_POST['checkConnaissance']);
-			$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-			$query->bindParam(":idProposition", 2);
-			$query->execute();
+			$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+			$query->execute(array(
+				"reponse" => $_POST['checkConnaissance'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 2
+			));
 		}
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['checkAttente']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 4);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['checkAttente'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 4
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['autreAttentesFin']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 5);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['autreAttentesFin'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 5
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['rangeDuree']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 6);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['rangeDuree'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 6
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['rangeProfess']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 8);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['rangeProfess'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 8
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['rangePerso']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 9);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['rangePerso'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 9
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['themeAborderPlusLongtemps']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 11);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['themeAborderPlusLongtemps'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 11
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['themeEcourter']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 12);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['themeEcourter'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 12
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['themeSupprimer']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 13);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['themeSupprimer'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 13
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['interventionQualite']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 14);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['interventionQualite'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 14
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['remarque']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 16);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['remarque'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 16
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['checkReutiliser']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 17);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['checkReutiliser'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 17
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['reutilisation2']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 18);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['reutilisation2'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 18
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['reutilisation1']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 19);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['reutilisation1'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 19
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['reutilisation']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 20);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['reutilisation'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 20
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['rangeSatisfaction']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 21);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['rangeSatisfaction'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 21
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['pourquoiGlobale']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 22);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['pourquoiGlobale'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 22
+			));
 
-		$query = $pdo->prepare('INSERT INTO reponse SET reponse = :reponse, idApprenant = :idApprenant, idProposition = :idProposition');
-		$query->bindParam(":reponse", $_POST['observationPersonnel']);
-		$query->bindParam(":idApprenant", $_SESSION['idApprenant']);
-		$query->bindParam(":idProposition", 23);
-		$query->execute();
+		$query = $pdo->prepare('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES (:reponse, :idApprenant, :idProposition)');
+		$query->execute(array(
+				"reponse" => $_POST['observationPersonnel'],
+				"idApprenant" => $_SESSION['idApprenant'],
+				"idProposition" => 23
+			));
 		
 		// $query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) SET ("'.$_POST['pourquoiInterv'].'", "'.$_SESSION['idApprenant'].'", "15")');
 	}
