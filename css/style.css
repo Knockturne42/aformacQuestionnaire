@@ -144,7 +144,14 @@ h5 {
 .donneesTableau {
 	border: solid 1px black;
 	text-align: center;
+	background-color: white;
 }
+.donneesTableauApprenant {
+	border: solid 1px black;
+	text-align: center;
+	background-color: white;
+}
+
 img {
 	height: 150px;
 	margin: 3.5%;

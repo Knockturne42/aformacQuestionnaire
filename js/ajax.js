@@ -1,19 +1,27 @@
-var questionPosee = document.getElementById("questions");
-var xhr = new XMLHttpRequest();
+var selectVille = document.getElementById("selectVille");
 
-xhr.onreadystatechange = function()
-{
-	if(this.readyState === 4 && this.status === 200)
-	{
-		questionPosee.innerHTML = this.responseText;
+selectVille.addEventListener("change", function(){
+	let httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function(){
+		if (httpRequest.readyState == 4)
+		document.getElementById('afficheSelect').innerHTML = httpRequest.responseText;
 	}
-	else if(this.readyState === 4 && this.status === 404)
-	{
-		alert("Erreur 404");
+
+httpRequest.open('GET', '../vue/select.php?idVille='+ selectVille.value +'' , true);
+httpRequest.send();
+
+
+setTimeout(function(){
+var afficheApprenant = document.getElementById("select");
+afficheApprenant.addEventListener("change", function(){
+	let httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function(){
+		if (httpRequest.readyState == 4)
+		document.getElementById('afficheResultatApprenant').innerHTML = httpRequest.responseText;
 	}
-};
 
-xhr.open("GET", "../vue/questions.txt", true);
-// xhr.responseType = "text";
-xhr.send();
+httpRequest.open('GET', '../vue/afficheApprenant.php?idSelectFormation='+ afficheApprenant.value +'' , true);
+httpRequest.send();
 
+});
+}, 500); });
