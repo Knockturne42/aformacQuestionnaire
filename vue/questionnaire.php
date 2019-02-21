@@ -26,7 +26,7 @@
 
 
 <div class="container">
-<form method="POST" action="traitementReponses.php" class="was-validated">
+<form method="POST" action="../controleur/insertForm.php" class="was-validated">
     <div class="container">
        <div class="card">
            <div class="card-body">
@@ -156,17 +156,12 @@
 </div>
 
 
-<!--- Indication durée de la formation --
 
 
 
 
+<!--- Indication durée de la formation ---->
 
-
-
-
-
--->
 <div class="container">
 
     <div class='card'>

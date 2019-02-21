@@ -3,7 +3,7 @@
 include '../modele/pdo.php';
 session_start();
 
-$_SESSION['idApprenant'] = 20;
+$_SESSION['idApprenant'] = 35;
 
 if (isset($_POST['submit'])) {
 	var_dump($_POST);
@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['themeEcourter'].'", "'.$_SESSION['idApprenant'].'", "12")');
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['themeSupprimer'].'", "'.$_SESSION['idApprenant'].'", "13")');
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['interventionQualite'].'", "'.$_SESSION['idApprenant'].'", "14")');
-		// $query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['pourquoiInterv'].'", "'.$_SESSION['idApprenant'].'", "15")');
+		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['pourquoiInterv'].'", "'.$_SESSION['idApprenant'].'", "15")');
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['remarque'].'", "'.$_SESSION['idApprenant'].'", "16")');
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['checkReutiliser'].'", "'.$_SESSION['idApprenant'].'", "17")');
 		$query = $pdo->query('INSERT INTO reponse (reponse, idApprenant, idProposition) VALUES ("'.$_POST['reutilisation2'].'", "'.$_SESSION['idApprenant'].'", "18")');
