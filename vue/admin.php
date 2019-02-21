@@ -536,6 +536,78 @@ if($_SESSION['auth'] && $statut == 1) {
     </div>
 </div>
 
+
+
+
+
+<!----------- PARTIE IMPRESSION DES QUESTIONNAIRES ------------------------------------------------------->
+<div class="container">
+    <div class="card">
+<h5>Afficher les questionnaire remplis</h5>
+
+<label for="selectLieuxFormation">Affichage par Lieu de formation :</label>
+                <select id="selectVille" class="form-control" name="afficheResultatLieux" class="selLieu">
+                    <?php
+                        $lieux = $pdo->query("SELECT * FROM ville");
+                        $selectLieux = $lieux->fetchAll();
+                        ?><option value="">Choisir la ville de formation</option> <?php
+                        foreach($selectLieux as $selectLieu) { ?>
+                        <option value="<?php echo $selectLieu->idVille; ?>"><?php echo $selectLieu->nomVille; ?></option>
+                        <?php  } ?>
+                </select>
+
+    </div>
+
+</div>
+
+<div id="afficheSelect">
+
+
+
+</div>
+
+<div id="afficheResultatApprenant">
+
+
+
+</div>
+
+<script src="../js/ajax.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php
 
 }	// SINON SI L'ADMIN N'EST PAS CONNECTE

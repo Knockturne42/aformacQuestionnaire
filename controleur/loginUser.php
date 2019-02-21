@@ -8,7 +8,7 @@ if(!empty($_POST) && !empty($_POST['userName'])) { // Verifie si c'est remplis p
     
     require_once '../modele/pdo.php';
     
-    $req = $pdo->prepare('SELECT * FROM utilisateurs WHERE pseudoUtilisateur = :pseudoUtilisateur ');
+    $req = $pdo->prepare('SELECT * FROM apprenant WHERE pseudo = :pseudoUtilisateur ');
     $req->bindParam(':pseudoUtilisateur', $_POST['userName']);
     $req->execute();
     $user = $req->fetch(); // Récupère l'utilisateur
