@@ -259,7 +259,7 @@ if($_SESSION['auth'] && $statut == 2 || $statut == 1)
                         $Forms = $pdo->query("SELECT * FROM session NATURAL JOIN formation");
                         $selectForms = $Forms->fetchAll();
                         foreach($selectForms as $selectForm) { ?>
-                        <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '. $selectForm->nomFormation; ?></option>
+                        <option value="<?php echo $selectForm->idSession; ?>"><?php echo $selectForm->SessionRef.' '.'-'.' '. $selectForm->nomFormation; ?></option>
                         <?php  } ?>
                 </select>
 
@@ -530,11 +530,51 @@ if($_SESSION['auth'] && $statut == 1) {
 
                 <div class="container">
                     <button class="btn btn-primary col-12" type="submit" name="creationUtilisateur">Afficher les résultats</button>
+                    <a href="affichageResultats.php">Voir les résultats</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+
+
+<!----------- PARTIE IMPRESSION DES QUESTIONNAIRES ------------------------------------------------------->
+<div class="container">
+    <div class="card">
+<h5>Afficher les questionnaire remplis</h5>
+
+<label for="selectLieuxFormation">Affichage par Lieu de formation :</label>
+                <select id="selectVille" class="form-control" name="afficheResultatLieux" class="selLieu">
+                    <?php
+                        $lieux = $pdo->query("SELECT * FROM ville");
+                        $selectLieux = $lieux->fetchAll();
+                        ?><option value="">Choisir la ville de formation</option> <?php
+                        foreach($selectLieux as $selectLieu) { ?>
+                        <option value="<?php echo $selectLieu->idVille; ?>"><?php echo $selectLieu->nomVille; ?></option>
+                        <?php  } ?>
+                </select>
+
+    </div>
+
+</div>
+
+<div id="afficheSelect">
+
+
+
+</div>
+
+<div id="afficheResultatApprenant">
+
+
+
+</div>
+
+<script src="../js/ajax.js"></script>
+
 
 <?php
 
