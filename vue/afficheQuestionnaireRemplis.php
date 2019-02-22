@@ -4,7 +4,7 @@ include '../include/fonctions.php';
 
 $idApprenant = $_GET['idApprenant'];
 
-$membre = $pdo->query("SELECT * FROM apprenant NATURAL JOIN session NATURAL JOIN formation NATURAL JOIN ville NATURAL JOIN question NATURAL JOIN reponse NATURAL JOIN partie NATURAL JOIN proposition WHERE idApprenant = '$idApprenant'");
+$membre = $pdo->query("SELECT * FROM apprenant NATURAL JOIN session NATURAL JOIN formation NATURAL JOIN ville NATURAL JOIN question NATURAL JOIN reponse NATURAL JOIN partie NATURAL JOIN proposition WHERE idApprenant = '$idApprenant' GROUP BY idApprenant");
 
 $donnees = $membre->fetchAll();
 foreach($donnees as $donnee) { 
@@ -463,7 +463,7 @@ foreach($donnees as $donnee) {
 
 <button type="submit" class="btn btn-primary col-12">Valider</button>
 
-</div
+</div>
 
 </form>
 </div>
@@ -471,5 +471,5 @@ foreach($donnees as $donnee) {
 <script type="text/javascript" src="../js/ajax.js"></script>
 <?php include '../include/footer.php' ?>
 <?php
-}
+};
 ?>

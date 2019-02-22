@@ -140,7 +140,7 @@
         </div>
 
         <div class="custom-control custom-radio">
-        <input id="input5" class="custom-control-input" type="radio" name="checkAttente" value="ep" required>
+        <input id="input5" class="custom-control-input" type="radio" name="checkAttente" value="En partie" required>
         <label  for="input5" class="custom-control-label" for="checkAttente">En partie</label>
         </div>
 
