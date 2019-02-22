@@ -10,9 +10,10 @@
 
 <div class="row">
 
-    <img src="../img/logoAformac.jpg" class="img-responsive col-3" alt="Responsive image">
-    <img src="../img/datadock.jpg" class="img-responsive col-3" alt="Responsive image">
-    <img src="../img/logo_opqf.jpg" class="img-responsive col-3" alt="Responsive image">
+    <img src="../img/logoAformac.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/datadock.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/logo_opqf.jpg" class="img-responsive col-2" alt="Responsive image">
+    <img src="../img/FFP.png" class="img-responsive col-2" alt="Responsive image">
 
 </div>
 
@@ -246,12 +247,12 @@
 
 
 
-<!--- Indication sur les thèmes shouaité ---->
+<!--- Indication sur les thèmes souhaité ---->
 <div class="container">
 
     <div class="card">
 
-    <h5 class="card-title text-center"><strong><span class="titreVert">Quels thèmes</span><span class="titreOrange"> auriez-vous </span><span class="titreBleu">shouaité : </span></strong></h5>
+    <h5 class="card-title text-center"><strong><span class="titreVert">Quels thèmes</span><span class="titreOrange"> auriez-vous </span><span class="titreBleu">souhaité : </span></strong></h5>
     
     <div class="card-body">
         
